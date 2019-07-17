@@ -1,0 +1,36 @@
+<div class="content" ng-controller='HomeController'>
+	<div class="welcome">
+		<h2>{{titulo}}</h2>
+	</div>
+	<div class="texto">
+		<p>
+			La finalidad de este sitio es ofrecer la información recopilada en
+			redes sociales a través de una API REST. Esta aplicación Web consume
+			la API REST desarrollada por José Fernando Fernández Espín como
+			solución al Trabajo de Fin de Grado propuesto y tutelado por Jesualdo
+			Tomás Fernández Breis.<br><br>En la sección <a href="temas">Temas</a>
+			podrá encontrar la lista de los temas registrados en el servicio
+			sobre los que se busca información. También encontrará un enlace
+			hacia un formulario que permite <a href="creartemas">agregar un tema</a> al servicio.<br>
+			<br> A través de los temas podrás acceder al listado de
+			comentarios disponibles en ese momento. El sistema se actualiza
+			periódicamente una vez al día. Los comentarios del listado aparecen
+			ordenados por 3 criterios:<br><br>
+		<ol>
+			<li>Los comentarios de ciertos usuarios tienen prioridad sobre
+				otros, por lo que se mostrarán en las primeras posiciones de la
+				lista.</li>
+			<li>Tras ordenar por la prioridad de los usuarios, se ordenan
+				por fecha, de más recientes a más antiguos</li>
+			<li>Finalemente, se ordenan por la popularidad que tenían en
+				Twitter.</li>
+		</ol>
+		<br> Desde el listado de comentarios es posible acceder al
+		comentario en sí, dónde podrá acceder a la información de manera más
+		completa. <br><br> En la sección <a href="buscar">Búsqueda</a> hay disponible un
+		buscador de comentarios que permite al usuario buscar comentarios
+		relacionados con 1 o varios temas mediante la inclusión de operadores
+		booleanos en la consulta. Además, también es posible buscar
+		comentarios por fechas.
+	</div>
+</div>

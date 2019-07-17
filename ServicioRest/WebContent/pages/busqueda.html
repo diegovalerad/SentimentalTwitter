@@ -1,0 +1,79 @@
+<div class="content" ng-controller="SearchController">
+	<div class="contenedor">
+		<div class="searchTittle">
+			<h3>Buscador de comentarios</h3>
+		</div>
+		<div class="botones">
+			<button type="button" ng-click="addCondition()">Añadir
+				condición</button>
+			<button class="delete" type="button" ng-click="delCondition()">Eliminar
+				condición</button>
+		</div>
+		<form class="busqueda" name="busqueda" id="busqueda"
+			ng-submit="buscar();" method="get">
+			<div class="inputs" id="inputs">
+				<div class="input">
+					<label for="since">Desde:</label> 
+					<input name="since" type="date" ng-model="temas.since" />
+				</div>
+				<div class="input">
+					<label for="until">Hasta:</label> 
+					<input name="unitl" type="date" ng-model="temas.until" />
+				</div>
+				<div class="input">
+					<label for="tema">Relacionados con:</label> <select name="tema"
+						id="repeatSelect" ng-model="temas.sel">
+						<option ng-repeat="t in temas.availableOptions" value="{{t.id}}">{{t.nombre}}</option>
+					</select>
+				</div>
+				<div class="input" ng-if="temas.view1">
+					<select name="cond1" ng-model="temas.cond1">
+						<option value="AND" selected="selected" >Y</option>
+						<option value="OR">O</option>
+					</select>
+					<select name="tema1" ng-model="temas.sel1">
+						<option ng-repeat="t in temas.availableOptions" value="{{t.id}}">{{t.nombre}}</option>
+					</select>
+				</div>
+				<div class="input" ng-if="temas.view2">
+					<select name="cond2" ng-model="temas.cond2">
+						<option value="AND" selected="selected" >Y</option>
+						<option value="OR">O</option>
+					</select>
+					<select name="tema2" ng-model="temas.sel2">
+						<option ng-repeat="t in temas.availableOptions" value="{{t.id}}">{{t.nombre}}</option>
+					</select>
+				</div>
+			</div>
+			<div class="submit">
+				<input type="submit" value="Buscar" />
+			</div>
+		</form>
+	</div>
+	<div class="listaComentarios" ng-if="temas.busqueda">
+		<div class="listTittle">
+			<h3>Resultados de la búsqueda</h3>
+		</div>
+		<div class="comentario" ng-repeat='c in resultado'>
+			<div class="imagen">
+				<div class="img" style="background-image: url({{c.imagen}})"></div>
+			</div>
+			<div class="info">
+				<div class="header">
+					<div class="autor">
+						<h2>{{c.autor}}</h2>
+					</div>
+					<div class="fecha">
+						<h2>{{c.fecha}}</h2>
+					</div>
+				</div>
+				<div class="texto">
+					<p>{{c.texto}}</p>
+				</div>
+				<div class="enlace">
+					<a href="{{c.uri}}">Ver más</a>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

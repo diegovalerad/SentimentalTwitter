@@ -1,0 +1,50 @@
+<div class="content" ng-controller='CommentController' ng-if="status == '200'">
+	<div class="infoComment">
+		<div class="imagen">
+			<div class="img" style="background-image: url({{comentario.imagen}})"></div>
+		</div>
+		<div class="cuerpo">
+			<div class="titulo">
+				<div class="usuario">
+					<h3>{{comentario.creador}}</h3>
+				</div>
+				<div class="fecha">
+					{{comentario.fecha}}
+				</div>
+			</div>
+			<div class="texto">
+				<p>{{comentario.texto}}</p>
+			</div>
+			<div class="enlaces">
+				<div class="tag">
+					<p>Enlaces: </p>
+				</div>
+				<div class="wrapper">
+					<div class="enlace" ng-repeat='e in comentario.enlaces track by $index'>
+						<a href="{{e}}" target="_blank">{{e}}</a>
+					</div>
+				</div>
+			</div>
+			<div class="temas">
+				<div class="tag">
+					<p>Temas relacionados: </p>
+				</div>
+				<div class="wrapper">
+					<div class="tema" ng-repeat='t in comentario.temas'>
+						<a href="temas/{{t.id}}">{{t.nombre}}</a>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<div class="error" ng-controller='CommentController' ng-if="status == '404'">
+	<div class="tituloError">
+		<h2>Ha ocurrido un error</h2>
+	</div>
+	<div class="descripcion">
+		<p>No se ha encontrado el comentario solicitado.<br>
+			Este error puede deberse a un fallo del servidor.<br>
+			Por favor, pruebe más tarde.</p>
+	</div>
+</div>

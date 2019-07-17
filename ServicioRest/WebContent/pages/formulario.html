@@ -1,0 +1,17 @@
+<div class="content">
+	<div class="contenedor">
+		<form class="formulario" name="formTemas" id="form" ng-submit="addTema();" method="post">
+			<div class="inputs">
+				<div class="input">
+					<label for="nombre">Nombre:</label> 
+					<input type="text" name="nombre" required ng-model="tema.nombre" />
+				</div>
+				<div class="input">
+					<label for="descripcion">Descripción:</label>
+					<textarea name="descripcion" form="form" ng-model="tema.descripcion" ></textarea>
+				</div>
+			</div>
+			<input type="submit" value="Añadir tema" />
+		</form>
+	</div>
+</div>

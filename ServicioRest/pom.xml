@@ -1,31 +1,14 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 	<modelVersion>4.0.0</modelVersion>
-	<groupId>ServicioRest</groupId>
+	<groupId>inf.um.es</groupId>
 	<artifactId>ServicioRest</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
 	<packaging>war</packaging>
-	<build>
-		<sourceDirectory>src</sourceDirectory>
-		<plugins>
-			<plugin>
-				<artifactId>maven-compiler-plugin</artifactId>
-				<version>3.8.0</version>
-				<configuration>
-					<release>12</release>
-				</configuration>
-			</plugin>
-			<plugin>
-				<artifactId>maven-war-plugin</artifactId>
-				<version>3.2.1</version>
-				<configuration>
-					<warSourceDirectory>WebContent</warSourceDirectory>
-				</configuration>
-			</plugin>
-		</plugins>
-	</build>
-
+	<version>0.0.1-SNAPSHOT</version>
+	<name>ServicioRest Maven Webapp</name>
+	<url>http://maven.apache.org</url>
+	
 	<dependencies>
 		<dependency>
 			<groupId>junit</groupId>
@@ -87,7 +70,16 @@
 			<artifactId>facebook4j-core</artifactId>
 			<version>[2.4,)</version>
 		</dependency>
-		
+
+		<!-- https://mvnrepository.com/artifact/javax.servlet/javax.servlet-api -->
+		<dependency>
+			<groupId>javax.servlet</groupId>
+			<artifactId>javax.servlet-api</artifactId>
+			<version>4.0.1</version>
+			<scope>provided</scope>
+		</dependency>
+
+		<!-- https://mvnrepository.com/artifact/javax.activation/activation -->
 		<dependency>
 			<groupId>javax.activation</groupId>
 			<artifactId>activation</artifactId>
@@ -111,6 +103,21 @@
 			<artifactId>jaxb-impl</artifactId>
 			<version>2.3.0</version>
 		</dependency>
-		
+
 	</dependencies>
+	
+	<build>
+		<finalName>ServicioRest</finalName>
+		<plugins>
+			<plugin>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<version>3.7.0</version>
+				<configuration>
+					<source>12</source>
+					<target>12</target>
+				</configuration>
+			</plugin>
+		</plugins>
+		
+	</build>
 </project>

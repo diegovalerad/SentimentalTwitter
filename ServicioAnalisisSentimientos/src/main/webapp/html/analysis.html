@@ -1,0 +1,27 @@
+<div class="content" ng-controller="AnalysisController">
+	<div class="contenedor">
+		<div class="searchTittle">
+			<h3>Analizador sentimental de textos</h3>
+		</div>
+		<form class="busqueda" name="busqueda" id="busqueda"
+					ng-submit="buscar();" method="get">
+			<div class="inputs" id="inputs">
+				<div class="input">
+					<label for="descripcion">Texto:</label>
+					<textarea name="descripcion" form="form" ng-model="analisis.descripcion" ></textarea>
+				</div>
+			</div>
+			<div class="submit">
+				<input type="submit" value="Analizar" />
+			</div>
+		</form>
+	</div>
+
+	<div class="listaComentarios" ng-if="analisisBusqueda">
+		<div class="listTittle">
+			<h3>Resultados del análisis</h3>
+		</div>
+		<h2>Resultado: {{analisisResultado.nota}}</h2>
+		<h2>Explicacion: {{analisisResultado.explicacion}}</h2>
+	</div>
+</div>

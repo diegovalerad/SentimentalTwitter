@@ -56,6 +56,10 @@ public class Comentario {
 	@Relationship(type="RELATED_TO", direction=Relationship.UNDIRECTED)
 	private List<Tema> temas = new ArrayList<Tema>();
 	
+	
+	@Property(name="sentimiento")
+	private String sentimiento;
+	
 	/**
 	 * Constructor vacío.
 	 */
@@ -232,6 +236,15 @@ public class Comentario {
 
 	public void setRetweets(int retweets) {
 		this.retweets = retweets;
+	}
+	
+	
+	public String getSentimiento() {
+		return sentimiento;
+	}
+	
+	public void setSentimiento(String sentimiento) {
+		this.sentimiento = sentimiento;
 	}
 
 }

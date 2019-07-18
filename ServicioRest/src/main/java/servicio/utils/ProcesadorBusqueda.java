@@ -29,7 +29,7 @@ public class ProcesadorBusqueda {
 
 		String match = "";
 		String where = "";
-		String ret = " RETURN c.id, c.imagen, c.autor, c.fecha, c.mensaje, c.userPriority, c.popularidad";
+		String ret = " RETURN c.id, c.imagen, c.autor, c.fecha, c.mensaje, c.userPriority, c.popularidad, c.sentimiento";
 		String desde = "";
 		String hasta = "";
 		

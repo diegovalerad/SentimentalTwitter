@@ -17,7 +17,6 @@ public class Controlador {
 	}
 	
 	public Valoracion analizarTexto(String texto) {
-		System.out.println("Controlador, llega texto: " + texto);
 		Valoracion val = AlgoritmosFactoria.getUnicaInstancia().analizeText(texto);
 		
 		return val;

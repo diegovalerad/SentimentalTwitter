@@ -98,7 +98,6 @@ public class ControladorTwitter {
 	 * 
 	 * @param temas
 	 *            Temas sobre los que se realizan los comentarios.
-	 * @return lista de comentarios encontrados.
 	 */
 	private void busquedaPorTemas(List<Tema> temas) {
 
@@ -192,6 +191,9 @@ public class ControladorTwitter {
 		for (URLEntity u : status.getURLEntities()) {
 			c.getEnlaces().add(u.getURL());
 		}
+		
+		String sentimiento = ConectorSentimentAnalizer.getUnicaInstancia().getSentiment(c.getTexto());
+		c.setSentimiento(sentimiento);
 
 		return c;
 	}

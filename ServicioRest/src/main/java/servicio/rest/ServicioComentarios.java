@@ -25,7 +25,7 @@ import servicio.tipos.TemaResultado;
 import servicio.utils.CommentsComparator;
 import servicio.utils.ProcesadorBusqueda;
 
-@Path("/temas")
+@Path("temas")
 public class ServicioComentarios {
 
 	@Context 

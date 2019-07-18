@@ -22,6 +22,8 @@ public class ComentarioResultado {
 	private int retweets;
 	private int popularidad;
 	private int userPriority;
+	
+	private String sentimiento;
 
 	/**
 	 * Constructor vacío.
@@ -196,6 +198,15 @@ public class ComentarioResultado {
 
 	public void setRetweets(int retweets) {
 		this.retweets = retweets;
+	}
+	
+	
+	public String getSentimiento() {
+		return sentimiento;
+	}
+	
+	public void setSentimiento(String sentimiento) {
+		this.sentimiento = sentimiento;
 	}
 
 }

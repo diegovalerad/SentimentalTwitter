@@ -38,7 +38,6 @@ public class OGMComentarioDAO implements ComentarioDAO{
 	 */
 	@Override
 	public void createComentario(Comentario comentario) {
-		
 		Session sesion = null;
 
 		try {
@@ -60,7 +59,6 @@ public class OGMComentarioDAO implements ComentarioDAO{
 	 */
 	@Override
 	public void createComentarios(Collection<Comentario> comentarios) {
-		
 		Session sesion = null;
 
 		try {
@@ -185,7 +183,7 @@ public class OGMComentarioDAO implements ComentarioDAO{
 			
 			//información de comentarios relacionados con temas
 			String query = "MATCH (c:Comentario)-[:RELATED_TO]-(t:Tema) WHERE t.id = '" + tema + 
-					"' RETURN c.id, c.imagen, c.autor, c.fecha, c.mensaje, c.userPriority, c.popularidad";
+					"' RETURN c.id, c.imagen, c.autor, c.fecha, c.mensaje, c.userPriority, c.popularidad, c.sentimiento";
 			
 			//Ejecutamos consulta
 			Result r = sesion.query(query, Collections.emptyMap());
@@ -204,6 +202,9 @@ public class OGMComentarioDAO implements ComentarioDAO{
 				c.setImagen(comentario.get("c.imagen").toString());
 				c.setUserPriority(Integer.valueOf(comentario.get("c.userPriority").toString()));
 				c.setPopularidad(Integer.valueOf(comentario.get("c.popularidad").toString()));
+				
+				c.setSentimiento(comentario.get("c.sentimiento").toString());
+				
 				comentarios.add(c);
 			}
 			
@@ -268,6 +269,8 @@ public class OGMComentarioDAO implements ComentarioDAO{
 				c.setImagen(comentario.get("c.imagen").toString());
 				c.setUserPriority(Integer.valueOf(comentario.get("c.userPriority").toString()));
 				c.setPopularidad(Integer.valueOf(comentario.get("c.popularidad").toString()));
+				
+				c.setSentimiento(comentario.get("c.sentimiento").toString());
 				comentarios.add(c);
 			}
 			

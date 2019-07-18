@@ -1,17 +1,17 @@
 package servicio.modelo;
 
 public class Valoracion {
-	private int nota;
+	private Sentimiento sentimiento;
 	private String explicacion;
 	
 	public Valoracion() {}
 
-	public int getNota() {
-		return nota;
+	public Sentimiento getSentimiento() {
+		return sentimiento;
 	}
 
-	public void setNota(int nota) {
-		this.nota = nota;
+	public void setSentimiento(Sentimiento sentimiento) {
+		this.sentimiento = sentimiento;
 	}
 
 	public String getExplicacion() {

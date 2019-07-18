@@ -11,6 +11,7 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.UriInfo;
 
+import servicio.controlador.Controlador;
 import servicio.modelo.Valoracion;
 
 @Path("/analisis")
@@ -22,9 +23,7 @@ public class ServicioAnalisis {
 	@Path("analize")
 	@Produces({ MediaType.APPLICATION_JSON })
 	public Response analize(@QueryParam("texto") String texto) {
-		Valoracion val = new Valoracion();
-		val.setNota(3);
-		val.setExplicacion("la explicacion va a aqui");
+		Valoracion val = Controlador.getUnicaInstancia().analizarTexto(texto);
 		
 		return Response.status(200).entity(val).build();
 	}

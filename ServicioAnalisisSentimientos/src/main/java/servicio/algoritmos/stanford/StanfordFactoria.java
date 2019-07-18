@@ -51,19 +51,9 @@ public class StanfordFactoria extends AlgoritmosFactoria {
 	}
 	
 	public Valoracion analizeText(String text) {
-		System.out.println("Stanford factoria, analizando texto: " + text);
-		
 		SentimentAnalyzer sentimentAnalyzer = new SentimentAnalyzer();
 		sentimentAnalyzer.initialize();
 		SentimentResult sentimentResult = sentimentAnalyzer.getSentimentResult(text);
-
-		System.out.println("Sentiment Score: " + sentimentResult.getSentimentScore());
-		System.out.println("Sentiment Type: " + sentimentResult.getSentimentType());
-		System.out.println("Very positive: " + sentimentResult.getSentimentClass().getVeryPositive()+"%");
-		System.out.println("Positive: " + sentimentResult.getSentimentClass().getPositive()+"%");
-		System.out.println("Neutral: " + sentimentResult.getSentimentClass().getNeutral()+"%");
-		System.out.println("Negative: " + sentimentResult.getSentimentClass().getNegative()+"%");
-		System.out.println("Very negative: " + sentimentResult.getSentimentClass().getVeryNegative()+"%");
 		
 		Valoracion val = new Valoracion();
 		Sentimiento s = convertirSentimiento(sentimentResult.getSentimentType());

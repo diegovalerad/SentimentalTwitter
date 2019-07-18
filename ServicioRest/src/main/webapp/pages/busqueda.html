@@ -13,11 +13,11 @@
 			ng-submit="buscar();" method="get">
 			<div class="inputs" id="inputs">
 				<div class="input">
-					<label for="since">Desde:</label> 
+					<label for="since">Desde:</label>
 					<input name="since" type="date" ng-model="temas.since" />
 				</div>
 				<div class="input">
-					<label for="until">Hasta:</label> 
+					<label for="until">Hasta:</label>
 					<input name="unitl" type="date" ng-model="temas.until" />
 				</div>
 				<div class="input">
@@ -73,6 +73,11 @@
 				<div class="enlace">
 					<a href="{{c.uri}}">Ver más</a>
 				</div>
+
+				<div>
+					<h2>Análisis sentimental: {{c.sentimiento}}</h2>
+				</div>
+				
 			</div>
 		</div>
 	</div>

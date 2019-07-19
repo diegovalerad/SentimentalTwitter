@@ -1,4 +1,4 @@
-package servicio.archms;
+package servicio.buscadortemas.archms;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -9,17 +9,18 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Properties;
 
+import servicio.buscadortemas.TemasFactoria;
 import servicio.modelo.Tema;
 import servicio.utils.ProcesadorTexto;
 
-public class ArchMSConnection {
+public class ArchMSConnection extends TemasFactoria{
 
 	private static final String USER = "josef";
 	private static final String PASS = "tfg2018pw";
 	private static final String URL = "jdbc:mysql://sele.inf.um.es:3306/editor2";
-
-	public static List<Tema> buscar() {
-
+	
+	@Override
+	public List<Tema> getTemas() {
 		try {
 			Class.forName("com.mysql.jdbc.Driver");
 		} catch (ClassNotFoundException e1) {

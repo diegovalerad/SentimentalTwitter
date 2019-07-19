@@ -4,6 +4,7 @@ import java.util.Collection;
 import java.util.LinkedList;
 import java.util.List;
 
+import servicio.buscadortemas.TemasFactoria;
 import servicio.dao.ComentarioDAO;
 import servicio.dao.DAOException;
 import servicio.dao.DAOFactoria;
@@ -41,9 +42,9 @@ public class Controlador {
 	 * Configura la factoría DAO.
 	 */
 	private Controlador() {
-		
 		try {
 			DAOFactoria.setDAOFactoria(DAOFactoria.OGM);
+			TemasFactoria.setDAOFactoria(TemasFactoria.ARCH_MS);
 		} catch (DAOException e) {
 			e.printStackTrace();
 		}

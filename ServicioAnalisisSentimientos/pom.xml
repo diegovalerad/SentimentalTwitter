@@ -24,7 +24,7 @@
 			<version>4.0.1</version>
 			<scope>provided</scope>
 		</dependency>
-		
+
 		<dependency>
 			<groupId>com.sun.jersey</groupId>
 			<artifactId>jersey-server</artifactId>
@@ -60,7 +60,7 @@
 			<artifactId>jaxb-impl</artifactId>
 			<version>2.3.0</version>
 		</dependency>
-		
+
 		<!-- Analizador de sentimientos Stanford CoreNLP -->
 		<dependency>
 			<groupId>edu.stanford.nlp</groupId>
@@ -73,10 +73,23 @@
 			<version>3.9.2</version>
 			<classifier>models</classifier>
 		</dependency>
-		
+
+		<!--  Analizador simple apache.opennlp -->
+		<dependency>
+			<groupId>org.apache.opennlp</groupId>
+			<artifactId>opennlp-tools</artifactId>
+			<version>1.5.3</version>
+		</dependency>
+
 	</dependencies>
 
-		<build>
-			<finalName>ServicioAnalisisSentimientos</finalName>
-		</build>
+	<build>
+		<finalName>ServicioAnalisisSentimientos</finalName>
+		<resources>
+			<resource>
+				<directory>src/main/resources</directory>
+				<filtering>true</filtering>
+			</resource>
+		</resources>
+	</build>
 </project>

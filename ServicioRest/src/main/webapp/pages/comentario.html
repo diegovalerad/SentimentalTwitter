@@ -47,6 +47,55 @@
 		</div>
 	</div>
 </div>
+
+
+<div ng-controller='CommentController' ng-if="hayRespuestas == true">
+	<p>
+		<h2>RESPUESTAS</h2>
+	</p>
+
+	<div class="content" ng-repeat='r in respuestas'>
+		<div class="infoComment">
+			<div class="imagen">
+				<div class="img" style="background-image: url({{r.imagen}})"></div>
+			</div>
+			<div class="cuerpo">
+				<div class="titulo">
+					<div class="usuario">
+						<h3>{{r.creador}}</h3>
+					</div>
+					<div class="fecha">
+						{{r.fecha}}
+					</div>
+				</div>
+				<div class="texto">
+					<p>{{r.texto}}</p>
+				</div>
+				<div class="enlaces">
+					<div class="tag">
+						<p>Enlaces: </p>
+					</div>
+					<div class="wrapper">
+						<div class="enlace" ng-repeat='e in r.enlaces track by $index'>
+							<a href="{{e}}" target="_blank">{{e}}</a>
+						</div>
+					</div>
+				</div>
+
+				<div class="temas">
+					<div class="tag">
+						Análisis sentimental: {{r.sentimiento}}
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+</div>
+
+
+
+
 <div class="error" ng-controller='CommentController' ng-if="status == '404'">
 	<div class="tituloError">
 		<h2>Ha ocurrido un error</h2>

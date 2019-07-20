@@ -60,6 +60,10 @@ public class Comentario {
 	@Property(name="sentimiento")
 	private String sentimiento;
 	
+	
+	@Relationship(type="RELATED_TO", direction=Relationship.OUTGOING)
+	private List<Comentario> respuestas = new ArrayList<Comentario>();
+	
 	/**
 	 * Constructor vacío.
 	 */
@@ -247,4 +251,11 @@ public class Comentario {
 		this.sentimiento = sentimiento;
 	}
 
+	public List<Comentario> getRespuestas() {
+		return respuestas;
+	}
+
+	public void setRespuestas(List<Comentario> respuestas) {
+		this.respuestas = respuestas;
+	}
 }

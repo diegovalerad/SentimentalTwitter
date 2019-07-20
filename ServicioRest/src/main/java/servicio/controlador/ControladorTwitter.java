@@ -1,5 +1,7 @@
 package servicio.controlador;
 
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -17,6 +19,7 @@ import twitter4j.TwitterFactory;
 import twitter4j.URLEntity;
 import servicio.utils.ProcesadorFechas;
 import servicio.utils.ProcesadorTexto;
+import servicio.utils.TweetsComparator;
 
 /**
  * Controlador que hace uso de la API REST de Twitter.
@@ -30,6 +33,8 @@ public class ControladorTwitter {
 	private Twitter twitterService;
 
 	private static String[] users = { "NEJM", "WHO", "IARCWHO", "ASCO" };
+	
+	private final int MAX_REPLIES_PER_COMMENT = 5;
 
 	/**
 	 * Devuelve la instancia del controlador.
@@ -158,7 +163,13 @@ public class ControladorTwitter {
 				if (c == null) { // Si no existe, se crea y se persiste en BD
 					c = initComment(status);
 					c.getTemas().add(t);
+					
+					// Obtenemos sus mejores respuestas (mas populares)
+					List<Comentario> respuestas = obtenerMejoresRespuestas(status);
+					c.getRespuestas().addAll(respuestas);
+					
 					comentarios.add(c);
+					comentarios.addAll(respuestas);
 				} else {
 					// Si el comentario ya existe pero el tema es nuevo, lo añade y lo modifica en BD.
 					if (!c.getTemas().contains(t)) {
@@ -197,4 +208,61 @@ public class ControladorTwitter {
 
 		return c;
 	}
+	
+	/**
+	 * Obtiene entre 0 y {@link #MAX_REPLIES_PER_COMMENT} respuestas a un tweet, ordenadas por popularidad
+	 * @param status
+	 * @return
+	 */
+	private List<Comentario> obtenerMejoresRespuestas(Status status) {
+		String screenName = status.getUser().getScreenName();
+		long tweetID = status.getId();
+		
+		ArrayList<Status> respuestas = getReplies(screenName, tweetID);
+		
+		Collections.sort(respuestas, Collections.reverseOrder(new TweetsComparator()));
+		
+		int n = MAX_REPLIES_PER_COMMENT;
+		if (respuestas.size() < MAX_REPLIES_PER_COMMENT)
+			n = respuestas.size();
+		
+		LinkedList<Comentario> listaRespuestas = new LinkedList<Comentario>();
+		for (int i = 0; i < n; i++) {
+			Comentario c = initComment(respuestas.get(i));
+			listaRespuestas.add(c);
+		}
+		return listaRespuestas;
+	}
+	
+	/**
+	 * Obtiene todas las respuestas a un tweet
+	 * @param screenName Nombre de usuario del tweet
+	 * @param tweetID ID de usuario del tweet
+	 * @return
+	 */
+	private ArrayList<Status> getReplies(String screenName, long tweetID) {
+		ArrayList<Status> replies = new ArrayList<>();
+
+		try {
+			Query query = new Query("to:" + screenName + " since_id:" + tweetID);
+			query.setResultType(ResultType.mixed); // Populares + nuevos
+			query.setCount(100);
+			QueryResult results;
+
+			results = twitterService.search(query);
+			List<Status> tweets = results.getTweets();
+
+			for (Status tweet : tweets)
+				if (tweet.getInReplyToStatusId() == tweetID)
+					replies.add(tweet);
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return replies;
+	}
+	
+	
+	
+	
 }

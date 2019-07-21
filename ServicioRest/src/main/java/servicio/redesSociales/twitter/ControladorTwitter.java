@@ -1,4 +1,4 @@
-package servicio.redesSociales;
+package servicio.redesSociales.twitter;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -11,6 +11,7 @@ import servicio.dao.ComentarioDAO;
 import servicio.dao.DAOFactoria;
 import servicio.modelo.Comentario;
 import servicio.modelo.Tema;
+import servicio.redesSociales.IRedSocial;
 import twitter4j.Query;
 import twitter4j.Query.ResultType;
 import twitter4j.QueryResult;

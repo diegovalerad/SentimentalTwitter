@@ -1,4 +1,4 @@
-package servicio.redesSociales;
+package servicio.redesSociales.twitter;
 
 import java.util.Comparator;
 

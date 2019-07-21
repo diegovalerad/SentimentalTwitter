@@ -4,6 +4,7 @@ import java.util.LinkedList;
 import java.util.List;
 
 import servicio.modelo.Tema;
+import servicio.redesSociales.twitter.ControladorTwitter;
 
 public class ControladorRRSS {
 	

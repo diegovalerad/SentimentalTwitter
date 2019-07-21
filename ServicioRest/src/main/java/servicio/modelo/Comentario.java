@@ -34,12 +34,6 @@ public class Comentario {
 	@Property(name="imagen")
 	private String imagen;
 	
-	@Property(name="likes")
-	private int likes;
-	
-	@Property(name="retweets")
-	private int retweets;
-	
 	@Property(name="popularidad")
 	private int popularidad;
 	
@@ -63,6 +57,9 @@ public class Comentario {
 	
 	@Relationship(type="RELATED_TO", direction=Relationship.OUTGOING)
 	private List<Comentario> respuestas = new ArrayList<Comentario>();
+	
+	@Property(name="redSocial")
+	private String redSocial;
 	
 	/**
 	 * Constructor vacío.
@@ -226,23 +223,6 @@ public class Comentario {
 		this.userPriority = userPriority;
 	}
 	
-	public int getLikes() {
-		return likes;
-	}
-
-	public void setLikes(int likes) {
-		this.likes = likes;
-	}
-
-	public int getRetweets() {
-		return retweets;
-	}
-
-	public void setRetweets(int retweets) {
-		this.retweets = retweets;
-	}
-	
-	
 	public String getSentimiento() {
 		return sentimiento;
 	}
@@ -257,5 +237,13 @@ public class Comentario {
 
 	public void setRespuestas(List<Comentario> respuestas) {
 		this.respuestas = respuestas;
+	}
+
+	public String getRedSocial() {
+		return redSocial;
+	}
+
+	public void setRedSocial(String redSocial) {
+		this.redSocial = redSocial;
 	}
 }

@@ -1,4 +1,4 @@
-package servicio.utils;
+package servicio.redesSociales;
 
 import java.util.Comparator;
 

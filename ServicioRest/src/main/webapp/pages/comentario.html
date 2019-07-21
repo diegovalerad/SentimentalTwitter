@@ -6,7 +6,7 @@
 		<div class="cuerpo">
 			<div class="titulo">
 				<div class="usuario">
-					<h3>{{comentario.creador}}</h3>
+					<h3>{{comentario.creador}} | {{comentario.redSocial}}</h3>
 				</div>
 				<div class="fecha">
 					{{comentario.fecha}}
@@ -52,7 +52,7 @@
 <div ng-controller='CommentController' ng-if="hayRespuestas == true">
 	<p>
 		<h2>RESPUESTAS</h2>
-	</p>
+
 
 	<div class="content" ng-repeat='r in respuestas'>
 		<div class="infoComment">

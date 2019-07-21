@@ -18,12 +18,12 @@ public class ComentarioResultado {
 	private String autor;
 	private String uri;
 	private String texto;
-	private int likes;
-	private int retweets;
 	private int popularidad;
 	private int userPriority;
 	
 	private String sentimiento;
+	
+	private String redSocial;
 
 	/**
 	 * Constructor vacío.
@@ -183,23 +183,6 @@ public class ComentarioResultado {
 	public void setUserPriority(int userPriority) {
 		this.userPriority = userPriority;
 	}
-
-	public int getLikes() {
-		return likes;
-	}
-
-	public void setLikes(int likes) {
-		this.likes = likes;
-	}
-
-	public int getRetweets() {
-		return retweets;
-	}
-
-	public void setRetweets(int retweets) {
-		this.retweets = retweets;
-	}
-	
 	
 	public String getSentimiento() {
 		return sentimiento;
@@ -209,4 +192,11 @@ public class ComentarioResultado {
 		this.sentimiento = sentimiento;
 	}
 
+	public String getRedSocial() {
+		return redSocial;
+	}
+
+	public void setRedSocial(String redSocial) {
+		this.redSocial = redSocial;
+	}
 }

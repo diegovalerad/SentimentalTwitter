@@ -183,7 +183,7 @@ public class OGMComentarioDAO implements ComentarioDAO{
 			
 			//información de comentarios relacionados con temas
 			String query = "MATCH (c:Comentario)-[:RELATED_TO]-(t:Tema) WHERE t.id = '" + tema + 
-					"' RETURN c.id, c.imagen, c.autor, c.fecha, c.mensaje, c.userPriority, c.popularidad, c.sentimiento";
+					"' RETURN c.id, c.imagen, c.autor, c.fecha, c.mensaje, c.userPriority, c.popularidad, c.sentimiento, c.redSocial";
 			
 			//Ejecutamos consulta
 			Result r = sesion.query(query, Collections.emptyMap());
@@ -204,6 +204,7 @@ public class OGMComentarioDAO implements ComentarioDAO{
 				c.setPopularidad(Integer.valueOf(comentario.get("c.popularidad").toString()));
 				
 				c.setSentimiento(comentario.get("c.sentimiento").toString());
+				c.setRedSocial(comentario.get("c.redSocial").toString());
 				
 				comentarios.add(c);
 			}
@@ -271,6 +272,7 @@ public class OGMComentarioDAO implements ComentarioDAO{
 				c.setPopularidad(Integer.valueOf(comentario.get("c.popularidad").toString()));
 				
 				c.setSentimiento(comentario.get("c.sentimiento").toString());
+				c.setRedSocial(comentario.get("c.redSocial").toString());
 				comentarios.add(c);
 			}
 			

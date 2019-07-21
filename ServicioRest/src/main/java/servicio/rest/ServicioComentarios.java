@@ -1,7 +1,6 @@
 package servicio.rest;
 
 import java.util.Collections;
-import java.util.LinkedList;
 import java.util.List;
 
 import javax.ws.rs.GET;
@@ -16,7 +15,6 @@ import javax.ws.rs.core.Response;
 import javax.ws.rs.core.UriInfo;
 
 import servicio.controlador.Controlador;
-import servicio.controlador.ControladorTwitter;
 import servicio.modelo.Comentario;
 import servicio.modelo.Tema;
 import servicio.tipos.ComentarioResultado;
@@ -119,9 +117,7 @@ public class ServicioComentarios {
 		boolean created = Controlador.getUnicaInstancia().crearTema(t);
 		
 		if(created) {
-			List<Tema> lista = new LinkedList<Tema>();
-			lista.add(t);
-			ControladorTwitter.getUnicaInstancia().buscarComentarios(lista);
+			Controlador.getUnicaInstancia().inicializarComentariosDeRedesSociales(t);
 			return Response.status(Response.Status.CREATED).build();
 		}
 		else

@@ -1,13 +1,9 @@
 package servicio.listener;
 
 import java.util.Date;
-import java.util.List;
 import java.util.TimerTask;
 
-import servicio.buscadortemas.TemasFactoria;
 import servicio.controlador.Controlador;
-import servicio.controlador.ControladorTwitter;
-import servicio.modelo.Tema;
 
 /**
  * Esta clase representa la tarea que se quiere automatizar al arranque del servicio.
@@ -22,10 +18,7 @@ public class Tarea extends TimerTask{
 	 */
 	@Override
 	public void run() {
-		// Para inicializar los tipos de factorias
-		Controlador.getUnicaInstancia(); 
-		List<Tema> temas = TemasFactoria.getUnicaInstancia().getTemas();
-		ControladorTwitter.getUnicaInstancia().buscarComentarios(temas);
+		Controlador.getUnicaInstancia().inicializarTemasYComentarios();
 		System.out.println("Tarea ejecutada " + new Date());
 	}
 

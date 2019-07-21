@@ -1,10 +1,12 @@
-package servicio.controlador;
+package servicio.redesSociales;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
 
+import servicio.controlador.ConectorSentimentAnalizer;
+import servicio.controlador.Controlador;
 import servicio.dao.ComentarioDAO;
 import servicio.dao.DAOFactoria;
 import servicio.modelo.Comentario;
@@ -19,7 +21,6 @@ import twitter4j.TwitterFactory;
 import twitter4j.URLEntity;
 import servicio.utils.ProcesadorFechas;
 import servicio.utils.ProcesadorTexto;
-import servicio.utils.TweetsComparator;
 
 /**
  * Controlador que hace uso de la API REST de Twitter.
@@ -27,48 +28,31 @@ import servicio.utils.TweetsComparator;
  * @author José Fernando
  *
  */
-public class ControladorTwitter {
-
-	private static ControladorTwitter unicaInstancia;
+public class ControladorTwitter implements IRedSocial {
 	private Twitter twitterService;
-
 	private static String[] users = { "NEJM", "WHO", "IARCWHO", "ASCO" };
-	
 	private final int MAX_REPLIES_PER_COMMENT = 5;
-
-	/**
-	 * Devuelve la instancia del controlador.
-	 * 
-	 * @return instancia del controlador.
-	 */
-	public static ControladorTwitter getUnicaInstancia() {
-
-		if (unicaInstancia == null)
-			unicaInstancia = new ControladorTwitter();
-
-		return unicaInstancia;
+	private final String redSocial = "TWITTER";
+	
+	@Override
+	public String getRedSocial() {
+		return redSocial;
 	}
 
 	/**
 	 * Constructor. Crea la factoría y el servicio de Twitter.
 	 */
-	private ControladorTwitter() {
-
+	public ControladorTwitter() {
 		TwitterFactory tf = new TwitterFactory();
 		twitterService = tf.getInstance();
 	}
 
 	/**
-	 * Realiza la búsqueda de comentarios. Si no existen temas en base de datos los
-	 * crea.
+	 * Realiza la búsqueda de comentarios.
 	 */
-	public void buscarComentarios(List<Tema> temas) {
-
-		// Se crean los temas que no existan ya en base de datos
-		if(temas != null)
-			crearTemas(temas);
-		
-		// Se recogen los temas de BD tras la posible creación de nuevos temas
+	@Override
+	public void buscarComentarios() {
+		// Se recogen los temas de BD
 		Iterable<Tema> it = Controlador.getUnicaInstancia().getTemas();
 		List<Tema> tExists = new LinkedList<Tema>();
 		if(it != null) {
@@ -79,23 +63,19 @@ public class ControladorTwitter {
 			// Por cada tema se buscan tweets y se persisten
 			busquedaPorTemas(tExists);
 		}
-
 	}
-
+	
 	/**
-	 * Crea temas en base de datos. Comprueba si existen los temas de la lista en
-	 * base de datos y persiste los que no existan.
-	 * 
-	 * @param temas
-	 *            lista de temas
+	 * Realiza la búsqueda de comentarios sobre un tema en concreto
+	 * @param tema
 	 */
-	private void crearTemas(List<Tema> temas) {
-
-		// Si no existen se crean y se persisten todos los temas recuperados de ArchMS
-		for (Tema t : temas) {
-			Controlador.getUnicaInstancia().crearTema(t);
-		}
-
+	@Override
+	public void buscarComentarios(Tema tema) {
+		List<Tema> temas = new LinkedList<Tema>();
+		temas.add(tema);
+		
+		busquedaPorUsuarios(temas);
+		busquedaPorTemas(temas);
 	}
 
 	/**
@@ -195,9 +175,9 @@ public class ControladorTwitter {
 		c.setId(Long.toString(status.getId()));
 		c.setTexto(ProcesadorTexto.eliminarUrls(status.getText()));
 		c.setImagen(status.getUser().getOriginalProfileImageURL());
-		c.setLikes(status.getFavoriteCount());
-		c.setRetweets(status.getRetweetCount());
-		c.setPopularidad(c.getLikes() + c.getRetweets());
+		int likes = status.getFavoriteCount();
+		int retweets = status.getRetweetCount();
+		c.setPopularidad(likes + retweets);
 
 		for (URLEntity u : status.getURLEntities()) {
 			c.getEnlaces().add(u.getURL());
@@ -205,6 +185,8 @@ public class ControladorTwitter {
 		
 		String sentimiento = ConectorSentimentAnalizer.getUnicaInstancia().getSentiment(c.getTexto());
 		c.setSentimiento(sentimiento);
+		
+		c.setRedSocial(redSocial);
 
 		return c;
 	}

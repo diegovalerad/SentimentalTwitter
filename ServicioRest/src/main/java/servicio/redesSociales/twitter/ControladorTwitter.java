@@ -5,7 +5,6 @@ import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
 
-import servicio.controlador.ConectorSentimentAnalizer;
 import servicio.controlador.Controlador;
 import servicio.dao.ComentarioDAO;
 import servicio.dao.DAOFactoria;
@@ -184,7 +183,7 @@ public class ControladorTwitter implements IRedSocial {
 			c.getEnlaces().add(u.getURL());
 		}
 		
-		String sentimiento = ConectorSentimentAnalizer.getUnicaInstancia().getSentiment(c.getTexto());
+		String sentimiento = Controlador.getUnicaInstancia().getSentimiento(c.getTexto());
 		c.setSentimiento(sentimiento);
 		
 		c.setRedSocial(redSocial);

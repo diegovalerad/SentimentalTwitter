@@ -196,5 +196,15 @@ public class Controlador {
 
 		return cDAO.search(query);
 	}
+	
+	/**
+	 * Obtiene el sentimiento de una cadena de texto
+	 * @param texto
+	 * @return
+	 */
+	public String getSentimiento(String texto) {
+		String sentimiento = ConectorSentimentAnalizer.getUnicaInstancia().getSentiment(texto);
+		return sentimiento;
+	}
 
 }

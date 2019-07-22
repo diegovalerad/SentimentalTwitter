@@ -30,8 +30,6 @@ app.controller('AnalysisController', function($scope, $http, toastr){
 
 	$scope.buscar = function(){
 		$scope.analisisBusqueda = true;
-		console.log("Buscandeeeeeeeeeee\n");
-		console.log("Texto a analizar: " + $scope.analisis.descripcion);
 
 		var url = "http://localhost:8080/ServicioAnalisisSentimientos/rest/analisis/analize?texto=";
 		url += $scope.analisis.descripcion;

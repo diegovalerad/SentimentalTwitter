@@ -6,6 +6,12 @@ import servicio.algoritmos.stanford.model.SentimentResult;
 import servicio.modelo.Sentimiento;
 import servicio.modelo.Valoracion;
 
+/**
+ * Algoritmo que usa la API de Stanford CoreNLP para realizar
+ * un análisis de sentimientos de un texto.
+ * @author Diego Valera Duran
+ *
+ */
 public class StanfordFactoria extends AlgoritmosFactoria {
 	
 	private Sentimiento convertirSentimiento(String sentimiento) {
@@ -50,6 +56,7 @@ public class StanfordFactoria extends AlgoritmosFactoria {
 		return exp;
 	}
 	
+	@Override
 	public Valoracion analizeText(String text) {
 		SentimentAnalyzer sentimentAnalyzer = new SentimentAnalyzer();
 		sentimentAnalyzer.initialize();

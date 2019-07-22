@@ -16,16 +16,23 @@ import servicio.algoritmos.AlgoritmosFactoria;
 import servicio.modelo.Sentimiento;
 import servicio.modelo.Valoracion;
 
+/**
+ * Algoritmo basado en el entrenamiento con un modelo de frases. Estas
+ * frases tienen asociado un valor número, 0 o 1, dependiendo de si son 
+ * negativas o positivas.
+ * @author Diego Valera Duran
+ *
+ */
 public class ApacheOpenNLPFactoria extends AlgoritmosFactoria {
 	private DoccatModel model;
 	private String modelLocation;
 	
 	public ApacheOpenNLPFactoria() {
-		modelLocation = "/apache_opennlp_model.txt";
+		modelLocation = "/apache/apache_opennlp_model.txt";
 		trainModel();
 	}
 	
-	public void trainModel() {
+	private void trainModel() {
 		InputStream dataIn = null;
 		try {
 			File testf = new File( ApacheOpenNLPFactoria.class.getResource( modelLocation ).toURI() );
@@ -49,7 +56,7 @@ public class ApacheOpenNLPFactoria extends AlgoritmosFactoria {
 		}
 	}
 
-	public Sentimiento classifyNewTweet(String tweet){
+	private Sentimiento classifyNewTweet(String tweet){
 		DocumentCategorizerME myCategorizer = new DocumentCategorizerME(model);
 		double[] outcomes = myCategorizer.categorize(tweet);
 		String category = myCategorizer.getBestCategory(outcomes);

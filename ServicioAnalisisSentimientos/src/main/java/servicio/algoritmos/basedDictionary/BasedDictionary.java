@@ -115,6 +115,7 @@ public class BasedDictionary extends AlgoritmosFactoria {
 		for (String phrase : phrases) {
 			boolean negative = false;
 			int tweetScoreLocal = 0;
+			int nLocal = 1;
 
 			Pattern p = Pattern.compile("[\\w']+");
 			Matcher m = p.matcher(phrase);
@@ -126,9 +127,10 @@ public class BasedDictionary extends AlgoritmosFactoria {
 				} else if (afinn.get(wordLowerCase) != null) {
 					String wordscore = afinn.get(wordLowerCase);
 					tweetScoreLocal += Integer.parseInt(wordscore);
+					nLocal++;
 				}
 			}
-
+			tweetScoreLocal /= nLocal;
 			if (negative)
 				tweetScoreLocal *= -1;
 			tweetScoreGlobal += tweetScoreLocal;

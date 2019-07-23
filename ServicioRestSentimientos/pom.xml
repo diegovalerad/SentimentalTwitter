@@ -3,10 +3,10 @@
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>inf.um.es</groupId>
-	<artifactId>ServicioAnalisisSentimientos</artifactId>
+	<artifactId>ServicioRestSentimientos</artifactId>
 	<packaging>war</packaging>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>ServicioAnalisisSentimientos Maven Webapp</name>
+	<name>ServicioRestSentimientos Maven Webapp</name>
 	<url>http://maven.apache.org</url>
 
 	<dependencies>
@@ -74,7 +74,7 @@
 			<classifier>models</classifier>
 		</dependency>
 
-		<!--  Analizador simple apache.opennlp -->
+		<!-- Analizador simple apache.opennlp -->
 		<dependency>
 			<groupId>org.apache.opennlp</groupId>
 			<artifactId>opennlp-tools</artifactId>
@@ -83,13 +83,8 @@
 
 	</dependencies>
 
+
 	<build>
-		<finalName>ServicioAnalisisSentimientos</finalName>
-		<resources>
-			<resource>
-				<directory>src/main/resources</directory>
-				<filtering>true</filtering>
-			</resource>
-		</resources>
+		<finalName>ServicioRestSentimientos</finalName>
 	</build>
 </project>

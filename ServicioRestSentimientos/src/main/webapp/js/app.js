@@ -31,7 +31,7 @@ app.controller('AnalysisController', function($scope, $http, toastr){
 	$scope.buscar = function(){
 		$scope.analisisBusqueda = true;
 
-		var url = "http://localhost:8080/ServicioAnalisisSentimientos/rest/analisis/analize?texto=";
+		var url = "http://localhost:8080/ServicioRestSentimientos/rest/analisis/analize?texto=";
 		url += $scope.analisis.descripcion;
 
 		console.log(url);

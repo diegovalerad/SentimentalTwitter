@@ -26,13 +26,14 @@ public class ConectorSentimentAnalizer {
 	}
 
 	public String getSentiment(String texto) {
-		String baseUrl = "http://localhost:8080/ServicioAnalisisSentimientos/rest/analisis/analize?texto=";
+		String baseUrl = "http://localhost:8080/ServicioRestSentimientos/rest/analisis/analize?texto=";
 
 		String encodedQuery = encodeValue(texto);
 
 		String completeUrl = baseUrl + encodedQuery;
 		
 		String sentimiento = null;
+		boolean errorObtenerSentimiento = false;
 
 		JSONObject json;
 		try {
@@ -40,13 +41,13 @@ public class ConectorSentimentAnalizer {
 			sentimiento = json.getString("sentimiento");
 		} catch (IOException e) {
 			System.err.println("Error al conectar con el servidor analizador: " + e);
-			sentimiento = null;
+			errorObtenerSentimiento = true;
 		} catch (JSONException e) {
 			System.err.println("Error al parsear con JSON la respuesta del servidor analizador: " + e);
-			sentimiento = null;
+			errorObtenerSentimiento = true;
 		}
-		if (sentimiento == null)
-			sentimiento = "???";
+		if (errorObtenerSentimiento)
+			sentimiento = "";
 		
 		return sentimiento;
 	}

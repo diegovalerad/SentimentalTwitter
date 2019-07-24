@@ -12,8 +12,8 @@
       "url" : "http://www.apache.org/licenses/LICENSE-2.0.html"
     }
   },
-  "host" : "virtserver.swaggerhub.com",
-  "basePath" : "/Di3GO95/API_REST_RRSS/1.0.0",
+  "host" : "localhost:8080",
+  "basePath" : "/ServicioRest/rest",
   "tags" : [ {
     "name" : "Temas",
     "description" : "Operaciones para búsqueda de temas"
@@ -21,7 +21,7 @@
     "name" : "Comentarios",
     "description" : "Operaciones para búsqueda de comentarios"
   } ],
-  "schemes" : [ "https" ],
+  "schemes" : [ "https", "http" ],
   "paths" : {
     "/temas" : {
       "get" : {
@@ -59,7 +59,7 @@
           "in" : "path",
           "description" : "ID del tema a buscar",
           "required" : true,
-          "type" : "integer"
+          "type" : "string"
         } ],
         "responses" : {
           "200" : {
@@ -70,6 +70,9 @@
                 "$ref" : "#/definitions/ListadoComentarios"
               }
             }
+          },
+          "404" : {
+            "description" : "Tema no encontrado"
           }
         }
       },

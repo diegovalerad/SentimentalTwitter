@@ -12,8 +12,8 @@
       "url" : "http://www.apache.org/licenses/LICENSE-2.0.html"
     }
   },
-  "host" : "virtserver.swaggerhub.com",
-  "basePath" : "/Di3GO95/API_REST_SENTIMIENTOS/1.0.0",
+  "host" : "localhost:8080",
+  "basePath" : "/ServicioRestSentimientos/rest",
   "tags" : [ {
     "name" : "Textos",
     "description" : "Operaciones sobre los textos"
@@ -22,6 +22,7 @@
   "paths" : {
     "/analisis/analize" : {
       "get" : {
+        "tags" : [ "Textos" ],
         "summary" : "Operacion que analiza un texto",
         "description" : "Analiza el texto que se pasa como parámetro",
         "operationId" : "analize",

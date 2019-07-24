@@ -1,0 +1,64 @@
+{
+  "swagger" : "2.0",
+  "info" : {
+    "description" : "API REST que analiza textos y devuelve sus sentimientos.",
+    "version" : "1.0.0",
+    "title" : "API sentimientos",
+    "contact" : {
+      "email" : "diego.valera@um.es"
+    },
+    "license" : {
+      "name" : "Apache 2.0",
+      "url" : "http://www.apache.org/licenses/LICENSE-2.0.html"
+    }
+  },
+  "host" : "virtserver.swaggerhub.com",
+  "basePath" : "/Di3GO95/API_REST_SENTIMIENTOS/1.0.0",
+  "tags" : [ {
+    "name" : "Textos",
+    "description" : "Operaciones sobre los textos"
+  } ],
+  "schemes" : [ "https" ],
+  "paths" : {
+    "/analisis/analize" : {
+      "get" : {
+        "summary" : "Operacion que analiza un texto",
+        "description" : "Analiza el texto que se pasa como parámetro",
+        "operationId" : "analize",
+        "produces" : [ "application/json" ],
+        "parameters" : [ {
+          "name" : "texto",
+          "in" : "query",
+          "description" : "Texto sobre el que obtener su sentimiento.",
+          "required" : true,
+          "type" : "string"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Texto analizado correctamente",
+            "schema" : {
+              "$ref" : "#/definitions/Valoracion"
+            }
+          }
+        }
+      }
+    }
+  },
+  "definitions" : {
+    "Valoracion" : {
+      "type" : "object",
+      "required" : [ "explicacion", "sentimiento" ],
+      "properties" : {
+        "sentimiento" : {
+          "type" : "string",
+          "example" : "MUY_NEGATIVO",
+          "enum" : [ "MUY_NEGATIVO", "NEGATIVO", "NEUTRAL", "POSITIVO", "MUY_POSITIVO" ]
+        },
+        "explicacion" : {
+          "type" : "string",
+          "example" : "Sentimiento NEGATIVO con una puntuacion de 1.0. Muy negativo: 19.0% Negativo: 62% Neutral: 15% Positivo 3.0% Muy positivo: 1.0%"
+        }
+      }
+    }
+  }
+}

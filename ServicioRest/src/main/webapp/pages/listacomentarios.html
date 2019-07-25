@@ -15,7 +15,13 @@
 			<div class="info">
 				<div class="header">
 					<div class="autor">
-						<h2>{{c.autor}} | {{c.redSocial}}</h2>
+						<div class="h2">
+						{{c.autor}}  |
+						
+							<div style="display: inline;">
+								<img src="images/{{c.redSocial}}.png" alt="RedSocial">
+							</div>
+						</div>
 					</div>
 					<div class="fecha">
 						<h2>{{c.fecha}}</h2>
@@ -29,8 +35,9 @@
 				</div>
 			</div>
 
-			<div>
-				<h2>Análisis sentimental: {{c.sentimiento}}</h2>
+			<div class="h2">
+				{{c.sentimiento}}
+				<img src="images/sentiments/{{c.sentimiento}}.png" alt="Sentimiento">
 			</div>
 
 		</div>

@@ -6,7 +6,13 @@
 		<div class="cuerpo">
 			<div class="titulo">
 				<div class="usuario">
-					<h3>{{comentario.creador}} | {{comentario.redSocial}}</h3>
+					<div class="h3">
+						{{comentario.creador}}  |
+						
+							<div style="display: inline;">
+								<img src="images/{{comentario.redSocial}}.png" alt="RedSocial">
+							</div>
+						</div>
 				</div>
 				<div class="fecha">
 					{{comentario.fecha}}
@@ -37,8 +43,11 @@
 			</div>
 
 			<div class="temas">
-				<div class="tag">
-					Análisis sentimental: {{comentario.sentimiento}}
+				<div class="tag" style="display: inline;">
+					Análisis sentimental: {{comentario.sentimiento}} 
+					<div style="display: inline;">
+								<img src="images/sentiments/{{comentario.sentimiento}}.png" alt="Sentimiento">
+							</div>
 				</div>
 			</div>
 
@@ -49,10 +58,13 @@
 </div>
 
 
-<div ng-controller='CommentController' ng-if="hayRespuestas == true">
-	<p>
-		<h2>RESPUESTAS</h2>
+<div ng-controller='CommentController' ng-if="hayRespuestas == true" style="width:100%">
 
+	<div class="separatorDiv">
+		<span class="separatorSpan">
+			RESPUESTAS
+		</span>
+	</div>
 
 	<div class="content" ng-repeat='r in respuestas'>
 		<div class="infoComment">
@@ -83,8 +95,11 @@
 				</div>
 
 				<div class="temas">
-					<div class="tag">
+					<div class="tag" style="display: inline;">
 						Análisis sentimental: {{r.sentimiento}}
+						<div style="display: inline;">
+								<img src="images/sentiments/{{r.sentimiento}}.png" alt="Sentimiento">
+							</div>
 					</div>
 				</div>
 			</div>

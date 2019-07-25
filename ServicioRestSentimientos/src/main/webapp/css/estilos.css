@@ -143,62 +143,6 @@ header nav a:hover {
 	margin: 10px;
 }
 
-.content .cabecera {
-	width:100%;
-	border: 1px solid #000;
-	border-radius: 10px 10px 0 0;
-	color: #000;
-	padding: 10px;
-	background: #90bede;
-	text-align: center;
-	display: flex;
-	flex-direction: column;
-	align-items: center;
-}
-
-.content .cabecera .titulo{
-	text-align: center;
-	padding: 5px 0;
-	margin: 5px 10px;
-	width: 100%;
-}
-
-.content .cabecera .enlace{
-	text-align: right;
-	
-	margin: 5px 10px;
-	width: 100%;
-}
-
-.content .cabecera .enlace a{
-
-	text-decoration: none;
-	background: #fff;
-	color: #000;
-	padding: 5px 10px;
-  	margin: 0 5px;
-  	border: 1px solid #000;
-  	border-radius: 3px;
-  	transition: all 0.5s ease;
-}
-
-.content .cabecera .enlace a:hover{
-	
-	color: #fff;
-	border-color: #6e7dab;
-	background: #6e7dab;
-}
-
-.content .cabecera .descripcion{
-	border-top: 1px solid #000;
-	text-align: center;
-	padding: 15px 0;
-	margin: 5px 10px;
-	width: 100%;
-}
-
-/*** Formulario temas ***/
-
 .content .contenedor {
 	
 	width: 100%;
@@ -208,134 +152,6 @@ header nav a:hover {
 	border-radius: 7px;
 }
 
-.content .contenedor .formulario {
-	
-	width: 100%;
-	margin: auto;
-}
-
-.content .contenedor .formulario .inputs{
-	
-	width: 90%;
-	margin: auto;
-	display: flex;
-	flex-direction: column;
-	flex-wrap: wrap;
-}
-
-.content .contenedor .formulario .inputs .input {
-	
-	position: relative;
-	margin-bottom: 32px;
-	display: flex;
-	flex-direction: column;
-}
-
-.content .contenedor .formulario .inputs .input input[type="text"],
-.content .contenedor .formulario .inputs .input textarea {
-    font-family: "Roboto";
-    font-size: 16px;
-    color: #303F9F;
-    width: 100%;
-    outline: none;
-    padding: 15px;
-    background: none;
-    border: none;
-	border-bottom: 2px solid #BBDEFB; 
-}
-
-.content .contenedor .formulario .inputs .input input[type="text"]:focus,
-.content .contenedor .formulario .inputs .input input[type="text"]:active,
-.content .contenedor .formulario .inputs .input textarea:active,
-.content .contenedor .formulario .inputs .input textarea:focus {
-    
-    outline: none;
-	border-bottom: 2px solid #303F9F; 
-}
-
-.content .contenedor .formulario .inputs .input input[type="text"].error {
-	border-bottom: 2px solid #D32F2F; 
-}
-
-.content .contenedor .formulario .inputs .input label {
-	color: #000; 
-}
-
-.content .contenedor .formulario input[type="submit"] {
-	background: #1976D2; 
-	border-radius: 1px;
-	border: 1px solid #f2f2f2;
-	color: #fff;
-	cursor: pointer;
-	display: inline-block;
-	font-family: "Roboto";
-	font-size: 16px;
-	padding: 15px;
-	width: 100%;
-	transition: all 0.3s ease; 
-}
-
-.content .contenedor .formulario input[type="submit"]:hover {
-	background: #303F9F;
-}
-
-/*** Lista de temas ***/
-
-.content .listaTemas {
-	width:100%;
-	display: flex;
-	flex-direction: column;
-	align-items: center;
-}
-
-.content .listaTemas .tema {
-	width: 100%;
-	padding: 15px;
-	background:#fff;
-	border-bottom: 1px solid #000;
-	border-left: 1px solid #000;
-	border-right: 1px solid #000;
-	display: flex;
-	flex-direction: row;
-	align-items: center;
-	justify-content:space-between;
-	cursor: pointer;
-	transition: all 0.1s ease;
-}
-
-.content .listaTemas .tema:hover {
-	background: #dffdff;
-	border-top: 1px solid #000;
-	transform: scale(1.02);
-}
-
-.content .listaTemas .tema .nombre{
-	width: 40%;
-	font-size: 16px;
-	text-align: center;
-}
-
-.content .listaTemas .tema .enlace{
-	width: 40%;
-	font-size: 16px;
-}
-
-.content .listaTemas .tema .enlace a{
-	text-decoration: none;
-	color: #000;
-	padding: 5px 10px;
-  	margin: 0 5px;
-  	border: 1px solid #000;
-  	border-radius: 3px;
-  	transition: all 0.5s ease;
-}
-
-.content .listaTemas .tema .enlace a:hover{
-	color: #fff;
-	border-color: #6e7dab;
-	background: #6e7dab;
-}
-
 /*** Lista de comentarios ***/
 
 .content .listaComentarios {
@@ -343,6 +159,9 @@ header nav a:hover {
 	display: flex;
 	flex-direction: column;
 	align-items: center;
+	
+	white-space: pre-line;
+	text-align: center;
 }
 
 .content .listaComentarios .listTittle {
@@ -484,6 +303,20 @@ header nav a:hover {
 	margin-bottom: 5px;
 }
 
+.content .contenedor .busqueda .inputs .textarea{
+	width: 100%;
+	height: 5em;
+}
+
+.content img{
+	display: block;
+	margin-left: auto;
+	margin-right: auto;
+	width: 40%;
+}
+
+
+
 .content .contenedor .busqueda .inputs .input label{
 	width: 45%;
 	align-self: center;
@@ -501,12 +334,13 @@ header nav a:hover {
 }
 
 .content .contenedor .busqueda .submit input[type="submit"] {
+	margin-left: 40%;
 	background: #fff; 
 	border-radius: 1px;
 	border: 1px solid #1976D2;
 	color: #1976D2;
 	cursor: pointer;
-	display: inline-block;
+	display: block;
 	font-family: "Roboto";
 	font-size: 16px;
 	padding: 5px;
@@ -533,158 +367,6 @@ header nav a:hover {
 	background: #1976D2;
 	color: #fff;
 }
-
-.content .contenedor .botones .delete {
-	border: 1px solid #f61919;
-	color: #f61919;
-}
-
-.content .contenedor .botones .delete:hover {
-	background: #f61919;
-	color: #fff;
-}
-
-.content .contenedor .botones {
-	width: 100%;
-	display: flex;
-	flex-direction: row;
-	flex-wrap: wrap;
-	justify-content: flex-end;
-	margin-bottom: 5px;
-}
-
-/**** COMENTARIOS ****/
-
-.content .infoComment {
-	width: 100%;
-	display: flex;
-	flex-direction: row;
-	border: 1px solid #000;
-}
-
-.content .infoComment .imagen {
-	width: 20%;
-	text-align: center;
-	display: flex;
-	justify-content: center;
-	align-items: center;
-	transition: all 0.5s ease;
-}
-
-.content .infoComment .imagen:hover {
-	transform: rotate(360deg);
-}
-
-.content .infoComment .imagen .img{
-	display: flex;
-	justify-content: center;
-	border: 1px solid rgba(0,0,0,0.3);
-	border-radius: 64px;
-	background-size: cover;
-  	background-position: center;
-  	min-height: 128px;
-  	min-width: 128px;
-}
-
-.content .infoComment .cuerpo {
-	width: 80%;
-	display: flex;
-	flex-direction: column;
-}
-
-.content .infoComment .cuerpo .titulo{
-	width: 95%;
-	display: flex;
-	flex-direction: row;
-	padding: 10px 10px 10px 5px;
-	margin-top: 5px;
-	justify-content: space-between;
-	border-bottom: 1px solid #3cc4ff;
-}
-
-.content .infoComment .cuerpo .titulo .usuario {
-	font-size: 14px; 
-	color: #00aced;
-	width: 50%;
-}
-
-.content .infoComment .cuerpo .fecha {
-	width: 50%;
-	padding: 0 10px 10px 5px;
-	text-align: right;
-	color: #17a3cf;
-}
-
-.content .infoComment .cuerpo .texto {
-	width: 95%;
-	padding: 10px 10px 10px 5px;
-}
-
-.content .infoComment .cuerpo .enlaces,
-.content .infoComment .cuerpo .temas {
-	
-	width: 95%;
-	padding: 10px 10px 10px 5px;
-	display: flex;
-	flex-direction: row;
-	margin-top: 5px;
-	border-top: 1px solid #3cc4ff;
-}
-
-.content .infoComment .cuerpo .enlaces .tag,
-.content .infoComment .cuerpo .temas .tag {
-	
-	margin: 4px;
-	color: #00aced;
-	display: flex;
-    flex-direction: column;
-	justify-content: center;
-}
-
-.content .infoComment .cuerpo .enlaces .wrapper,
-.content .infoComment .cuerpo .temas .wrapper {
-	width:100%;
-	display: flex;
-	flex-direction: row;
-	flex-wrap: wrap;
-}
-
-.content .infoComment .cuerpo .enlaces .enlace,
-.content .infoComment .cuerpo .temas .tema{
-	
-	display: flex;
-	flex-direction: row;
-	flex-wrap: wrap;
-}
-
-.content .infoComment .cuerpo .enlaces .enlace a {
-
-	text-decoration: none;
-	margin: 4px;
-	color: #0084b4;
-}
-
-.content .infoComment .cuerpo .enlaces .enlace a:hover {
-	color: #17a3cf;
-	text-decoration: underline;
-}
-
-.content .infoComment .cuerpo .temas .tema a {
-	padding: 4px 4px;
-	text-decoration: none;
-	background: #fff;
-	margin: 8px 4px;
-	color: #0084b4;
-	border: 1px solid #0084b4;
-	border-radius: 5px;
-}
-
-.content .infoComment .cuerpo .temas .tema a:hover {
-
-	color: #fff;
-	background: #0084b4;
-}
-
 
 
 /* FOOTER */
@@ -744,59 +426,11 @@ footer .bottom {
 	}
 }
 
-@media screen and (max-width: 800px){
-
-	/* Comentario */
-	
-	.content .infoComment {
-		display: flex;
-		flex-direction: column;
-		width: 100%;
-		align-items: center;
-	}
-	
-	.content .infoComment .imagen {
-		margin-top: 10px;
-	}
-	
-	.content .infoComment .cuerpo {
-		width: 90%;
-		align-items: center;
-	}
-}
-
 @media screen and (max-width: 720px){
-	
-	/* Listado Temas */
-	
-	.content .listaTemas .tema {
-		display: flex;
-		flex-direction: column;
-	}
-	
-	.content .listaTemas .tema .nombre{
-		width: 100%;
-		font-size: 16px;
-		margin: 10px 0;
-	}
-
-	.content .listaTemas .tema .enlace{
-		width: 100%;
-		text-align: center;
-		margin: 10px 0;
-	}
 	/* Buscador */
 	
 	.content .contenedor {
 		font-size: 14px;
-	}
-	
-	.content .contenedor .botones {
-		justify-content: space-between;
-	}
-	
-	.content .contenedor .botones button {
-		width:45%;
 	}
 	
 	.content .contenedor .busqueda .submit input[type="submit"] {
@@ -827,10 +461,6 @@ footer .bottom {
 	
 	.main {
 		width:95%;
-	}
-	
-	.content .listaTemas .tema .nombre{
-		font-size: 12px;
 	}
 	
 	/* Buscador */

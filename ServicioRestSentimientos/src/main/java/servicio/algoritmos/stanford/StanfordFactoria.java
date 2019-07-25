@@ -38,8 +38,7 @@ public class StanfordFactoria extends AlgoritmosFactoria {
 	}
 	
 	private String obtenerExplicacion(SentimentResult sentimentResult) {
-		Sentimiento tipo = convertirSentimiento(sentimentResult.getSentimentType());
-		String exp = "Sentimiento " + tipo + " con una puntuación de " + sentimentResult.getSentimentScore() + ".\n";
+		String exp = "";
 		
 		double muyPositivo = sentimentResult.getSentimentClass().getVeryPositive();
 		double positivo = sentimentResult.getSentimentClass().getPositive();

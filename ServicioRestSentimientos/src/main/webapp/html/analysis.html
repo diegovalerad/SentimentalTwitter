@@ -7,8 +7,7 @@
 					ng-submit="buscar();" method="get">
 			<div class="inputs" id="inputs">
 				<div class="input">
-					<label for="descripcion">Texto:</label>
-					<textarea name="descripcion" form="form" ng-model="analisis.descripcion" ></textarea>
+					<textarea class="textarea" name="descripcion" form="form" ng-model="analisis.descripcion" placeholder="Escribe aquí el texto a analizar." ></textarea>
 				</div>
 			</div>
 			<div class="submit">
@@ -16,12 +15,18 @@
 			</div>
 		</form>
 	</div>
+	
+	<div ng-if="cargando">
+		<img src="images/cargando.gif" alt="cargando">
+	</div>
 
 	<div class="listaComentarios" ng-if="analisisBusqueda">
 		<div class="listTittle">
 			<h3>Resultados del análisis</h3>
 		</div>
 		<h2>Resultado: {{analisisResultado.sentimiento}}</h2>
-		<h2>Explicacion: {{analisisResultado.explicacion}}</h2>
+		
+		<h2>Probabilidades: 
+		{{analisisResultado.explicacion}}</h2>
 	</div>
 </div>

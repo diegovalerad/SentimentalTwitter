@@ -29,8 +29,10 @@ public class BasedDictionary extends AlgoritmosFactoria {
 	private final String folder = "basedDictionary/";
 	private final String stopWordsFile = folder + "stopwords.txt";
 	private final String afinnFile = folder + "AFINN.txt";
+	private final String emoteFile = folder + "emote.txt";
 	private List<String> stopWords;
 	private Map<String, String> afinn;
+	private Map<String, String> emote;
 
 	public BasedDictionary() {
 		try {
@@ -42,6 +44,11 @@ public class BasedDictionary extends AlgoritmosFactoria {
 			getAFINN();
 		} catch (IOException e) {
 			System.err.println("Error al acceder al fichero AFINN");
+		}
+		try {
+			getEmote();
+		} catch (IOException e) {
+			System.err.println("Error al acceder al fichero emote");
 		}
 	}
 
@@ -69,8 +76,27 @@ public class BasedDictionary extends AlgoritmosFactoria {
 	 * @throws IOException Excepción en caso de no encontrar el fichero.
 	 */
 	private void getAFINN() throws IOException {
-		afinn = new HashMap<String, String>();
+		emote = new HashMap<String, String>();
 		File file = new File(getClass().getClassLoader().getResource(afinnFile).getFile());
+		BufferedReader in = null;
+		in = new BufferedReader(new FileReader(file));
+
+		String line = "";
+		while ((line = in.readLine()) != null) {
+			String parts[] = line.split("\t");
+			emote.put(parts[0], parts[1]);
+		}
+		in.close();
+	}
+	
+	/**
+	 * Método que obtiene una lista de emotes con su sentimiento asociado. El sentimiento
+	 * es un valor número entre -5 (muy negativo) y 5 (muy positivo). 
+	 * @throws IOException Excepción en caso de no encontrar el fichero.
+	 */
+	private void getEmote() throws IOException{
+		afinn = new HashMap<String, String>();
+		File file = new File(getClass().getClassLoader().getResource(emoteFile).getFile());
 		BufferedReader in = null;
 		in = new BufferedReader(new FileReader(file));
 
@@ -106,6 +132,8 @@ public class BasedDictionary extends AlgoritmosFactoria {
 			return true;
 		return false;
 	}
+	
+	
 
 	private int getSentimentValue(String text) {
 		int tweetScoreGlobal = 0;
@@ -124,7 +152,11 @@ public class BasedDictionary extends AlgoritmosFactoria {
 				String wordLowerCase = word.toLowerCase();
 				if (wordIsNegative(wordLowerCase)) {
 					negative = true;
-				} else if (afinn.get(wordLowerCase) != null) {
+				}else if (emote.get(word) != null) {
+					String wordscore = afinn.get(word);
+					tweetScoreLocal += Integer.parseInt(wordscore);
+					nLocal++;
+				}else if (afinn.get(wordLowerCase) != null) {
 					String wordscore = afinn.get(wordLowerCase);
 					tweetScoreLocal += Integer.parseInt(wordscore);
 					nLocal++;

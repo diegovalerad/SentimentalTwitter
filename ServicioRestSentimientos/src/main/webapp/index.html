@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="es" ng-app="restApp">
   <head>
     <meta charset="utf-8">
     <base href="/ServicioRestSentimientos/">
@@ -14,8 +14,7 @@
     <script src="js/functions.js"></script>
     <script src="https://unpkg.com/angular-toastr/dist/angular-toastr.tpls.js"></script>
     
-    
-    <title>Análisis sentimental de textos</title>
+    <title ng-bind="'Análisis sentimental de textos &mdash; ' + title">Análisis sentimental de textos</title>
   </head>
   <body ng-app="restApp">
     <header id="header">

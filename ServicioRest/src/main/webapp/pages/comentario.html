@@ -21,7 +21,7 @@
 			<div class="texto">
 				<p>{{comentario.texto}}</p>
 			</div>
-			<div class="enlaces">
+			<div class="enlaces" ng-if="comentario.hayEnlaces">
 				<div class="tag">
 					<p>Enlaces: </p>
 				</div>
@@ -44,7 +44,7 @@
 
 			<div class="temas">
 				<div class="tag" style="display: inline;">
-					Análisis sentimental: {{comentario.sentimiento}} 
+					Análisis sentimental: <div class="sentimiento">{{comentario.sentimiento}}</div> 
 					<div style="display: inline;">
 								<img src="images/sentiments/{{comentario.sentimiento}}.png" alt="Sentimiento">
 							</div>
@@ -66,7 +66,7 @@
 		</span>
 	</div>
 
-	<div class="content" ng-repeat='r in respuestas'>
+	<div class="content response" ng-repeat='r in respuestas'>
 		<div class="infoComment">
 			<div class="imagen">
 				<div class="img" style="background-image: url({{r.imagen}})"></div>
@@ -83,7 +83,7 @@
 				<div class="texto">
 					<p>{{r.texto}}</p>
 				</div>
-				<div class="enlaces">
+				<div class="enlaces" ng-if="r.hayEnlaces">
 					<div class="tag">
 						<p>Enlaces: </p>
 					</div>
@@ -96,7 +96,7 @@
 
 				<div class="temas">
 					<div class="tag" style="display: inline;">
-						Análisis sentimental: {{r.sentimiento}}
+						Análisis sentimental: <div class="sentimiento">{{r.sentimiento}}</div> 
 						<div style="display: inline;">
 								<img src="images/sentiments/{{r.sentimiento}}.png" alt="Sentimiento">
 							</div>

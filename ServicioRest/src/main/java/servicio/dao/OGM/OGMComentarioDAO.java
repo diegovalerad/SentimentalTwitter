@@ -1,4 +1,4 @@
-package servicio.dao;
+package servicio.dao.OGM;
 
 import java.util.Collection;
 import java.util.Collections;
@@ -11,6 +11,7 @@ import org.neo4j.ogm.model.Result;
 import org.neo4j.ogm.session.Session;
 import org.neo4j.ogm.session.SessionFactory;
 
+import servicio.dao.ComentarioDAO;
 import servicio.modelo.Comentario;
 import servicio.tipos.ComentarioResultado;
 
@@ -243,12 +244,10 @@ public class OGMComentarioDAO implements ComentarioDAO{
 
 	@Override
 	public List<ComentarioResultado> search(String query) {
-		
 		Session sesion = null;
 		List<ComentarioResultado> comentarios = null;
 		
 		try {
-			
 			synchronized (sessionFactory) {
 				sesion = sessionFactory.openSession();
 			}
@@ -257,26 +256,28 @@ public class OGMComentarioDAO implements ComentarioDAO{
 			Result r = sesion.query(query, Collections.emptyMap());
 			
 			Iterator<Map<String, Object>> it = r.iterator();
+			
 			comentarios = new LinkedList<ComentarioResultado>();
 			
 			//Iteramos sobre el resultado
 			while(it.hasNext()) {
 				Map<String, Object> comentario = it.next();
 				ComentarioResultado c = new ComentarioResultado();
+				
 				c.setAutor(comentario.get("c.autor").toString());
 				c.setFecha(comentario.get("c.fecha").toString());
 				c.setId(comentario.get("c.id").toString());
 				c.setTexto(comentario.get("c.mensaje").toString());
 				c.setImagen(comentario.get("c.imagen").toString());
 				c.setUserPriority(Integer.valueOf(comentario.get("c.userPriority").toString()));
-				c.setPopularidad(Integer.valueOf(comentario.get("c.popularidad").toString()));
-				
+				c.setPopularidad(Integer.valueOf(comentario.get("c.popularidad").toString()));				
 				c.setSentimiento(comentario.get("c.sentimiento").toString());
 				c.setRedSocial(comentario.get("c.redSocial").toString());
 				comentarios.add(c);
 			}
 			
 		} catch (Exception e) {
+			System.err.println(e);
 			return null;
 		}
 		

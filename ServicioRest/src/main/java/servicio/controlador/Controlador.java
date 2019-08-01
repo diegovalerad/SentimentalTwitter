@@ -183,6 +183,24 @@ public class Controlador {
 
 		return cDAO.findById(id);
 	}
+	
+	/**
+	 * 
+	 * @param since
+	 *            Fecha desde la que se buscan comentarios.
+	 * @param until
+	 *            Fecha hasta la que se buscan comentarios.
+	 * @param temas
+	 *            Temas de los que se buscan comentarios
+	 * @param operadores
+	 *            Operadores booleanos.
+	 * @return consulta con los parámetros de búsuqeda.
+	 */
+	public String procesarFecha(String since, String until, 
+			List<String> temas, List<String> operadores) {
+		
+		return DAOFactoria.getUnicaInstancia().procesarFecha(since, until, temas, operadores);
+	}
 
 	/**
 	 * Devuelve una lista de comentarios según la consulta.
@@ -191,7 +209,6 @@ public class Controlador {
 	 * @return Comentarios resultado a la consulta.
 	 */
 	public List<ComentarioResultado> buscar(String query) {
-
 		ComentarioDAO cDAO = DAOFactoria.getUnicaInstancia().getComentarioDAO();
 
 		return cDAO.search(query);

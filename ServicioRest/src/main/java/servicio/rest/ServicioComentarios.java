@@ -21,7 +21,6 @@ import servicio.tipos.ComentarioResultado;
 import servicio.tipos.ListadoComentarios;
 import servicio.tipos.TemaResultado;
 import servicio.utils.CommentsComparator;
-import servicio.utils.ProcesadorBusqueda;
 
 @Path("/temas")
 public class ServicioComentarios {
@@ -56,7 +55,7 @@ public class ServicioComentarios {
 			@QueryParam("tema") List<String> temas,
 			@QueryParam("cond") List<String> operadores) {
 		
-		String query = ProcesadorBusqueda.procesarFecha(since, until, temas, operadores);
+		String query = Controlador.getUnicaInstancia().procesarFecha(since, until, temas, operadores);
 		
 		if(query == null)
 			return Response.status(Response.Status.BAD_REQUEST).build();

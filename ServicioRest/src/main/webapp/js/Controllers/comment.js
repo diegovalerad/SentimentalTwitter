@@ -4,9 +4,22 @@ angular.module('restApp').controller('CommentController', function($scope, $http
         $scope.comentario = response.data;
         $scope.status = response.status;
         $scope.hayRespuestas = false;
+        
+        $scope.comentario.hayEnlaces = true;
+        if (response.data.enlaces.length > 0){
+        	$scope.comentario.hayEnlaces = true;
+        }
+        else
+        	$scope.comentario.hayEnlaces = false;
 
         if ($scope.comentario.respuestas.length > 0){
           $scope.respuestas = $scope.comentario.respuestas;
+          
+          $scope.respuestas.forEach(function (respuesta){
+        	  if (respuesta.enlaces.length > 0)
+        		  respuesta.hayEnlaces = true;
+          });
+          
           $scope.hayRespuestas = true;
         }
     })

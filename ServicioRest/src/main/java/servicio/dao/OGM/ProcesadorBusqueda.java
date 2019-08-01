@@ -1,7 +1,9 @@
-package servicio.utils;
+package servicio.dao.OGM;
 
 import java.util.Date;
 import java.util.List;
+
+import servicio.utils.ProcesadorFechas;
 
 /**
  * Clase con métodos útiles para procesar parámetros de búsqueda
@@ -29,7 +31,7 @@ public class ProcesadorBusqueda {
 
 		String match = "";
 		String where = "";
-		String ret = " RETURN c.id, c.imagen, c.autor, c.fecha, c.mensaje, c.userPriority, c.popularidad, c.sentimiento";
+		String ret = " RETURN c.id, c.imagen, c.autor, c.fecha, c.mensaje, c.userPriority, c.popularidad, c.sentimiento, c.redSocial";
 		String desde = "";
 		String hasta = "";
 		

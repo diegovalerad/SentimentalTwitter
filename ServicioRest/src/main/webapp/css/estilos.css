@@ -773,6 +773,12 @@ header nav a:hover {
 	width: 8%;
 }
 
+.content .infoComment .cuerpo .temas .sentimiento{
+	display: inline;
+	color: black;
+	font-weight: bold;
+}
+
 .separatorDiv {
 	margin: 2em 0 3em;
 	width: 100%;
@@ -787,6 +793,10 @@ header nav a:hover {
 	padding: 0 0.625em;
 	border-style: solid;
 	border-width: 0.03em;
+}
+
+.response{
+	margin-bottom: 1.5em;
 }
 
 /* FOOTER */

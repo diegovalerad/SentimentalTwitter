@@ -1,4 +1,4 @@
-package servicio.dao;
+package servicio.dao.OGM;
 
 import java.util.Collection;
 import java.util.Collections;
@@ -11,6 +11,7 @@ import org.neo4j.ogm.model.Result;
 import org.neo4j.ogm.session.Session;
 import org.neo4j.ogm.session.SessionFactory;
 
+import servicio.dao.TemaDAO;
 import servicio.modelo.Tema;
 import servicio.tipos.TemaResultado;
 

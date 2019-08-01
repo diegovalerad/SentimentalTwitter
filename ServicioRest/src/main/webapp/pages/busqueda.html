@@ -54,14 +54,21 @@
 		<div class="listTittle">
 			<h3>Resultados de la búsqueda</h3>
 		</div>
-		<div class="comentario" ng-repeat='c in resultado'>
+		 
+		 <div class="comentario" ng-repeat='c in resultado'>
 			<div class="imagen">
-				<div class="img" style="background-image: url({{c.imagen}})"></div>
+				<div class= "img" style="background-image: url({{c.imagen}})"></div>
 			</div>
 			<div class="info">
 				<div class="header">
 					<div class="autor">
-						<h2>{{c.autor}}</h2>
+						<div class="h2">
+						{{c.autor}}  |
+						
+							<div style="display: inline;">
+								<img src="images/{{c.redSocial}}.png" alt="RedSocial">
+							</div>
+						</div>
 					</div>
 					<div class="fecha">
 						<h2>{{c.fecha}}</h2>
@@ -73,12 +80,14 @@
 				<div class="enlace">
 					<a href="{{c.uri}}">Ver más</a>
 				</div>
-
-				<div>
-					<h2>Análisis sentimental: {{c.sentimiento}}</h2>
-				</div>
-				
 			</div>
+
+			<div class="h2">
+				{{c.sentimiento}}
+				<img src="images/sentiments/{{c.sentimiento}}.png" alt="Sentimiento">
+			</div>
+
 		</div>
+		
 	</div>
 </div>

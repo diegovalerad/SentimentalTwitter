@@ -154,11 +154,30 @@ header nav a:hover {
 	align-items: center;
 }
 
+.content .cabecera_busqueda{
+	width: 100%;
+	color: #000;
+	padding: 40px;
+	text-align: center;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+}
+
 .content .cabecera .titulo {
 	text-align: center;
 	padding: 5px 0;
 	margin: 5px 10px;
 	width: 100%;
+}
+
+.content .cabecera_busqueda .titulo{
+	text-align: left;
+	padding: 5px 0;
+	margin: 5px 10px;
+	width: 100%;
+	font-weight: bold;
+	font-size: 1.17em;
 }
 
 .content .cabecera .enlace {
@@ -184,7 +203,8 @@ header nav a:hover {
 	background: #6e7dab;
 }
 
-.content .cabecera .descripcion {
+.content .cabecera .descripcion,
+.content .cabecera_busqueda .descripcion {
 	border-top: 1px solid #000;
 	text-align: center;
 	padding: 15px 0;
@@ -192,19 +212,23 @@ header nav a:hover {
 	width: 100%;
 }
 
-.content .cabecera .container {
+
+.content .cabecera .container, 
+.content .cabecera_busqueda .container {
 	position: relative;
 	width: 10%;
 	display: inline-block;
 	cursor: pointer;
 }
 
-.content .cabecera img {
+.content .cabecera img,
+.content .cabecera_busqueda img {
 	height: auto;
 	width: 100%;
 }
 
-.content .cabecera .container .overlay {
+.content .cabecera .container .overlay ,
+.content .cabecera_busqueda .container .overlay {
 	position: absolute;
 	top: 0;
 	bottom: 0;
@@ -217,7 +241,12 @@ header nav a:hover {
 	background-color: #90bede;
 }
 
-.content .cabecera .container:hover .overlay {
+.content .cabecera_busqueda .container .overlay{
+	background-color: #f7f7f7;
+}
+
+.content .cabecera .container:hover .overlay,
+.content .cabecera_busqueda .container:hover .overlay {
 	opacity: 1;
 }
 

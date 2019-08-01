@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="es" ng-app="restApp">
   <head>
     <meta charset="utf-8">
     <base href="/ServicioRest/">
@@ -18,7 +18,7 @@
     <script src="js/Controllers/comment.js"></script>
     <script src="js/functions.js"></script>
     <script src="https://unpkg.com/angular-toastr/dist/angular-toastr.tpls.js"></script>
-    <title>Catálogo de comentarios</title>
+    <title ng-bind="'Repositorio &mdash; ' + title">myApp</title>
   </head>
   <body ng-app="restApp">
     <header id="header">

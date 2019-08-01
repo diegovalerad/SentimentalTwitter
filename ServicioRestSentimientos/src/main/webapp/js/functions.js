@@ -3,7 +3,7 @@ window.onscroll = function() {
 	// Get the navbar
 	var nav = document.getElementById("nav");
 	var header = document.getElementById("header");
-	
+
 	// Get the offset position of the navbar
 	var stickyHeight = header.offsetHeight;
 

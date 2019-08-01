@@ -13,6 +13,12 @@ import servicio.modelo.Valoracion;
  *
  */
 public class StanfordFactoria extends AlgoritmosFactoria {
+	private SentimentAnalyzer sentimentAnalyzer;
+	
+	public StanfordFactoria() {
+		sentimentAnalyzer = new SentimentAnalyzer();
+		sentimentAnalyzer.initialize();
+	}
 	
 	private Sentimiento convertirSentimiento(String sentimiento) {
 		Sentimiento s = Sentimiento.NEUTRAL;
@@ -57,8 +63,6 @@ public class StanfordFactoria extends AlgoritmosFactoria {
 	
 	@Override
 	public Valoracion analizeText(String text) {
-		SentimentAnalyzer sentimentAnalyzer = new SentimentAnalyzer();
-		sentimentAnalyzer.initialize();
 		SentimentResult sentimentResult = sentimentAnalyzer.getSentimentResult(text);
 		
 		Valoracion val = new Valoracion();

@@ -3,8 +3,41 @@
 		<div class="titulo">
 			<h1>{{listado.nombre}}</h1>
 		</div>
-		<div class="descripcion">
+		<div class="descripcion" ng-if="{{listado.descripcion != ''}}">
 			<p>{{listado.descripcion}}</p>
+		</div>
+		<div class="descripcion">
+			<p><b>Filtrar por sentimientos</b></p>
+			<div class = container ng-click="filterSentiment(1)" >
+				<img id="imgSentimentMuyNegativo" src="images/sentiments/MUY_NEGATIVO.png" alt="MuyNegativo">
+				<div class="overlay">
+				 	<div class="text">Muy negativo</div>
+				 </div>
+			</div>
+			<div class = container ng-click="filterSentiment(2)" >
+			<img id="imgSentimentNegativo" src="images/sentiments/NEGATIVO.png" alt="Negativo">
+				<div class="overlay">
+				 	<div class="text">Negativo</div>
+				 </div>
+			</div>
+			<div class = container ng-click="filterSentiment(3)" >
+			<img id="imgSentimentNeutral" src="images/sentiments/NEUTRAL.png" alt="Neutral">
+				<div class="overlay">
+				 	<div class="text">Neutral</div>
+				 </div>
+			</div>
+			<div class = container ng-click="filterSentiment(4)">
+			<img id="imgSentimentPositivo" src="images/sentiments/POSITIVO.png" alt="Positivo">
+				<div class="overlay">
+				 	<div class="text">Positivo</div>
+				 </div>
+			</div>
+			<div class = container ng-click="filterSentiment(5)">
+			<img id="imgSentimentMuyPositivo" src="images/sentiments/MUY_POSITIVO.png" alt="MuyPositivo">
+			<div class="overlay">
+				<div class="text">Muy positivo</div>
+			</div>
+			</div>
 		</div>
 	</div>
 	<div class="listaComentarios">

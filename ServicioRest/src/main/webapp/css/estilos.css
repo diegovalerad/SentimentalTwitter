@@ -192,6 +192,47 @@ header nav a:hover {
 	width: 100%;
 }
 
+.content .cabecera .container {
+	position: relative;
+	width: 10%;
+	display: inline-block;
+	cursor: pointer;
+}
+
+.content .cabecera img {
+	height: auto;
+	width: 100%;
+}
+
+.content .cabecera .container .overlay {
+	position: absolute;
+	top: 0;
+	bottom: 0;
+	left: 0;
+	right: 0;
+	height: 100%;
+	width: 100%;
+	opacity: 0;
+	transition: .5s ease;
+	background-color: #90bede;
+}
+
+.content .cabecera .container:hover .overlay {
+	opacity: 1;
+}
+
+.container .overlay .text {
+	color: black;
+	font-size: 20px;
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	-webkit-transform: translate(-50%, -50%);
+	-ms-transform: translate(-50%, -50%);
+	transform: translate(-50%, -50%);
+	text-align: center;
+}
+
 /*** Formulario temas ***/
 .content .contenedor {
 	width: 100%;
@@ -456,7 +497,7 @@ header nav a:hover {
 	width: 10%;
 }
 
-.listaComentarios .comentario .h2{
+.listaComentarios .comentario .h2 {
 	text-align: center;
 	font-size: 1.5em;
 	margin-top: 0.83em;
@@ -466,7 +507,7 @@ header nav a:hover {
 	font-weight: bold;
 }
 
-.listaComentarios .comentario .h2 img{
+.listaComentarios .comentario .h2 img {
 	width: 30%;
 	display: block;
 	margin-left: auto;

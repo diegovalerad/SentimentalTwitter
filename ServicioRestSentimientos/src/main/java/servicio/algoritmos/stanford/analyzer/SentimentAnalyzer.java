@@ -22,13 +22,16 @@ public class SentimentAnalyzer {
 	 * "Very positive" = 4
 	 */
 
-	static Properties props;
-	static StanfordCoreNLP pipeline;
+	private Properties props;
+	private StanfordCoreNLP pipeline;
 
 	public void initialize() {
 		 // creates a StanfordCoreNLP object, with POS tagging, lemmatization, NER, parsing, and sentiment
 		props = new Properties();
 		props.setProperty("annotators", "tokenize, ssplit, parse, sentiment");
+		//String file = "stanfordES/model.ser.gz";
+		//String model = getClass().getClassLoader().getResource(file).getFile(); 
+		//props.setProperty("sentiment.model", model);
 		pipeline = new StanfordCoreNLP(props);
 	}
 
@@ -53,6 +56,12 @@ public class SentimentAnalyzer {
 				sentimentClass.setNeutral((double)Math.round(sm.get(2) * 100d));
 				sentimentClass.setNegative((double)Math.round(sm.get(1) * 100d));
 				sentimentClass.setVeryNegative((double)Math.round(sm.get(0) * 100d));
+				
+				System.out.println("very positive: " + sentimentClass.getVeryPositive() + "%");
+				System.out.println("positive: " + sentimentClass.getPositive() + "%");
+				System.out.println("neutral: " + sentimentClass.getNeutral() + "%");
+				System.out.println("negative: " + sentimentClass.getNegative() + "%");
+				System.out.println("very negative: " + sentimentClass.getVeryNegative() + "%");
 				
 				sentimentResult.setSentimentScore(RNNCoreAnnotations.getPredictedClass(tree));
 				sentimentResult.setSentimentType(sentimentType);

@@ -31,6 +31,8 @@ public class ConectorSentimentAnalizer {
 		String encodedQuery = encodeValue(texto);
 
 		String completeUrl = baseUrl + encodedQuery;
+		String sentimentAlgorithm = "default";
+		completeUrl += "&algoritmo=" + sentimentAlgorithm;
 		
 		String sentimiento = null;
 		boolean errorObtenerSentimiento = false;

@@ -33,17 +33,18 @@ public class ControladorApacheOpenNLP implements IAlgoritmo {
 		modelLocation = "/apache/apache_opennlp_model.txt";
 		trainModel();
 	}
-	
+
 	@Override
-	public String getNombre() {
-		return "Apache OpenNLP";
+	public Algoritmo getInfoAlgoritmo() {
+		String nombre = "Apache OpenNLP";
+		String desc = "Algoritmo basado en el entrenamiento con un modelo de frases, las cuales tienen asociado si son positivas o negativas.";
+		
+		return new Algoritmo(nombre, desc);
 	}
 	
 	@Override
-	public String getDescripcion() {
-		String desc = "Algoritmo basado en el entrenamiento con un modelo de frases, las cuales tienen asociado si son positivas o negativas.";
-		
-		return desc;
+	public String getAlgoritmoQuery() {
+		return "apacheOpenNP";
 	}
 	
 	private void trainModel() {
@@ -84,7 +85,7 @@ public class ControladorApacheOpenNLP implements IAlgoritmo {
 	@Override
 	public Valoracion analize(String text) {
 		Sentimiento s = classifyNewTweet(text);
-		Algoritmo a = new Algoritmo(getNombre(), getDescripcion());
+		Algoritmo a = getInfoAlgoritmo();
 		
 		Valoracion val = new Valoracion(s, a);
 		

@@ -2,11 +2,11 @@ package servicio.modelo;
 
 public class Algoritmo {
 	private String nombre;
-	private String desc;
+	private String descripcion;
 
 	public Algoritmo(String nombre, String desc) {
 		this.nombre = nombre;
-		this.desc = desc;
+		this.descripcion = desc;
 	}
 
 	public String getNombre() {
@@ -17,11 +17,11 @@ public class Algoritmo {
 		this.nombre = nombre;
 	}
 
-	public String getDesc() {
-		return desc;
+	public String getDescripcion() {
+		return descripcion;
 	}
 
-	public void setDesc(String desc) {
-		this.desc = desc;
+	public void setDescripcion(String descripcion) {
+		this.descripcion = descripcion;
 	}
 }

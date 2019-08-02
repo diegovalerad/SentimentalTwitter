@@ -7,7 +7,7 @@
 					ng-submit="buscar();" method="get">
 			<div class="inputs" id="inputs">
 				<div class="input">
-					<textarea class="textarea" name="descripcion" form="form" ng-model="analisis.descripcion" placeholder="Escribe aquí el texto a analizar." ></textarea>
+					<textarea class="textarea" name="texto" form="form" ng-model="analisis.texto" placeholder="Escribe aquí el texto a analizar." ></textarea>
 				</div>
 			</div>
 			<div class="submit">
@@ -17,15 +17,40 @@
 	</div>
 	
 	<div ng-if="cargando">
-		<img src="images/cargando.gif" alt="cargando">
+		<img class="img_cargando" src="images/cargando.gif" alt="cargando">
 	</div>
 
 	<div class="listaComentarios" ng-if="analisisBusqueda">
 		<div class="listTittle">
 			<h3>Resultados del análisis</h3>
 		</div>
-		<div>
-			<h2>Resultado: {{analisisResultado.sentimiento}}</h2>
+		<div class="comentario" ng-repeat='analisis in analisisResultado'>
+			<div class = "algoritmo_nombre">
+				<div class="algoritmo_nombre_label">
+					Algoritmo
+				</div>
+				<div class="algoritmo_nombre_text">
+					{{analisis.algoritmo.nombre}}
+				</div>
+			</div>
+			<div class = "algoritmo_descripcion">
+				<div class="algoritmo_descripcion_label">
+					Descripcion
+				</div>
+				<div class="algoritmo_descripcion_text">
+					{{analisis.algoritmo.descripcion}}
+				</div>
+			</div>
+			
+			<div class="vertical_line"></div>
+			
+			<div class = "algoritmo_resultado">
+				<div class="algoritmo_resultado_label">
+					Resultado: {{analisis.sentimiento}}
+				</div>
+				
+				<img src="images/sentiments/{{analisis.sentimiento}}.png" alt="Sentimiento">
+			</div>
 		</div>
 	</div>
 </div>

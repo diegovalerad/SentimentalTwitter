@@ -1,10 +1,15 @@
 package servicio.algoritmos;
 
+import servicio.modelo.Algoritmo;
 import servicio.modelo.Valoracion;
 
 public interface IAlgoritmo {
-	public String getNombre();
-	public String getDescripcion();
+	public Algoritmo getInfoAlgoritmo();
+	
+	/**
+	 * @return Cadena con el string a usar para usarlo en la búsqueda REST
+	 */
+	public String getAlgoritmoQuery();
 	
 	public Valoracion analize(String text);
 }

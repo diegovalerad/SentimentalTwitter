@@ -3,7 +3,7 @@ angular.module('restApp').controller('AnalysisController', function($scope, $htt
 	$scope.cargando = false;
 
 	$scope.buscar = function(){
-		if (!$scope.analisis || $scope.analisis.descripcion == ""){
+		if (!$scope.analisis || $scope.analisis.texto == ""){
 			$scope.analisisBusqueda = false;
 			toastr.info('Escribe primero en el área de texto','Info ', {
 				 timeOut: 3000
@@ -12,7 +12,8 @@ angular.module('restApp').controller('AnalysisController', function($scope, $htt
 			$scope.cargando = true;
 
 			var url = "http://localhost:8080/ServicioRestSentimientos/rest/analisis/analize?texto=";
-			url += $scope.analisis.descripcion;
+			url += $scope.analisis.texto;
+			url += "&algoritmo=todos";
 			
 			$http.get(url)
 

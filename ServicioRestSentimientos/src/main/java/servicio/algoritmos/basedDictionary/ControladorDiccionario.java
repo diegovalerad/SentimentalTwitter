@@ -54,15 +54,16 @@ public class ControladorDiccionario implements IAlgoritmo {
 	}
 	
 	@Override
-	public String getNombre() {
-		return "Basado en diccionario";
-	}
-
-	@Override
-	public String getDescripcion() {
+	public Algoritmo getInfoAlgoritmo() {
+		String nombre = "Basado en diccionario";
 		String desc = "Algoritmo basado en un diccionario de palabras, donde cada palabra tiene asociada lo positivo o negativo que es.";
 		
-		return desc;
+		return new Algoritmo(nombre, desc);
+	}
+	
+	@Override
+	public String getAlgoritmoQuery() {
+		return "diccionario";
 	}
 
 	/**
@@ -203,7 +204,7 @@ public class ControladorDiccionario implements IAlgoritmo {
 		int sentimentValue = getSentimentValue(text);
 		
 		Sentimiento s = sentimentValueToSentiment(sentimentValue);
-		Algoritmo a = new Algoritmo(getNombre(), getDescripcion());
+		Algoritmo a = getInfoAlgoritmo();
 		
 		Valoracion val = new Valoracion(s, a);
 		

@@ -14,7 +14,8 @@ import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import servicio.algoritmos.AlgoritmosFactoria;
+import servicio.algoritmos.IAlgoritmo;
+import servicio.modelo.Algoritmo;
 import servicio.modelo.Sentimiento;
 import servicio.modelo.Valoracion;
 
@@ -25,7 +26,7 @@ import servicio.modelo.Valoracion;
  * @author Diego Valera Duran
  *
  */
-public class BasedDictionary extends AlgoritmosFactoria {
+public class ControladorDiccionario implements IAlgoritmo {
 	private final String folder = "basedDictionary/";
 	private final String stopWordsFile = folder + "stopwords.txt";
 	private final String afinnFile = folder + "AFINN.txt";
@@ -34,7 +35,7 @@ public class BasedDictionary extends AlgoritmosFactoria {
 	private Map<String, String> afinn;
 	private Map<String, String> emote;
 
-	public BasedDictionary() {
+	public ControladorDiccionario() {
 		try {
 			getStopWords();
 		} catch (IOException e) {
@@ -50,6 +51,18 @@ public class BasedDictionary extends AlgoritmosFactoria {
 		} catch (IOException e) {
 			System.err.println("Error al acceder al fichero emote");
 		}
+	}
+	
+	@Override
+	public String getNombre() {
+		return "Basado en diccionario";
+	}
+
+	@Override
+	public String getDescripcion() {
+		String desc = "Algoritmo basado en un diccionario de palabras, donde cada palabra tiene asociada lo positivo o negativo que es.";
+		
+		return desc;
 	}
 
 	/**
@@ -76,7 +89,7 @@ public class BasedDictionary extends AlgoritmosFactoria {
 	 * @throws IOException Excepción en caso de no encontrar el fichero.
 	 */
 	private void getAFINN() throws IOException {
-		emote = new HashMap<String, String>();
+		afinn = new HashMap<String, String>();
 		File file = new File(getClass().getClassLoader().getResource(afinnFile).getFile());
 		BufferedReader in = null;
 		in = new BufferedReader(new FileReader(file));
@@ -84,7 +97,7 @@ public class BasedDictionary extends AlgoritmosFactoria {
 		String line = "";
 		while ((line = in.readLine()) != null) {
 			String parts[] = line.split("\t");
-			emote.put(parts[0], parts[1]);
+			afinn.put(parts[0], parts[1]);
 		}
 		in.close();
 	}
@@ -95,7 +108,7 @@ public class BasedDictionary extends AlgoritmosFactoria {
 	 * @throws IOException Excepción en caso de no encontrar el fichero.
 	 */
 	private void getEmote() throws IOException{
-		afinn = new HashMap<String, String>();
+		emote = new HashMap<String, String>();
 		File file = new File(getClass().getClassLoader().getResource(emoteFile).getFile());
 		BufferedReader in = null;
 		in = new BufferedReader(new FileReader(file));
@@ -103,7 +116,7 @@ public class BasedDictionary extends AlgoritmosFactoria {
 		String line = "";
 		while ((line = in.readLine()) != null) {
 			String parts[] = line.split("\t");
-			afinn.put(parts[0], parts[1]);
+			emote.put(parts[0], parts[1]);
 		}
 		in.close();
 	}
@@ -153,7 +166,7 @@ public class BasedDictionary extends AlgoritmosFactoria {
 				if (wordIsNegative(wordLowerCase)) {
 					negative = true;
 				}else if (emote.get(word) != null) {
-					String wordscore = afinn.get(word);
+					String wordscore = emote.get(word);
 					tweetScoreLocal += Integer.parseInt(wordscore);
 					nLocal++;
 				}else if (afinn.get(wordLowerCase) != null) {
@@ -186,13 +199,13 @@ public class BasedDictionary extends AlgoritmosFactoria {
 	}
 
 	@Override
-	public Valoracion analizeText(String text) {
+	public Valoracion analize(String text) {
 		int sentimentValue = getSentimentValue(text);
 		
-		Valoracion val = new Valoracion();
 		Sentimiento s = sentimentValueToSentiment(sentimentValue);
-		val.setSentimiento(s);
-		val.setExplicacion("");
+		Algoritmo a = new Algoritmo(getNombre(), getDescripcion());
+		
+		Valoracion val = new Valoracion(s, a);
 		
 		return val;
 	}

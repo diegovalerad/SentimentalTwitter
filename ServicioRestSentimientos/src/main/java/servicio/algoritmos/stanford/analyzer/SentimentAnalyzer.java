@@ -57,11 +57,12 @@ public class SentimentAnalyzer {
 				sentimentClass.setNegative((double)Math.round(sm.get(1) * 100d));
 				sentimentClass.setVeryNegative((double)Math.round(sm.get(0) * 100d));
 				
+				/*
 				System.out.println("very positive: " + sentimentClass.getVeryPositive() + "%");
 				System.out.println("positive: " + sentimentClass.getPositive() + "%");
 				System.out.println("neutral: " + sentimentClass.getNeutral() + "%");
 				System.out.println("negative: " + sentimentClass.getNegative() + "%");
-				System.out.println("very negative: " + sentimentClass.getVeryNegative() + "%");
+				System.out.println("very negative: " + sentimentClass.getVeryNegative() + "%");*/
 				
 				sentimentResult.setSentimentScore(RNNCoreAnnotations.getPredictedClass(tree));
 				sentimentResult.setSentimentType(sentimentType);

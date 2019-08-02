@@ -12,7 +12,9 @@ import opennlp.tools.doccat.DocumentSample;
 import opennlp.tools.doccat.DocumentSampleStream;
 import opennlp.tools.util.ObjectStream;
 import opennlp.tools.util.PlainTextByLineStream;
-import servicio.algoritmos.AlgoritmosFactoria;
+
+import servicio.algoritmos.IAlgoritmo;
+import servicio.modelo.Algoritmo;
 import servicio.modelo.Sentimiento;
 import servicio.modelo.Valoracion;
 
@@ -23,19 +25,31 @@ import servicio.modelo.Valoracion;
  * @author Diego Valera Duran
  *
  */
-public class ApacheOpenNLPFactoria extends AlgoritmosFactoria {
+public class ControladorApacheOpenNLP implements IAlgoritmo {
 	private DoccatModel model;
 	private String modelLocation;
 	
-	public ApacheOpenNLPFactoria() {
+	public ControladorApacheOpenNLP() {
 		modelLocation = "/apache/apache_opennlp_model.txt";
 		trainModel();
+	}
+	
+	@Override
+	public String getNombre() {
+		return "Apache OpenNLP";
+	}
+	
+	@Override
+	public String getDescripcion() {
+		String desc = "Algoritmo basado en el entrenamiento con un modelo de frases, las cuales tienen asociado si son positivas o negativas.";
+		
+		return desc;
 	}
 	
 	private void trainModel() {
 		InputStream dataIn = null;
 		try {
-			File testf = new File( ApacheOpenNLPFactoria.class.getResource( modelLocation ).toURI() );
+			File testf = new File( ControladorApacheOpenNLP.class.getResource( modelLocation ).toURI() );
 			dataIn = new FileInputStream(testf);
 			ObjectStream<String> lineStream = new PlainTextByLineStream(dataIn, "UTF-8");
 			ObjectStream<DocumentSample> sampleStream = new DocumentSampleStream(lineStream);
@@ -68,12 +82,11 @@ public class ApacheOpenNLPFactoria extends AlgoritmosFactoria {
 	}
 	
 	@Override
-	public Valoracion analizeText(String text) {
+	public Valoracion analize(String text) {
 		Sentimiento s = classifyNewTweet(text);
+		Algoritmo a = new Algoritmo(getNombre(), getDescripcion());
 		
-		Valoracion val = new Valoracion();
-		val.setSentimiento(s);
-		val.setExplicacion("");
+		Valoracion val = new Valoracion(s, a);
 		
 		return val;
 	}

@@ -1,5 +1,7 @@
 package servicio.rest;
 
+import java.util.List;
+
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
@@ -21,8 +23,8 @@ public class ServicioAnalisis {
 	@Path("analize")
 	@Produces({ MediaType.APPLICATION_JSON })
 	public Response analize(@QueryParam("texto") String texto) {
-		Valoracion val = Controlador.getUnicaInstancia().analizarTexto(texto);
+		List<Valoracion> valoraciones = Controlador.getUnicaInstancia().analizarTexto(texto);
 		
-		return Response.status(200).entity(val).build();
+		return Response.status(200).entity(valoraciones.get(0)).build();
 	}
 }

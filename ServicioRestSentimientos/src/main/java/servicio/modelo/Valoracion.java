@@ -2,9 +2,12 @@ package servicio.modelo;
 
 public class Valoracion {
 	private Sentimiento sentimiento;
-	private String explicacion;
-	
-	public Valoracion() {}
+	private Algoritmo algoritmo;
+
+	public Valoracion(Sentimiento sentimiento, Algoritmo algoritmo) {
+		this.sentimiento = sentimiento;
+		this.algoritmo = algoritmo;
+	}
 
 	public Sentimiento getSentimiento() {
 		return sentimiento;
@@ -14,11 +17,12 @@ public class Valoracion {
 		this.sentimiento = sentimiento;
 	}
 
-	public String getExplicacion() {
-		return explicacion;
+	public Algoritmo getAlgoritmo() {
+		return algoritmo;
 	}
 
-	public void setExplicacion(String explicacion) {
-		this.explicacion = explicacion;
+	public void setAlgoritmo(Algoritmo algoritmo) {
+		this.algoritmo = algoritmo;
 	}
+
 }

@@ -30,4 +30,13 @@ public class ServicioAnalisis {
 		
 		return Response.status(200).entity(valoraciones).build();
 	}
+	
+	@GET
+	@Path("api-parameters")
+	@Produces({ MediaType.APPLICATION_JSON })
+	public Response getApiParameters() {
+		String[][] api_info = Controlador.getUnicaInstancia().getInformacionAlgoritmosAndQuery();
+		
+		return Response.status(200).entity(api_info).build();
+	}
 }

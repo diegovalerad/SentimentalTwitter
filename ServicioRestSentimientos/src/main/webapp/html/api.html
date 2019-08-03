@@ -1,0 +1,80 @@
+<div class="content" ng-controller='APIController'>
+	<div class="api_titulo">
+		<h2>{{titulo}}</h2>
+	</div>
+	<div class="api_texto">
+		<p>Nuestra página dispone de una API REST, que puedes utilizar para conectar tu página WEB o tu aplicación, y así analizar los sentimientos de tus textos.</p>
+	</div>
+	
+	<div class="api_titulo">
+		<h2>¿Qué tengo que hacer?</h2>
+	</div>
+	<div class="api_texto">
+		<p>Lo único que necesitas es conocer la dirección IP donde está alojado nuestro servicio. Contacte con un administrador para más detalles.</p>
+		<br>
+		<p>Una vez la dirección IP, es tan sencillo como realizar una petición a dicha dirección:</p>
+		<br>
+		<p class="api_texto api_texto_url">http://direccionIP:puerto/ServicioRestSentimientos/rest/analize?texto=TEXTO&amp;algoritmo=QUERY</p>
+		<br>
+		<p>Sustituimos la parte de TEXTO por nuestro texto a analizar, codificada correctamente</p> 
+		<p>En la parte de QUERY, podemos elegir uno de los posibles algoritmos para obtener el sentimiento del texto</p>
+		
+		<div class="api_texto">
+			<table>
+				<tr>
+				    <th>Nombre</th>
+				    <th>Descripción</th>
+				    <th>Query</th>
+				</tr>
+				<tr ng-repeat='a in algoritmos'>
+					<td>{{a[0]}}</td>
+					<td>{{a[1]}}</td>
+					<td>{{a[2]}}</td>
+				</tr>
+				
+			</table>
+		</div>
+		
+		<br>
+		<p>Si sólo introducimos el texto y no el algoritmo, la API responderá con los análisis de todos los algoritmos.</p>
+		<p>Si introducimos mal el algoritmo, la API analizará el texto con el analizador por defecto.</p>
+	</div>
+	
+	<div class="api_titulo">
+		<h2>¿Qué me manda la API?</h2>
+	</div>
+	<div class="api_texto">
+		<p>La API te manda un objeto JSON. Este objeto, está compuesto por una lista de objetos tipo Valoración. Cada valoración, está compuesta a su vez por un objeto de tipo Sentimiento, y otro de tipo Algoritmo.
+		<br>
+		El de tipo Sentimiento es un objeto de un enumerado, con los valores MUY_NEGATIVO, NEGATIVO, NEUTRAL, POSITIVO y MUY_POSITIVO.
+		<br>
+		El de tipo Algoritmo, consta de dos cadenas de texto, que indican el nombre y la descripción
+		del algoritmo usado.
+		<br>
+		<br>
+		<p>Aquí tenemos un ejemplo, donde sólo hemos introducido el texto a analizar, por lo que nos envía los análisis de todos los algoritmos:<p>
+		<br>
+		
+		<textarea readonly cols="30" rows="10">{{txt_area_json_analizar}}</textarea>
+		
+	</div>
+	
+	<div class="api_titulo">
+		<h2>¿Puedo obtener la lista de algoritmos también a través de la API?</h2>
+	</div>
+	<div class="api_texto">
+		<p>¡Claro! Para obtener la lista de algoritmos, tienes que realizar una petición a: </p>
+		<br>
+		<p class="api_texto api_texto_url">http://direccionIP:puerto/ServicioRestSentimientos/rest/api-parameters</p>
+		<br>
+		
+		<p>El resultado será un objeto JSON.Este objeto, está formado por un ARRAY de 2 dimensiones, donde la primera dimensión corresponde a cada algoritmo, mientras que la otra, está compuesta por 3 campos: el nombre, la descripción y la QUERY para usar con REST.</p>
+		<br>
+		<p>Aquí tenemos un ejemplo:<p>
+		<br>
+		
+		<textarea readonly cols="30" rows="10">{{txt_area_json_algoritmos}}</textarea>
+		
+		</p> 
+	</div>
+</div>

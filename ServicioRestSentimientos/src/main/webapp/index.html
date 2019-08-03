@@ -13,10 +13,12 @@
     <script src="js/Controllers/app.js"></script>
     <script src="js/Controllers/home.js"></script>
     <script src="js/Controllers/analysis.js"></script>
+    <script src="js/Controllers/api.js"></script>
     <script src="js/functions.js"></script>
     <script src="https://unpkg.com/angular-toastr/dist/angular-toastr.tpls.js"></script>
     
     <title ng-bind="'Análisis sentimental de textos &mdash; ' + title">Análisis sentimental de textos</title>
+    <title ng-bind="title + ' &mdash; Análisis sentimental de textos'">Análisis sentimental de textos</title>
   </head>
   <body ng-app="restApp">
     <header id="header">
@@ -32,6 +34,14 @@
 
     </section>
     <footer>
+    	<div class="top">
+			<div class="enlaces">
+				<div class="titulo">
+					<h4>Enlaces del sitio</h4>
+				</div>
+        		<a href="api">Conecta con nuestra API</a>
+			</div>
+		</div>
 		<div class="bottom">
 			<p>Todos los derechos reservados.</p>
 		</div>

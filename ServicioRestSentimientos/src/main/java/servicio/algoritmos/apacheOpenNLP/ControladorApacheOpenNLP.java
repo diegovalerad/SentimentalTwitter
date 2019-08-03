@@ -25,25 +25,34 @@ import servicio.modelo.Valoracion;
  *
  */
 public class ControladorApacheOpenNLP implements IAlgoritmo {
+	private String nombre;
+	private String desc;
+	private String algoritmoQuery;
+	
 	private DoccatModel model;
 	private String modelLocation;
 	
 	public ControladorApacheOpenNLP() {
+		nombre = "Apache OpenNLP";
+		desc = "Algoritmo basado en el entrenamiento con un modelo de frases, las cuales tienen asociado si son positivas o negativas.";
+		algoritmoQuery = "apacheOpenNP";
+		
 		modelLocation = "/apache/apache_opennlp_model.txt";
 		trainModel();
 	}
 
 	@Override
-	public Algoritmo getInfoAlgoritmo() {
-		String nombre = "Apache OpenNLP";
-		String desc = "Algoritmo basado en el entrenamiento con un modelo de frases, las cuales tienen asociado si son positivas o negativas.";
-		
-		return new Algoritmo(nombre, desc);
+	public String[] getInfoAlgoritmo() {
+		String info[] = new String[3];
+		info[0] = nombre;
+		info[1] = desc;
+		info[2] = algoritmoQuery;
+		return info;
 	}
 	
 	@Override
 	public String getAlgoritmoQuery() {
-		return "apacheOpenNP";
+		return algoritmoQuery;
 	}
 	
 	private void trainModel() {
@@ -85,7 +94,7 @@ public class ControladorApacheOpenNLP implements IAlgoritmo {
 	@Override
 	public Valoracion analize(String text) {
 		Sentimiento s = classifyNewTweet(text);
-		Algoritmo a = getInfoAlgoritmo();
+		Algoritmo a = new Algoritmo(nombre, desc);
 		
 		Valoracion val = new Valoracion(s, a);
 		

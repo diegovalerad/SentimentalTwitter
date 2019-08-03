@@ -15,6 +15,7 @@ public class Controlador {
 	private static Controlador unicaInstancia;
 	private List<IAlgoritmo> algoritmos;
 	private IAlgoritmo algoritmo_por_defecto;
+	private String queryTodosLosAlgoritmos;
 	
 	private Controlador() {
 		//Para evitar warning: WARN No appenders could be found for logger (edu.stanford.nlp.pipeline.StanfordCoreNLP)
@@ -41,6 +42,8 @@ public class Controlador {
 		algoritmos.add(stanfordES);
 		
 		algoritmo_por_defecto = stanford;
+		
+		queryTodosLosAlgoritmos = "todos";
 	}
 	
 	public static Controlador getUnicaInstancia() {
@@ -53,7 +56,7 @@ public class Controlador {
 		String stanfordModelES = "stanfordES/model.ser.gz";
 		String stanfordModelES_nombre = "Stanford CorenNLP - Español";
 		String stanfordModelES_desc = "Variante del algoritmo basado en Stanford CoreNLP, donde utilizamos un modelo propio creado a partir de palabras españolas.";
-		String stanfordModelES_query = "stanfordCoreNLP_ES";
+		String stanfordModelES_query = "stanford_ES";
 		IAlgoritmo stanfordES = new ControladorStanford(stanfordModelES, stanfordModelES_nombre, stanfordModelES_desc, stanfordModelES_query);
 		return stanfordES;
 	}
@@ -61,7 +64,7 @@ public class Controlador {
 	public List<Valoracion> analizarTexto(String texto, String algoritmo) {
 		List<Valoracion> valoraciones = new LinkedList<Valoracion>();
 		
-		if (algoritmo.equals("todos")) {
+		if (algoritmo.equals(queryTodosLosAlgoritmos)) {
 			for (IAlgoritmo a : algoritmos) {
 				Valoracion v = a.analize(texto);
 				valoraciones.add(v);
@@ -85,5 +88,23 @@ public class Controlador {
 		}
 		
 		return valoraciones;
+	}
+	
+	/**
+	 * @return Devuelve un array de 3 elementos con la información de los algoritmos. El array está compuesto por nombre, descripción y query para el servicio REST 
+	 */
+	public String[][] getInformacionAlgoritmosAndQuery() {
+		String[][] lista = new String[algoritmos.size() + 1][];
+		
+		String[] todosLosAlgoritmos = new String[3];
+		todosLosAlgoritmos[0] = "Todos";
+		todosLosAlgoritmos[1] = "Se analiza el texto con todos los algoritmos y se devuelven todos los resultados";
+		todosLosAlgoritmos[2] = queryTodosLosAlgoritmos;
+		lista[0] = todosLosAlgoritmos;
+		
+		for (int i = 0; i < algoritmos.size(); i++) {
+			lista[i+1] = algoritmos.get(i).getInfoAlgoritmo();
+		}
+		return lista;
 	}
 }

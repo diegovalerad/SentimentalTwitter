@@ -27,6 +27,10 @@ import servicio.modelo.Valoracion;
  *
  */
 public class ControladorDiccionario implements IAlgoritmo {
+	private String nombre;
+	private String desc;
+	private String algoritmoQuery;
+	
 	private final String folder = "basedDictionary/";
 	private final String stopWordsFile = folder + "stopwords.txt";
 	private final String afinnFile = folder + "AFINN.txt";
@@ -36,6 +40,10 @@ public class ControladorDiccionario implements IAlgoritmo {
 	private Map<String, String> emote;
 
 	public ControladorDiccionario() {
+		nombre = "Basado en diccionario";
+		desc = "Algoritmo basado en un diccionario de palabras, donde cada palabra tiene asociada lo positivo o negativo que es.";
+		algoritmoQuery = "diccionario";
+		
 		try {
 			getStopWords();
 		} catch (IOException e) {
@@ -54,16 +62,17 @@ public class ControladorDiccionario implements IAlgoritmo {
 	}
 	
 	@Override
-	public Algoritmo getInfoAlgoritmo() {
-		String nombre = "Basado en diccionario";
-		String desc = "Algoritmo basado en un diccionario de palabras, donde cada palabra tiene asociada lo positivo o negativo que es.";
-		
-		return new Algoritmo(nombre, desc);
+	public String[] getInfoAlgoritmo() {
+		String info[] = new String[3];
+		info[0] = nombre;
+		info[1] = desc;
+		info[2] = algoritmoQuery;
+		return info;
 	}
 	
 	@Override
 	public String getAlgoritmoQuery() {
-		return "diccionario";
+		return algoritmoQuery;
 	}
 
 	/**
@@ -204,7 +213,7 @@ public class ControladorDiccionario implements IAlgoritmo {
 		int sentimentValue = getSentimentValue(text);
 		
 		Sentimiento s = sentimentValueToSentiment(sentimentValue);
-		Algoritmo a = getInfoAlgoritmo();
+		Algoritmo a = new Algoritmo(nombre, desc);
 		
 		Valoracion val = new Valoracion(s, a);
 		

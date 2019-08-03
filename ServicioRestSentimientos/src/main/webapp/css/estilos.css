@@ -373,6 +373,65 @@ div.vertical_line{
 	color: #fff;
 }
 
+/* API */
+
+.content .api_titulo {
+	font-family: "Roboto";
+	text-align: left;
+	padding: 5px;
+	border-bottom: 1px solid #000;
+	width: 95%;
+}
+
+.content .api_texto {
+	font-family: "Roboto";
+	text-align: justify;
+	width: 90%;
+	margin: auto;
+	padding: 20px 5px;
+}
+
+.content .api_texto .api_texto_url{
+	text-align: center;
+	border: 1px solid gray;
+	padding-top: 1em;
+	padding-bottom: 1em;
+}
+
+.api_texto_url .api_texto_url_variable{
+	font-style: italic;
+}
+
+.api_texto table {
+  	font-family: "Roboto", arial, sans-serif;
+  	border-collapse: collapse;
+  	width: 100%;
+}
+
+.api_texto td, th {
+	 border: 1px solid #dddddd;
+	 text-align: center;
+	 padding: 8px;
+}
+
+.api_texto td{
+	padding-top: 1em;
+	padding-bottom: 1em;
+}
+
+.api_texto tr:nth-child(even) {
+  background-color: #dddddd;
+}
+
+.api_texto textarea {
+  width: 100%;
+  min-height: 30rem;
+  font-family: "Lucida Console", Monaco, monospace;
+  font-size: 0.8rem;
+  line-height: 1.2;
+  resize: vertical;
+}
+
 /* FOOTER */
 footer {
 	width: 100%;

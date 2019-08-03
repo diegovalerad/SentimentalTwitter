@@ -14,6 +14,12 @@ app.config(function($routeProvider, $locationProvider) {
 		templateUrl : 'html/analysis.html',
 		controller 	: 'AnalysisController'
 	})
+	
+	.when('/api', {
+		title		: 'API',
+		templateUrl	: 'html/api.html',
+		controller	: 'APIController'
+	})
 
 	.otherwise({
 		redirectTo : '/'

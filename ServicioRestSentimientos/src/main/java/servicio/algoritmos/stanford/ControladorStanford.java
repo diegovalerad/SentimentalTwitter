@@ -24,16 +24,20 @@ public class ControladorStanford implements IAlgoritmo {
 		sentimentAnalyzer.initialize(customModelLocation);
 		this.nombre = nombre;
 		this.desc = desc;
+		this.algoritmoQuery = algoritmoQuery;
 	}
 	
 	public ControladorStanford() {
-		this(null, "Stanford CoreNLP", "Algoritmo que usa la API de Stanford CoreNLP para realizar el análisis de sentimientos", "stanfordCoreNLP");
+		this(null, "Stanford CoreNLP", "Algoritmo que usa la API de Stanford CoreNLP para realizar el análisis de sentimientos", "stanford");
 	}
 	
 	@Override
-	public Algoritmo getInfoAlgoritmo() {
-		Algoritmo a = new Algoritmo(nombre, desc);
-		return a;
+	public String[] getInfoAlgoritmo() {
+		String info[] = new String[3];
+		info[0] = nombre;
+		info[1] = desc;
+		info[2] = algoritmoQuery;
+		return info;
 	}
 	
 	@Override
@@ -69,7 +73,7 @@ public class ControladorStanford implements IAlgoritmo {
 		SentimentResult sentimentResult = sentimentAnalyzer.getSentimentResult(text);
 		
 		Sentimiento s = convertirSentimiento(sentimentResult.getSentimentType());
-		Algoritmo a = getInfoAlgoritmo();
+		Algoritmo a = new Algoritmo(nombre, desc);
 		Valoracion val = new Valoracion(s, a);
 		
 		return val;

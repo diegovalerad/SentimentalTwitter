@@ -30,13 +30,4 @@ public class ServicioAnalisis {
 		
 		return Response.status(200).entity(valoraciones).build();
 	}
-	
-	@GET
-	@Path("algorithms")
-	@Produces({ MediaType.APPLICATION_JSON })
-	public Response algorithms() {
-		List<String> algoritmos = Controlador.getUnicaInstancia().getQuerysAlgoritmosValidas();
-		
-		return Response.status(200).entity(algoritmos).build();
-	}
 }

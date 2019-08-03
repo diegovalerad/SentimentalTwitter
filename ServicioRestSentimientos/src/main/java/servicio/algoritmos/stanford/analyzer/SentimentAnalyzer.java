@@ -25,13 +25,15 @@ public class SentimentAnalyzer {
 	private Properties props;
 	private StanfordCoreNLP pipeline;
 
-	public void initialize() {
+	public void initialize(String customModelLocation) {
 		 // creates a StanfordCoreNLP object, with POS tagging, lemmatization, NER, parsing, and sentiment
 		props = new Properties();
 		props.setProperty("annotators", "tokenize, ssplit, parse, sentiment");
-		//String file = "stanfordES/model.ser.gz";
-		//String model = getClass().getClassLoader().getResource(file).getFile(); 
-		//props.setProperty("sentiment.model", model);
+		if (customModelLocation != null) {
+			String model = getClass().getClassLoader().getResource(customModelLocation).getFile(); 
+			if (model != "")
+				props.setProperty("sentiment.model", model);
+		}
 		pipeline = new StanfordCoreNLP(props);
 	}
 

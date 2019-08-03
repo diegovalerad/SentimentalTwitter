@@ -12,7 +12,6 @@ import opennlp.tools.doccat.DocumentSample;
 import opennlp.tools.doccat.DocumentSampleStream;
 import opennlp.tools.util.ObjectStream;
 import opennlp.tools.util.PlainTextByLineStream;
-
 import servicio.algoritmos.IAlgoritmo;
 import servicio.modelo.Algoritmo;
 import servicio.modelo.Sentimiento;
@@ -57,6 +56,7 @@ public class ControladorApacheOpenNLP implements IAlgoritmo {
 			// Specifies the minimum number of times a feature must be seen
 			int cutoff = 2;
 			int trainingIterations = 30;
+			
 			model = DocumentCategorizerME.train("en", sampleStream, cutoff, trainingIterations);
 		} catch (IOException | URISyntaxException e) {
 			e.printStackTrace();

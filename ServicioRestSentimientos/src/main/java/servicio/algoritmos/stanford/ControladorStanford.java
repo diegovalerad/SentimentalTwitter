@@ -15,23 +15,30 @@ import servicio.modelo.Valoracion;
  */
 public class ControladorStanford implements IAlgoritmo {
 	private SentimentAnalyzer sentimentAnalyzer;
+	private String nombre;
+	private String desc;
+	private String algoritmoQuery;
+	
+	public ControladorStanford(String customModelLocation, String nombre, String desc, String algoritmoQuery) {
+		sentimentAnalyzer = new SentimentAnalyzer();
+		sentimentAnalyzer.initialize(customModelLocation);
+		this.nombre = nombre;
+		this.desc = desc;
+	}
 	
 	public ControladorStanford() {
-		sentimentAnalyzer = new SentimentAnalyzer();
-		sentimentAnalyzer.initialize();
+		this(null, "Stanford CoreNLP", "Algoritmo que usa la API de Stanford CoreNLP para realizar el análisis de sentimientos", "stanfordCoreNLP");
 	}
 	
 	@Override
 	public Algoritmo getInfoAlgoritmo() {
-		String nombre = "Stanford CoreNLP";
-		String desc = "Algoritmo que usa la API de Stanford CoreNLP para realizar el análisis de sentimientos";
 		Algoritmo a = new Algoritmo(nombre, desc);
 		return a;
 	}
 	
 	@Override
 	public String getAlgoritmoQuery() {
-		return "stanfordCoreNLP";
+		return algoritmoQuery;
 	}
 	
 	private Sentimiento convertirSentimiento(String sentimiento) {

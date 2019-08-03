@@ -6,7 +6,7 @@
 		<div class="descripcion" ng-if="{{listado.descripcion != ''}}">
 			<p>{{listado.descripcion}}</p>
 		</div>
-		<div class="descripcion">
+		<div class="descripcion" ng-if="sentimientos">
 			<p><b>Filtrar por sentimientos</b></p>
 				<div class = container ng-click="filterSentiment(1)" >
 				<img id="imgSentimentMuyNegativo" src="images/sentiments/MUY_NEGATIVO.png" alt="MuyNegativo">
@@ -89,7 +89,7 @@
 				</div>
 			</div>
 
-			<div class="h2">
+			<div class="h2" ng-if="sentimientos">
 				{{c.sentimiento}}
 				<img src="images/sentiments/{{c.sentimiento}}.png" alt="Sentimiento">
 			</div>

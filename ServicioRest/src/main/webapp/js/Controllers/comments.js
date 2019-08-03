@@ -1,4 +1,5 @@
-angular.module('restApp').controller('CommentsController', function($scope, $http, $routeParams) {
+angular.module('restApp').controller('CommentsController', function($scope, $http, $routeParams, sharedProperties) {
+	$scope.sentimientos = true;
 	var sentVeryNegative = true;
 	var sentNegative = true;
 	var sentNeutral = true;
@@ -20,6 +21,11 @@ angular.module('restApp').controller('CommentsController', function($scope, $htt
         response.data.lista.forEach(function(element){
 			listaComentariosOriginal.push(element);
 		})
+		
+		var isSentimentServiceConnected = sharedProperties.isSentimentServiceConnected();
+		if (!isSentimentServiceConnected){
+			$scope.sentimientos = false;
+		}
     })
     .catch(function activateError(error) {
     	 $scope.status = error.status;

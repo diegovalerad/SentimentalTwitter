@@ -42,7 +42,7 @@
 				</div>
 			</div>
 
-			<div class="temas">
+			<div class="temas" ng-if="sentimientos">
 				<div class="tag" style="display: inline;">
 					Análisis sentimental: <div class="sentimiento">{{comentario.sentimiento}}</div> 
 					<div style="display: inline;">
@@ -94,7 +94,7 @@
 					</div>
 				</div>
 
-				<div class="temas">
+				<div class="temas" ng-if="{{sentimientos}}">
 					<div class="tag" style="display: inline;">
 						Análisis sentimental: <div class="sentimiento">{{r.sentimiento}}</div> 
 						<div style="display: inline;">

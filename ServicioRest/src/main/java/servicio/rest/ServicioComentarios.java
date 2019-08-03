@@ -136,4 +136,15 @@ public class ServicioComentarios {
 		return Response.status(200).entity(c).build();		
 	}
 	
+	@GET
+	@Path("isSentimentServiceConnected")
+	@Produces(MediaType.APPLICATION_JSON)
+	public Response isSentimentServiceConnected() {
+		boolean connected = true;
+		
+		connected = Controlador.getUnicaInstancia().isSentimentServiceConnected();
+		
+		return Response.status(200).entity(connected).build();
+	}
+	
 }

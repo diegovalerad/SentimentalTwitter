@@ -51,7 +51,7 @@
 		</form>
 	</div>
 	
-	<div class="cabecera_busqueda" ng-if="temas.busqueda">
+	<div class="cabecera_busqueda" ng-if="sentimientos && temas.busqueda">
 		<div class="titulo">
 			Filtrado por sentimientos
 		</div>
@@ -142,7 +142,7 @@
 				</div>
 			</div>
 
-			<div class="h2">
+			<div class="h2" ng-if="sentimientos">
 				{{c.sentimiento}}
 				<img src="images/sentiments/{{c.sentimiento}}.png" alt="Sentimiento">
 			</div>

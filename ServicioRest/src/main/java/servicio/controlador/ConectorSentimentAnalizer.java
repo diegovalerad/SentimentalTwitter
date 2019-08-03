@@ -17,6 +17,12 @@ import org.json.JSONObject;
 public class ConectorSentimentAnalizer {
 	private static ConectorSentimentAnalizer unicaInstancia;
 	
+	private String baseURL;
+	private String URL_method;
+	private String queryText;
+	private String queryAlgorithm;
+	private String queryAlgorithmDefault;
+	
 	private ConectorSentimentAnalizer() {}
 	
 	public static ConectorSentimentAnalizer getUnicaInstancia() {
@@ -24,15 +30,32 @@ public class ConectorSentimentAnalizer {
 			unicaInstancia = new ConectorSentimentAnalizer();
 		return unicaInstancia;
 	}
+	
+	/**
+	 * 
+	 * Ejemplo: <p>
+	 * http://localhost:8080/ServicioRestSentimientos/rest/analisis/analize/texto=Texto para analizar&algoritmo=stanford
+	 * 
+	 * @param baseURL URL base: http://localhost:8080/ServicioRestSentimientos/rest/analisis/
+	 * @param URL_method Método de la URL: analize?
+	 * @param queryText Query del texto a analizar: texto
+	 * @param queryAlgorithm Query del algoritmo a usar: algoritmo
+	 * @param queryAlgorithmDefault Algoritmo a usar: stanford
+	 */
+	public void inicializar(String baseURL, String URL_method, String queryText, String queryAlgorithm,
+			String queryAlgorithmDefault) {
+		
+		this.baseURL = baseURL;
+		this.URL_method = URL_method;
+		this.queryText = queryText;
+		this.queryAlgorithm = queryAlgorithm;
+		this.queryAlgorithmDefault = queryAlgorithmDefault;
+	}
+	
 
 	public String getSentiment(String texto) {
-		String baseUrl = "http://localhost:8080/ServicioRestSentimientos/rest/analisis/analize?texto=";
-
-		String encodedQuery = encodeValue(texto);
-
-		String completeUrl = baseUrl + encodedQuery;
-		String sentimentAlgorithm = "default";
-		completeUrl += "&algoritmo=" + sentimentAlgorithm;
+		String encodedText = encodeValue(texto);
+		String completeUrl = baseURL + URL_method + queryText + "=" + encodedText + "&" + queryAlgorithm + "=" + queryAlgorithmDefault;
 		
 		String sentimiento = null;
 		boolean errorObtenerSentimiento = false;
@@ -59,6 +82,8 @@ public class ConectorSentimentAnalizer {
 		StringBuilder sb = new StringBuilder();
 		int cp;
 		while ((cp = rd.read()) != -1) {
+			char c = (char) cp;
+			if (c != '[' && c != ']')
 			sb.append((char) cp);
 		}
 		return sb.toString();

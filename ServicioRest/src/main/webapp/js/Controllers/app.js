@@ -52,3 +52,16 @@ app.run(['$rootScope', function($rootScope) {
         $rootScope.title = current.$$route.title;
     });
 }]);
+
+app.service('sharedProperties', function () {
+    var sentimentServiceConnected = true;
+
+    return {
+        isSentimentServiceConnected: function () {
+            return sentimentServiceConnected;
+        },
+        setSentimentService: function(value) {
+        	sentimentServiceConnected = value;
+        }
+    };
+});

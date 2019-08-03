@@ -1,4 +1,6 @@
-angular.module('restApp').controller('SearchController', function($scope, $http, toastr) {
+angular.module('restApp').controller('SearchController', function($scope, $http, toastr, sharedProperties) {
+	$scope.sentimientos = true;
+	
 	$http.get('http://localhost:8080/ServicioRest/rest/temas')
 	.then(function(response) {
         $scope.status = response.status;
@@ -15,6 +17,11 @@ angular.module('restApp').controller('SearchController', function($scope, $http,
         	    since: null,
         	    until: null
         };
+        
+        var isSentimentServiceConnected = sharedProperties.isSentimentServiceConnected();
+		if (!isSentimentServiceConnected){
+			$scope.sentimientos = false;
+		}
     })
     .catch(function activateError(error) {
     	 $scope.status = error.status;

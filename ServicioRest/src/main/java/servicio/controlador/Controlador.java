@@ -1,8 +1,10 @@
 package servicio.controlador;
 
+import java.io.IOException;
 import java.util.Collection;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Properties;
 
 import servicio.buscadortemas.TemasFactoria;
 import servicio.dao.ComentarioDAO;
@@ -25,6 +27,7 @@ import servicio.tipos.TemaResultado;
 public class Controlador {
 
 	private static Controlador unicaInstancia;
+	private static boolean sentimentServiceConnected;
 
 	/**
 	 * Devuelve la instancia del controlador.
@@ -46,10 +49,37 @@ public class Controlador {
 		try {
 			DAOFactoria.setDAOFactoria(DAOFactoria.OGM);
 			TemasFactoria.setDAOFactoria(TemasFactoria.ARCH_MS);
+			
+			initSentimentServiceConexion();
 		} catch (DAOException e) {
 			e.printStackTrace();
 		}
-
+	}
+	
+	private void initSentimentServiceConexion() {
+		sentimentServiceConnected = false;
+		Properties props = new Properties();
+		try {
+			props.load(getClass().getResourceAsStream("/config.properties"));
+			String connectedString = props.getProperty("sentimentService_connected");
+			if (connectedString.equals("true")) {
+				sentimentServiceConnected = true;
+				
+				String baseURL = props.getProperty("sentimentService_baseURL");
+				String URL_method = props.getProperty("sentimentService_URL_method");
+				String queryText = props.getProperty("sentimentService_URL_query_text");
+				String queryAlgorithm = props.getProperty("sentimentService_URL_query_algorithm");
+				String queryAlgorithmDefault = props.getProperty("sentimentService_URL_query_algorithm_default");
+				
+				ConectorSentimentAnalizer.getUnicaInstancia().inicializar(baseURL, URL_method, queryText, queryAlgorithm, queryAlgorithmDefault);
+			}
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	public boolean isSentimentServiceConnected() {
+		return sentimentServiceConnected;
 	}
 
 	/**
@@ -220,6 +250,8 @@ public class Controlador {
 	 * @return
 	 */
 	public String getSentimiento(String texto) {
+		if (!sentimentServiceConnected)
+			return "";
 		String sentimiento = ConectorSentimentAnalizer.getUnicaInstancia().getSentiment(texto);
 		return sentimiento;
 	}

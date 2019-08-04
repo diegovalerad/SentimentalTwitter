@@ -1,5 +1,4 @@
 angular.module('restApp').controller('APIController', function($scope, $http, toastr){
-	$scope.titulo = 'Conexión con nuestra API REST';
 	$scope.cargando_algoritmos = true;
 	$scope.cargando_analisis = true;
 	

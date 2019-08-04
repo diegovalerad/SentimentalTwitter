@@ -93,6 +93,7 @@ header nav a:hover {
 	width: 90%;
 	margin: auto;
 	padding: 15px 5px;
+	line-height: 1.5;
 }
 
 .content .texto ol {
@@ -381,6 +382,8 @@ div.vertical_line{
 	padding: 5px;
 	border-bottom: 1px solid #000;
 	width: 95%;
+	font-size: 1.5em;
+    font-weight: bold;
 }
 
 .content .api_texto {

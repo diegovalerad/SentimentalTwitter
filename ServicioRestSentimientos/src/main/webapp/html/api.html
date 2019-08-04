@@ -12,7 +12,7 @@
 		<h2>¿Qué tengo que hacer?</h2>
 	</div>
 	<div class="api_texto">
-		<p>Lo único que necesitas es conocer la dirección IP donde está alojado nuestro servicio. Contacte con un administrador para más detalles.</p>
+		<p>Lo único que necesitas es conocer la dirección IP donde está alojado nuestro servicio. <a href="mailto:diego.valera@um.es">Contacte con un administrador</a> para más detalles.</p>
 		<br>
 		<p>Una vez la dirección IP, es tan sencillo como realizar una petición a dicha dirección:</p>
 		<br>
@@ -77,7 +77,7 @@
 		<p class="api_texto api_texto_url">http://direccionIP:puerto/ServicioRestSentimientos/rest/api-parameters</p>
 		<br>
 		
-		<p>El resultado será un objeto JSON.Este objeto, está formado por un ARRAY de 2 dimensiones, donde la primera dimensión corresponde a cada algoritmo, mientras que la otra, está compuesta por 3 campos: el nombre, la descripción y la QUERY para usar con REST.</p>
+		<p>El resultado será un objeto JSON. Este objeto, está formado por un ARRAY de 2 dimensiones, donde la primera dimensión corresponde a cada algoritmo, mientras que la otra, está compuesta por 3 campos: el nombre, la descripción y la QUERY para usar con REST.</p>
 		<br>
 		<p>Aquí tenemos un ejemplo:<p>
 		<br>
@@ -88,6 +88,18 @@
 		
 		<textarea ng-if="!cargando_algoritmos" readonly cols="30" rows="10">{{txt_area_json_algoritmos}}</textarea>
 		
-		</p> 
+		
+	</div>
+	
+	<div class="api_titulo">
+		<h2>Swagger</h2>
+	</div>
+	<div class="api_texto">
+		<p>Además de todo esto, nuestra API está documentada con Swagger, una herramienta de documentación que, además de ver la especificación de nuestra API, también permite realizar pruebas con tus propios paráemtros.
+		<p>Así, sólo tienes que acceder al siguiente enlace:</p>
+		<br>
+		<p class="api_texto api_texto_url">http://direccionIP:puerto/ServicioRestSentimientos/swagger</p>
+		<br>
+		<p>Allí encontrarás toda la información necesaria.</p>
 	</div>
 </div>

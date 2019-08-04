@@ -18,7 +18,7 @@
     "name" : "Textos",
     "description" : "Operaciones sobre los textos"
   } ],
-  "schemes" : [ "https" ],
+  "schemes" : [ "http" ],
   "paths" : {
     "/analisis/analize" : {
       "get" : {
@@ -33,12 +33,48 @@
           "description" : "Texto sobre el que obtener su sentimiento.",
           "required" : true,
           "type" : "string"
+        }, {
+          "name" : "algoritmo",
+          "in" : "query",
+          "description" : "Algoritmo a usar en el análisis del texto",
+          "required" : false,
+          "type" : "string",
+          "default" : "todos"
         } ],
         "responses" : {
           "200" : {
             "description" : "Texto analizado correctamente",
             "schema" : {
-              "$ref" : "#/definitions/Valoracion"
+              "type" : "array",
+              "items" : {
+                "$ref" : "#/definitions/Valoracion"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/analisis/api-parameters" : {
+      "get" : {
+        "tags" : [ "Textos" ],
+        "summary" : "Operación que devuelve información sobre los algoritmos",
+        "description" : "Devuelve información sobre el nombre, la descripción y la query de cada algoritmo. La query es el parámetro a usar cuando queremos analizar un texto",
+        "operationId" : "getApiParameters",
+        "produces" : [ "application/json" ],
+        "parameters" : [ ],
+        "responses" : {
+          "200" : {
+            "description" : "Información obtenida correctamente",
+            "schema" : {
+              "type" : "array",
+              "items" : {
+                "type" : "array",
+                "items" : {
+                  "type" : "string"
+                },
+                "maxItems" : 3,
+                "minItems" : 3
+              }
             }
           }
         }
@@ -46,18 +82,31 @@
     }
   },
   "definitions" : {
+    "Algoritmo" : {
+      "type" : "object",
+      "required" : [ "descripcion", "nombre" ],
+      "properties" : {
+        "nombre" : {
+          "type" : "string",
+          "example" : "Stanford CoreNLP"
+        },
+        "descripcion" : {
+          "type" : "string",
+          "example" : "Algoritmo que usa la API de Stanford CoreNLP para realizar el análisis de sentimientos"
+        }
+      }
+    },
     "Valoracion" : {
       "type" : "object",
-      "required" : [ "explicacion", "sentimiento" ],
+      "required" : [ "algoritmo", "sentimiento" ],
       "properties" : {
         "sentimiento" : {
           "type" : "string",
           "example" : "MUY_NEGATIVO",
           "enum" : [ "MUY_NEGATIVO", "NEGATIVO", "NEUTRAL", "POSITIVO", "MUY_POSITIVO" ]
         },
-        "explicacion" : {
-          "type" : "string",
-          "example" : "Sentimiento NEGATIVO con una puntuacion de 1.0. Muy negativo: 19.0% Negativo: 62% Neutral: 15% Positivo 3.0% Muy positivo: 1.0%"
+        "algoritmo" : {
+          "$ref" : "#/definitions/Algoritmo"
         }
       }
     }

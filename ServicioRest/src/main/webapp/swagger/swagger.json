@@ -20,8 +20,11 @@
   }, {
     "name" : "Comentarios",
     "description" : "Operaciones para búsqueda de comentarios"
+  }, {
+    "name" : "Servicios externos",
+    "description" : "Operaciones para comprobar servicios externos"
   } ],
-  "schemes" : [ "https", "http" ],
+  "schemes" : [ "http" ],
   "paths" : {
     "/temas" : {
       "get" : {
@@ -175,6 +178,25 @@
               "items" : {
                 "$ref" : "#/definitions/ComentarioResultado"
               }
+            }
+          }
+        }
+      }
+    },
+    "/isSentimentServiceConnected" : {
+      "get" : {
+        "tags" : [ "Servicios externos" ],
+        "summary" : "Comprueba que el servicio de sentimientos esté habilitado",
+        "description" : "Comprueba que la conexión hacia el servicio de sentimientos esté habilitada en las opciones de este servicio.",
+        "operationId" : "isSentimentServiceConnected",
+        "produces" : [ "application/json" ],
+        "parameters" : [ ],
+        "responses" : {
+          "200" : {
+            "description" : "Comprobación realizada correctamente",
+            "schema" : {
+              "type" : "boolean",
+              "example" : true
             }
           }
         }

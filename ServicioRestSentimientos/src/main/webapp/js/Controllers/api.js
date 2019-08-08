@@ -14,7 +14,7 @@ angular.module('restApp').controller('APIController', function($scope, $http, to
 		$scope.cargando_algoritmos = false;
 	});
 	
-	url = "http://localhost:8080/ServicioRestSentimientos/rest/analisis/analize?texto=My house is nice";
+	url = "http://localhost:8080/ServicioRestSentimientos/rest/analisis/analize?texto=My%20house%20is%20nice";
 	$http.get(url)
 	
 	.then(function(response) {

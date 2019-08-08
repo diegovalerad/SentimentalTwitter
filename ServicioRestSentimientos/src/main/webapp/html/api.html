@@ -48,7 +48,7 @@
 		¿Qué me manda la API?
 	</div>
 	<div class="api_texto">
-		<p>La API te manda un objeto JSON. Este objeto, está compuesto por una lista de objetos tipo Valoración. Cada valoración, está compuesta a su vez por un objeto de tipo Sentimiento, y otro de tipo Algoritmo.
+		<p>La API te manda un objeto JSON. Este objeto, está compuesto por una lista de objetos tipo Valoración. Cada valoración, está compuesta a su vez por el texto a analizar, un objeto de tipo Sentimiento, y otro de tipo Algoritmo.
 		<br>
 		El de tipo Sentimiento es un objeto de un enumerado, con los valores MUY_NEGATIVO, NEGATIVO, NEUTRAL, POSITIVO y MUY_POSITIVO.
 		<br>
@@ -63,7 +63,45 @@
 			<img class="img_cargando" src="images/cargando.gif" alt="cargando">
 		</div>
 		<textarea ng-if="!cargando_analisis" readonly cols="30" rows="10">{{txt_area_json_analizar}}</textarea>
-		
+	</div>
+	
+	<div class="api_titulo">
+		No quiero manejar directamente objetos JSON, ¿qué puedo hacer?
+	</div>
+	<div class="api_texto">
+		Si no quieres manipular directamente el JSON que envía nuestra API, puedes descargarte nuestro JAR. <br>
+		Este contiene las clases del modelo, por lo que puedes utilizar el JAR para leer y manipular la información
+		tal y como si fuese una clase.<br>
+		<br>
+		Pulsa <a href="resources/Sentimientos.jar" download="Sentimientos.jar" target="_blank">aquí</a> para descargar el JAR.<br>
+		<br>
+		Una vez obtenido el JAR, lo añadimos al build path de nuestro proyecto, y entonces sólo tenemos que obtener el JSON de la URL y
+		pasarlo a una lista de objetos Valoración.<br>
+		<br>
+		A continuación, exponemos un ejemplo, donde utilizamos adicionalmente las librerías univocity-parsers de univocity y httpclient de apache, para que sea más sencillo:<br>
+		<br>
+		<textarea readonly cols="30" rows="10" style="min-height: 27em;">&#13;&#10;// textoCodificado = texto a analizar, codificado en UTF8
+// url = URL a la que realizar la petición de análisis, con textoCodificado como valor del atributo TEXTO
+			
+HttpClient client = HttpClientBuilder.create().build();
+HttpGet getRequest = new HttpGet(url);
+	
+ObjectMapper objectMapper = new ObjectMapper();
+objectMapper.writerWithDefaultPrettyPrinter();
+
+List<Valoracion> data = null;
+	
+HttpResponse response;
+try {
+	response = client.execute(getRequest);
+	data = objectMapper.readValue(response.getEntity().getContent(),
+			objectMapper.getTypeFactory().constructCollectionType(ArrayList.class, Valoracion.class));
+} catch (IOException ex) {
+	System.err.println("Error al realizar la petición");
+}
+		</textarea>
+	<br><br>
+	Una vez finalizado, en el objeto data tenemos la lista de valoraciones con toda la información.
 	</div>
 	
 	<div class="api_titulo">

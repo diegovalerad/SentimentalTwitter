@@ -215,7 +215,7 @@ public class ControladorDiccionario implements IAlgoritmo {
 		Sentimiento s = sentimentValueToSentiment(sentimentValue);
 		Algoritmo a = new Algoritmo(nombre, desc);
 		
-		Valoracion val = new Valoracion(s, a);
+		Valoracion val = new Valoracion(text, s, a);
 		
 		return val;
 	}

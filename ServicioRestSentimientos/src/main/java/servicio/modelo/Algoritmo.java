@@ -1,5 +1,10 @@
 package servicio.modelo;
 
+/**
+ * Clase que indica la información sobre el algoritmo: El nombre y la descripción.
+ * @author Diego Valera Duran
+ *
+ */
 public class Algoritmo {
 	private String nombre;
 	private String descripcion;

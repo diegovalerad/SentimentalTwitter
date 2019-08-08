@@ -98,9 +98,13 @@
     },
     "Valoracion" : {
       "type" : "object",
-      "required" : [ "algoritmo", "sentimiento" ],
+      "required" : [ "algoritmo", "sentimiento", "texto" ],
       "properties" : {
-        "sentimiento" : {
+	"texto" : {
+	 "type" : "string",
+	 "example" : "Mi casa es fea."
+        },
+	"sentimiento" : {
           "type" : "string",
           "example" : "MUY_NEGATIVO",
           "enum" : [ "MUY_NEGATIVO", "NEGATIVO", "NEUTRAL", "POSITIVO", "MUY_POSITIVO" ]

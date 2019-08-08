@@ -30,7 +30,18 @@ public class Controlador {
 		IAlgoritmo stanford = new ControladorStanford();
 		IAlgoritmo diccionario = new ControladorDiccionario();
 		IAlgoritmo apache = new ControladorApacheOpenNLP();
-		IAlgoritmo stanfordES = crearAlgoritmoStanfordES();
+		
+		String stanfordModelES = "stanfordES/model.ser.gz";
+		String stanfordModelES_nombre = "Stanford CorenNLP - Español";
+		String stanfordModelES_desc = "Variante del algoritmo basado en Stanford CoreNLP, donde utilizamos un modelo propio creado a partir de palabras españolas.";
+		String stanfordModelES_query = "stanford_ES";
+		IAlgoritmo stanfordES = new ControladorStanford(stanfordModelES, stanfordModelES_nombre, stanfordModelES_desc, stanfordModelES_query);
+		
+		String stanfordModelEN = "stanfordEN/model.ser.gz";
+		String stanfordModelEN_nombre = "Stanford CorenNLP - Inglés";
+		String stanfordModelEN_desc = "Variante del algoritmo basado en Stanford CoreNLP, donde utilizamos un modelo propio creado a partir de palabras inglesas.";
+		String stanfordModelEN_query = "stanford_EN";
+		IAlgoritmo stanfordEN = new ControladorStanford(stanfordModelEN, stanfordModelEN_nombre, stanfordModelEN_desc, stanfordModelEN_query);
 		
 		System.out.println("***********************************");
 		System.out.println("ServicioRestSentimientos - Fin de inicialización de algoritmos");
@@ -40,6 +51,7 @@ public class Controlador {
 		algoritmos.add(diccionario);
 		algoritmos.add(apache);
 		algoritmos.add(stanfordES);
+		algoritmos.add(stanfordEN);
 		
 		algoritmo_por_defecto = stanford;
 		
@@ -50,15 +62,6 @@ public class Controlador {
 		if (unicaInstancia == null)
 			unicaInstancia = new Controlador();
 		return unicaInstancia;
-	}
-	
-	private IAlgoritmo crearAlgoritmoStanfordES() {
-		String stanfordModelES = "stanfordES/model.ser.gz";
-		String stanfordModelES_nombre = "Stanford CorenNLP - Español";
-		String stanfordModelES_desc = "Variante del algoritmo basado en Stanford CoreNLP, donde utilizamos un modelo propio creado a partir de palabras españolas.";
-		String stanfordModelES_query = "stanford_ES";
-		IAlgoritmo stanfordES = new ControladorStanford(stanfordModelES, stanfordModelES_nombre, stanfordModelES_desc, stanfordModelES_query);
-		return stanfordES;
 	}
 	
 	public List<Valoracion> analizarTexto(String texto, String algoritmo) {

@@ -38,7 +38,12 @@ public class ServicioAnalisisTest {
 
 	@Test
 	public void analizeTextTest() {
-		given().when().get("analisis/analize?texto=The movie was boring").then().assertThat().statusCode(200);
+		given().when().get("analisis/analize?texto=The%20movie%20was%20boring").then().assertThat().statusCode(200);
+	}
+	
+	@Test
+	public void getApiParametersTest() {
+		given().when().get("analisis/api-parameters").then().assertThat().statusCode(200);
 	}
 
 }

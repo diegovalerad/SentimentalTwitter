@@ -28,7 +28,9 @@ public class SentimentAnalyzer {
 	public void initialize(String customModelLocation) {
 		 // creates a StanfordCoreNLP object, with POS tagging, lemmatization, NER, parsing, and sentiment
 		props = new Properties();
-		props.setProperty("annotators", "tokenize, ssplit, parse, sentiment");
+		//props.setProperty("annotators", "tokenize, ssplit, parse, sentiment");
+		props.setProperty("annotators", "tokenize, ssplit, pos, parse, sentiment");
+		props.setProperty("parse.model", "edu/stanford/nlp/models/srparser/englishSR.ser.gz");
 		if (customModelLocation != null) {
 			String model = getClass().getClassLoader().getResource(customModelLocation).getFile(); 
 			if (model != "")

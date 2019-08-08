@@ -12,11 +12,9 @@
 		¿Qué tengo que hacer?
 	</div>
 	<div class="api_texto">
-		<p>Lo único que necesitas es conocer la dirección IP donde está alojado nuestro servicio. <a href="mailto:diego.valera@um.es">Contacte con un administrador</a> para más detalles.</p>
+		<p>Lo único que necesitas es enviar una petición a esta URL, cambiando los parámetros por los nuestros:<p>
 		<br>
-		<p>Una vez la dirección IP, es tan sencillo como realizar una petición a dicha dirección:</p>
-		<br>
-		<p class="api_texto api_texto_url">http://direccionIP:puerto/ServicioRestSentimientos/rest/analize?texto=TEXTO&amp;algoritmo=QUERY</p>
+		<p class="api_texto api_texto_url">/ServicioRestSentimientos/rest/analize?texto=TEXTO&amp;algoritmo=QUERY</p>
 		<br>
 		<p>Sustituimos la parte de TEXTO por nuestro texto a analizar, codificada correctamente</p> 
 		<p>En la parte de QUERY, podemos elegir uno de los posibles algoritmos para obtener el sentimiento del texto</p>
@@ -74,7 +72,7 @@
 	<div class="api_texto">
 		<p>¡Claro! Para obtener la lista de algoritmos, tienes que realizar una petición a: </p>
 		<br>
-		<p class="api_texto api_texto_url">http://direccionIP:puerto/ServicioRestSentimientos/rest/api-parameters</p>
+		<p class="api_texto api_texto_url">/ServicioRestSentimientos/rest/api-parameters</p>
 		<br>
 		
 		<p>El resultado será un objeto JSON. Este objeto, está formado por un ARRAY de 2 dimensiones, donde la primera dimensión corresponde a cada algoritmo, mientras que la otra, está compuesta por 3 campos: el nombre, la descripción y la QUERY para usar con REST.</p>
@@ -95,10 +93,10 @@
 		Swagger
 	</div>
 	<div class="api_texto">
-		<p>Además de todo esto, nuestra API está documentada con Swagger, una herramienta de documentación que, además de ver la especificación de nuestra API, también permite realizar pruebas con tus propios paráemtros.
+		<p>Además de todo esto, nuestra API está documentada con Swagger, una herramienta de documentación que, además de ver la especificación de nuestra API, también permite realizar pruebas con tus propios parámetros.
 		<p>Así, sólo tienes que acceder al siguiente enlace:</p>
 		<br>
-		<p class="api_texto api_texto_url">http://direccionIP:puerto/ServicioRestSentimientos/swagger</p>
+		<p class="api_texto api_texto_url">/ServicioRestSentimientos/swagger</p>
 		<br>
 		<p>Allí encontrarás toda la información necesaria.</p>
 	</div>

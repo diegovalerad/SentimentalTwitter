@@ -1,10 +1,13 @@
 package servicio.redesSociales.twitter;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Properties;
 
+import servicio.controlador.ConectorSentimentAnalizer;
 import servicio.controlador.Controlador;
 import servicio.dao.ComentarioDAO;
 import servicio.dao.DAOFactoria;
@@ -19,6 +22,7 @@ import twitter4j.Twitter;
 import twitter4j.TwitterException;
 import twitter4j.TwitterFactory;
 import twitter4j.URLEntity;
+import twitter4j.conf.ConfigurationBuilder;
 import servicio.utils.ProcesadorFechas;
 import servicio.utils.ProcesadorTexto;
 
@@ -43,8 +47,35 @@ public class ControladorTwitter implements IRedSocial {
 	 * Constructor. Crea la factoría y el servicio de Twitter.
 	 */
 	public ControladorTwitter() {
-		TwitterFactory tf = new TwitterFactory();
-		twitterService = tf.getInstance();
+		ConfigurationBuilder cb = new ConfigurationBuilder();
+		
+		Properties props = new Properties();
+		try {
+			props.load(getClass().getResourceAsStream("/rrss/twitter4j.properties"));
+			
+			String oauthConsumerKey = props.getProperty("oauth.consumerKey");
+			String oauthConsumerSecret = props.getProperty("oauth.consumerSecret");
+			String oauthAccessToken = props.getProperty("oauth.accessToken");
+			String oauthAcessTokenSecret = props.getProperty("oauth.accessTokenSecret");
+			String tweetModeExtendedString = props.getProperty("tweetModeExtended");
+			
+			boolean tweetModeExtended = false;
+			if (tweetModeExtendedString.equals("true")){
+				tweetModeExtended = true;
+			}
+			
+			cb.setDebugEnabled(true)
+			  .setOAuthConsumerKey(oauthConsumerKey)
+			  .setOAuthConsumerSecret(oauthConsumerSecret)
+			  .setOAuthAccessToken(oauthAccessToken)
+			  .setOAuthAccessTokenSecret(oauthAcessTokenSecret)
+			  .setTweetModeExtended(tweetModeExtended);
+			
+			TwitterFactory tf = new TwitterFactory(cb.build());
+			twitterService = tf.getInstance();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
 
 	/**

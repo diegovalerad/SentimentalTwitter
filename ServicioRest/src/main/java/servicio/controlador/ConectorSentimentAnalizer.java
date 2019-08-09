@@ -1,18 +1,20 @@
 package servicio.controlador;
 
-import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.io.Reader;
 import java.io.UnsupportedEncodingException;
-import java.net.URL;
 import java.net.URLEncoder;
-import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
+import java.util.ArrayList;
+import java.util.List;
 
-import org.json.JSONException;
-import org.json.JSONObject;
+import org.apache.http.HttpResponse;
+import org.apache.http.client.HttpClient;
+import org.apache.http.client.methods.HttpGet;
+import org.apache.http.impl.client.HttpClientBuilder;
+
+import com.fasterxml.jackson.databind.ObjectMapper;
+
+import servicio.modelo.Valoracion;
 
 public class ConectorSentimentAnalizer {
 	private static ConectorSentimentAnalizer unicaInstancia;
@@ -52,58 +54,61 @@ public class ConectorSentimentAnalizer {
 		this.queryAlgorithmDefault = queryAlgorithmDefault;
 	}
 	
-
+	/**
+	 * Realiza una petición al Servicio Analizador de sentimientos para analizar un texto y devuelve su sentimiento en forma de String
+	 * @param texto Texto a analizar
+	 * @return Cadena de texto con el sentimiento. Si no se ha podido realizar la petición, se devuelve una cadena vacía.
+	 */
 	public String getSentiment(String texto) {
 		String encodedText = encodeValue(texto);
 		String completeUrl = baseURL + URL_method + queryText + "=" + encodedText + "&" + queryAlgorithm + "=" + queryAlgorithmDefault;
+		String sentimiento;
+		List<Valoracion> valoraciones = getList(completeUrl, Valoracion.class);
 		
-		String sentimiento = null;
-		boolean errorObtenerSentimiento = false;
-
-		JSONObject json;
-		try {
-			json = readJsonFromUrl(completeUrl);
-			sentimiento = json.getString("sentimiento");
-		} catch (IOException e) {
-			System.err.println("Error al conectar con el servidor analizador: " + e);
-			errorObtenerSentimiento = true;
-		} catch (JSONException e) {
-			System.err.println("Error al parsear con JSON la respuesta del servidor analizador: " + e);
-			errorObtenerSentimiento = true;
-		}
-		if (errorObtenerSentimiento)
+		if (valoraciones == null)
 			sentimiento = "";
+		else {
+			sentimiento = valoraciones.get(0).getSentimiento().toString();
+		}
 		
 		return sentimiento;
 	}
 	
+	/**
+	 * Obtiene una lista de tipo T, como resultado de una petición a la URL
+	 * @param <T> Tipo genérico T
+	 * @param url URL a la que realizar la petición
+	 * @param clazz Clase a utilizar sobre la genérica T.
+	 * @return
+	 */
+	private static <T> List<T> getList(String url, Class<T> clazz) {
+		HttpClient client = HttpClientBuilder.create().build();
+		HttpGet getRequest = new HttpGet(url);
+
+		ObjectMapper objectMapper = new ObjectMapper();
+		objectMapper.writerWithDefaultPrettyPrinter();
+
+		List<T> data = null;
+
+		HttpResponse response;
+		try {
+			response = client.execute(getRequest);
+			data = objectMapper.readValue(response.getEntity().getContent(),
+					objectMapper.getTypeFactory().constructCollectionType(ArrayList.class, clazz));
+		} catch (IOException ex) {
+			System.err.println(ex);
+		}
+		return data;
+	}
 	
-	private static String readAll(Reader rd) throws IOException {
-		StringBuilder sb = new StringBuilder();
-		int cp;
-		while ((cp = rd.read()) != -1) {
-			char c = (char) cp;
-			if (c != '[' && c != ']')
-			sb.append((char) cp);
-		}
-		return sb.toString();
-	}
-
-	private static JSONObject readJsonFromUrl(String url) throws IOException, JSONException {
-		InputStream is = new URL(url).openStream();
+	/**
+	 * Codificada un texto de entrada en UTF8
+	 * @param texto Texto de entrada
+	 * @return texto codificado
+	 */
+	private static String encodeValue(String texto) {
 		try {
-			BufferedReader rd = new BufferedReader(new InputStreamReader(is, Charset.forName("UTF-8")));
-			String jsonText = readAll(rd);
-			JSONObject json = new JSONObject(jsonText);
-			return json;
-		} finally {
-			is.close();
-		}
-	}
-
-	private static String encodeValue(String value) {
-		try {
-			return URLEncoder.encode(value, StandardCharsets.UTF_8.toString());
+			return URLEncoder.encode(texto, StandardCharsets.UTF_8.toString());
 		} catch (UnsupportedEncodingException ex) {
 			throw new RuntimeException(ex.getCause());
 		}

@@ -8,6 +8,8 @@ package servicio.modelo;
 public class Algoritmo {
 	private String nombre;
 	private String descripcion;
+	
+	public Algoritmo() {}
 
 	public Algoritmo(String nombre, String desc) {
 		this.nombre = nombre;

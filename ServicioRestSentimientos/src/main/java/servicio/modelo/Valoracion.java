@@ -12,6 +12,8 @@ public class Valoracion {
 	private String texto;
 	private Sentimiento sentimiento;
 	private Algoritmo algoritmo;
+	
+	public Valoracion() {}
 
 	public Valoracion(String texto, Sentimiento sentimiento, Algoritmo algoritmo) {
 		this.texto = texto;

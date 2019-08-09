@@ -27,7 +27,7 @@ public class OGMDAOFactoria extends DAOFactoria {
 	 */
 	public OGMDAOFactoria() throws DAOException {
 		ClasspathConfigurationSource configurationSource = 
-				new ClasspathConfigurationSource("/servicio/resources/neo4j.properties");
+				new ClasspathConfigurationSource("/dao/OGM/neo4j.properties");
 	    Configuration configuration = new Configuration.Builder(configurationSource).build();
 	    sessionFactory = new SessionFactory(configuration, "servicio.modelo");	
 	}

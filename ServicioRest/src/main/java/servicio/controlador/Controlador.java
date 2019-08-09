@@ -60,7 +60,7 @@ public class Controlador {
 		sentimentServiceConnected = false;
 		Properties props = new Properties();
 		try {
-			props.load(getClass().getResourceAsStream("/config.properties"));
+			props.load(getClass().getResourceAsStream("/conectorSentimentAnalizer.properties"));
 			String connectedString = props.getProperty("sentimentService_connected");
 			if (connectedString.equals("true")) {
 				sentimentServiceConnected = true;

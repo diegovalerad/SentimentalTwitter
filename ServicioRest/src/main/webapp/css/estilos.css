@@ -47,6 +47,7 @@ header nav {
 	margin: 0;
 	padding: 20px;
 	box-shadow: 10px 5px 5px rgba(0, 0, 0, 0.7);
+	z-index: 99999;
 }
 
 header nav a {

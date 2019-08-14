@@ -51,25 +51,6 @@
 		</form>
 	</div>
 	
-	<div class="cabecera_busqueda" ng-if="sentimientos && temas.busqueda">
-		<div class="titulo">
-			Filtrado por sentimientos
-		</div>
-		<div class="descripcion">
-			<div class = container ng-repeat='s in listaSentimientos' ng-click="filterSentiment(s)" >
-				<img id="imgSentiment{{s}}" src="images/sentiments/{{s}}.png" alt="{{s}}">
-				<div class="overlay">
-				 	<div class="text">
-				 		<div id="Sent_{{s}}text_action">
-				 			Ocultar 
-				 		</div> 
-				 	{{s}}</div>
-				 </div>
-			</div>
-		</div>
-	</div>
-	
-	
 	<div class="cabecera_busqueda" ng-if="temas.busqueda">
 		<div class="titulo">
 			Filtrado por fuentes
@@ -88,6 +69,23 @@
 		</div>
 	</div>
 	
+	<div class="cabecera_busqueda" ng-if="sentimientos && temas.busqueda">
+		<div class="titulo">
+			Filtrado por sentimientos
+		</div>
+		<div class="descripcion">
+			<div class = container ng-repeat='s in listaSentimientos' ng-click="filterSentiment(s)" >
+				<img id="imgSentiment{{s}}" src="images/sentiments/{{s}}.png" alt="{{s}}">
+				<div class="overlay">
+				 	<div class="text">
+				 		<div id="Sent_{{s}}text_action">
+				 			Ocultar 
+				 		</div> 
+				 	{{s}}</div>
+				 </div>
+			</div>
+		</div>
+	</div>
 	
 	
 	<div class="listaComentarios" ng-if="temas.busqueda">

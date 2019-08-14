@@ -14,6 +14,21 @@ angular.module('restApp').controller('CommentsController', function($scope, $htt
         $scope.listado = response.data;
         $scope.status = response.status;
         
+        response.data.lista.sort(function(x, y){
+        	if (x['sentimiento'].startsWith("MUY_NEGATIVO"))
+        		return -1;
+        	if (x['sentimiento'].startsWith("MUY_POSITIVO"))
+        		return 1;
+        	
+        	if (x['sentimiento'] < y['sentimiento']) {
+			    return -1;
+			}
+			if (x['sentimiento'] > y['sentimiento']) {
+				return 1;
+			}
+			return 0;
+		})
+        
         response.data.lista.forEach(function(element){
 			listaComentariosOriginal.push(element);
 		})

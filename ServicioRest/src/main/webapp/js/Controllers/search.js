@@ -128,6 +128,21 @@ angular.module('restApp').controller('SearchController', function($scope, $http,
 				timeOut: 5000
 			});
 			
+			response.data.sort(function(x, y){
+	        	if (x['sentimiento'].startsWith("MUY_NEGATIVO"))
+	        		return -1;
+	        	if (x['sentimiento'].startsWith("MUY_POSITIVO"))
+	        		return 1;
+	        	
+	        	if (x['sentimiento'] < y['sentimiento']) {
+				    return -1;
+				}
+				if (x['sentimiento'] > y['sentimiento']) {
+					return 1;
+				}
+				return 0;
+			})
+			
 			response.data.forEach(function(element){
 				listaComentariosOriginal.push(element);
 			})

@@ -7,20 +7,6 @@
 			<p>{{listado.descripcion}}</p>
 		</div>
 		
-		<div class="descripcion" ng-if="sentimientos">
-			<p><b>Filtrar por sentimientos</b></p>
-			<div class = container ng-repeat='s in listaSentimientos' ng-click="filterSentiment(s)" >
-				<img id="imgSentiment{{s}}" src="images/sentiments/{{s}}.png" alt="{{s}}">
-				<div class="overlay">
-				 	<div class="text">
-				 		<div id="Sent_{{s}}text_action">
-				 			Ocultar 
-				 		</div> 
-				 	{{s}}</div>
-				 </div>
-			</div>
-		</div>
-		
 		<div class="descripcion" ng-if="redesSociales">
 			<p><b>Filtrar por fuentes</b></p>
 				<div class = container ng-repeat='f in listaRedesSociales' ng-click="filterRRSS(f)" >
@@ -31,6 +17,20 @@
 				 			Ocultar 
 				 		</div> 
 				 	{{f}}</div>
+				 </div>
+			</div>
+		</div>
+		
+		<div class="descripcion" ng-if="sentimientos">
+			<p><b>Filtrar por sentimientos</b></p>
+			<div class = container ng-repeat='s in listaSentimientos' ng-click="filterSentiment(s)" >
+				<img id="imgSentiment{{s}}" src="images/sentiments/{{s}}.png" alt="{{s}}">
+				<div class="overlay">
+				 	<div class="text">
+				 		<div id="Sent_{{s}}text_action">
+				 			Ocultar 
+				 		</div> 
+				 	{{s}}</div>
 				 </div>
 			</div>
 		</div>

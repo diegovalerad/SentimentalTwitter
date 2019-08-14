@@ -157,7 +157,7 @@ header nav a:hover {
 .content .cabecera_busqueda{
 	width: 100%;
 	color: #000;
-	padding: 40px;
+	padding: 10px 40px;
 	text-align: center;
 	display: flex;
 	flex-direction: column;

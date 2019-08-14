@@ -66,6 +66,9 @@ angular.module('restApp').controller('SearchController', function($scope, $http,
 	var sentVeryPositive = true;
 	var listaComentariosOriginal = [];
 	var inicializado = false;
+	
+	$scope.listaRedesSociales = [];
+	var listaRedesSocialesShow = [];
 
 	$scope.buscar = function () {
 		sentVeryNegative = true;
@@ -154,6 +157,16 @@ angular.module('restApp').controller('SearchController', function($scope, $http,
 			})
 			
 			inicializado = true;
+			
+			
+			$scope.resultado.forEach(function(element){
+				if($scope.listaRedesSociales.indexOf(element['redSocial']) === -1) {
+					$scope.listaRedesSociales.push(element['redSocial']);
+					listaRedesSocialesShow[element['redSocial']] = true;
+				}
+			})
+			
+			
 		})
 
 		.catch(function activateError(error) {
@@ -238,6 +251,31 @@ angular.module('restApp').controller('SearchController', function($scope, $http,
 			}else if (sentPositive && element.sentimiento == "POSITIVO"){
 				lista.push(element);
 			}else if (sentVeryPositive && element.sentimiento == "MUY_POSITIVO"){
+				lista.push(element);
+			}
+		})
+		
+		$scope.resultado = lista;
+	}
+	
+	$scope.filterRRSS = function(rs){
+		listaRedesSocialesShow[rs] = !listaRedesSocialesShow[rs];
+		
+		var addImgSrc = "";
+		var textAction = "Ocultar";
+		
+		if (!listaRedesSocialesShow[rs]){
+			addImgSrc = "_HIDDEN";
+			textAction = "Mostrar";
+		}
+		
+		document.getElementById("imgRRSS" + rs).src = "images/" + rs + addImgSrc + ".png";
+		document.getElementById(rs + "text_action").innerHTML = textAction;
+		
+		var lista = [];
+		
+		listaComentariosOriginal.forEach(function(element){
+			if (listaRedesSocialesShow[element['redSocial']]){
 				lista.push(element);
 			}
 		})

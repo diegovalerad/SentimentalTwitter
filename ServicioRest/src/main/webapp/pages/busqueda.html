@@ -110,6 +110,27 @@
 		</div>
 	</div>
 	
+	
+	<div class="cabecera_busqueda" ng-if="temas.busqueda">
+		<div class="titulo">
+			Filtrado por fuentes
+		</div>
+		<div class="descripcion">
+			<div class = container ng-repeat='f in listaRedesSociales' ng-click="filterRRSS(f)" >
+				<img id="imgRRSS{{f}}" src="images/RRSS/{{f}}.png" alt="{{f}}">
+				<div class="overlay">
+				 	<div class="text">
+				 		<div id="{{f}}text_action">
+				 			Ocultar 
+				 		</div> 
+				 	{{f}}</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	
+	
+	
 	<div class="listaComentarios" ng-if="temas.busqueda">
 		<div class="listTittle">
 			<h3>Resultados de la búsqueda</h3>
@@ -126,7 +147,7 @@
 						{{c.autor}}  |
 						
 							<div style="display: inline;">
-								<img src="images/{{c.redSocial}}.png" alt="RedSocial">
+								<img src="images/RRSS/{{c.redSocial}}.png" alt="RedSocial">
 							</div>
 						</div>
 					</div>

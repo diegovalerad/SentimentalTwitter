@@ -1,11 +1,14 @@
 angular.module('restApp').controller('CommentsController', function($scope, $http, $routeParams, sharedProperties) {
 	$scope.sentimientos = true;
+	$scope.redesSociales = false;
 	var sentVeryNegative = true;
 	var sentNegative = true;
 	var sentNeutral = true;
 	var sentPositive = true;
 	var sentVeryPositive = true;
 	var listaComentariosOriginal = [];
+	$scope.listaRedesSociales = [];
+	var listaRedesSocialesShow = [];
 	
 	$http.get('http://localhost:8080/ServicioRest/rest/temas/'+$routeParams.idTema)
 	.then(function(response) {
@@ -26,6 +29,15 @@ angular.module('restApp').controller('CommentsController', function($scope, $htt
 		if (!isSentimentServiceConnected){
 			$scope.sentimientos = false;
 		}
+		
+		$scope.redesSociales = true;
+		
+		$scope.listado.lista.forEach(function(element){
+			if($scope.listaRedesSociales.indexOf(element['redSocial']) === -1) {
+				$scope.listaRedesSociales.push(element['redSocial']);
+				listaRedesSocialesShow[element['redSocial']] = true;
+			}
+		})
     })
     .catch(function activateError(error) {
     	 $scope.status = error.status;
@@ -101,6 +113,32 @@ angular.module('restApp').controller('CommentsController', function($scope, $htt
 			}else if (sentPositive && element.sentimiento == "POSITIVO"){
 				lista.push(element);
 			}else if (sentVeryPositive && element.sentimiento == "MUY_POSITIVO"){
+				lista.push(element);
+			}
+		})
+		
+		$scope.listado.lista = lista;
+	}
+	
+	$scope.filterRRSS = function(rs){
+		listaRedesSocialesShow[rs] = !listaRedesSocialesShow[rs];
+		
+		var addImgSrc = "";
+		var textAction = "Ocultar";
+		
+		if (!listaRedesSocialesShow[rs]){
+			addImgSrc = "_HIDDEN";
+			textAction = "Mostrar";
+		}
+		
+		document.getElementById("imgRRSS" + rs).src = "images/" + rs + addImgSrc + ".png";
+		document.getElementById(rs + "text_action").innerHTML = textAction;
+		
+		var lista = [];
+		
+		listaComentariosOriginal.forEach(function(element){
+			console.log(element['redSocial']);
+			if (listaRedesSocialesShow[element['redSocial']]){
 				lista.push(element);
 			}
 		})

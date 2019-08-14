@@ -60,6 +60,21 @@
 				</div>
 			</div>
 		</div>
+		
+		<div class="descripcion" ng-if="redesSociales">
+			<p><b>Filtrar por fuentes</b></p>
+				<div class = container ng-repeat='f in listaRedesSociales' ng-click="filterRRSS(f)" >
+				<img id="imgRRSS{{f}}" src="images/RRSS/{{f}}.png" alt="{{f}}">
+				<div class="overlay">
+				 	<div class="text">
+				 		<div id="{{f}}text_action">
+				 			Ocultar 
+				 		</div> 
+				 	{{f}}</div>
+				 </div>
+			</div>
+		</div>
+		
 	</div>
 	<div class="listaComentarios">
 		<div class="comentario" ng-repeat='c in listado.lista'>
@@ -73,7 +88,7 @@
 						{{c.autor}}  |
 						
 							<div style="display: inline;">
-								<img src="images/{{c.redSocial}}.png" alt="RedSocial">
+								<img src="images/RRSS/{{c.redSocial}}.png" alt="RedSocial">
 							</div>
 						</div>
 					</div>

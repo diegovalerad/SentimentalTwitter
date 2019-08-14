@@ -56,56 +56,15 @@
 			Filtrado por sentimientos
 		</div>
 		<div class="descripcion">
-				<div class = container ng-click="filterSentiment(1)" >
-				<img id="imgSentimentMuyNegativo" src="images/sentiments/MUY_NEGATIVO.png" alt="MuyNegativo">
+			<div class = container ng-repeat='s in listaSentimientos' ng-click="filterSentiment(s)" >
+				<img id="imgSentiment{{s}}" src="images/sentiments/{{s}}.png" alt="{{s}}">
 				<div class="overlay">
 				 	<div class="text">
-				 		<div class="text_action">
+				 		<div id="Sent_{{s}}text_action">
 				 			Ocultar 
 				 		</div> 
-				 	muy negativos</div>
+				 	{{s}}</div>
 				 </div>
-			</div>
-			<div class = container ng-click="filterSentiment(2)" >
-				<img id="imgSentimentNegativo" src="images/sentiments/NEGATIVO.png" alt="Negativo">
-				<div class="overlay">
-				 	<div class="text">
-				 		<div class="text_action">
-				 			Ocultar 
-				 		</div> 
-				 	negativos</div>
-				 </div>
-			</div>
-			<div class = container ng-click="filterSentiment(3)" >
-				<img id="imgSentimentNeutral" src="images/sentiments/NEUTRAL.png" alt="Neutral">
-				<div class="overlay">
-				 	<div class="text">
-				 		<div class="text_action">
-				 			Ocultar 
-				 		</div> 
-				 	neutrales</div>
-				 </div>
-			</div>
-			<div class = container ng-click="filterSentiment(4)">
-				<img id="imgSentimentPositivo" src="images/sentiments/POSITIVO.png" alt="Positivo">
-				<div class="overlay">
-				 	<div class="text">
-				 		<div class="text_action">
-				 			Ocultar 
-				 		</div> 
-				 	positivos</div>
-				 </div>
-			</div>
-			<div class = container ng-click="filterSentiment(5)">
-				<img id="imgSentimentMuyPositivo" src="images/sentiments/MUY_POSITIVO.png" alt="MuyPositivo">
-				<div class="overlay">
-					<div class="text">
-					 		<div class="text_action">
-					 			Ocultar 
-					 		</div> 
-					 	muy positivos
-					 </div>
-				</div>
 			</div>
 		</div>
 	</div>

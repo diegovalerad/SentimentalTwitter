@@ -59,40 +59,16 @@ angular.module('restApp').controller('SearchController', function($scope, $http,
 		}
 	}
 	
-	var sentVeryNegative = true;
-	var sentNegative = true;
-	var sentNeutral = true;
-	var sentPositive = true;
-	var sentVeryPositive = true;
 	var listaComentariosOriginal = [];
-	var inicializado = false;
+	
+	$scope.listaSentimientos = [];
+	var listaSentimientosShow = [];
 	
 	$scope.listaRedesSociales = [];
 	var listaRedesSocialesShow = [];
 
 	$scope.buscar = function () {
-		sentVeryNegative = true;
-        sentNegative = true;
-        sentNeutral = true;
-        sentPositive = true;
-        sentVeryPositive = true;
         listaComentariosOriginal = [];
-        
-        if (inicializado){
-        	document.getElementById("imgSentimentMuyNegativo").src = "images/sentiments/MUY_NEGATIVO.png";
-    		document.getElementsByClassName("text_action")[0].innerHTML = "Ocultar";
-    		document.getElementById("imgSentimentNegativo").src = "images/sentiments/NEGATIVO.png";
-    		document.getElementsByClassName("text_action")[1].innerHTML = "Ocultar";
-    		document.getElementById("imgSentimentNeutral").src = "images/sentiments/NEUTRAL.png";
-    		document.getElementsByClassName("text_action")[2].innerHTML = "Ocultar";
-    		document.getElementById("imgSentimentPositivo").src = "images/sentiments/POSITIVO.png";
-    		document.getElementsByClassName("text_action")[3].innerHTML = "Ocultar";
-    		document.getElementById("imgSentimentMuyPositivo").src = "images/sentiments/MUY_POSITIVO.png";
-    		document.getElementsByClassName("text_action")[4].innerHTML = "Ocultar";
-        }
-
-		console.log($scope.temas.until);
-		console.log($scope.temas.since);
 
 		if($scope.temas.sel == null){
 			toastr.error('Debes elegir un tema','Error ', {
@@ -156,10 +132,12 @@ angular.module('restApp').controller('SearchController', function($scope, $http,
 				listaComentariosOriginal.push(element);
 			})
 			
-			inicializado = true;
-			
-			
 			$scope.resultado.forEach(function(element){
+				if($scope.listaSentimientos.indexOf(element['sentimiento']) === -1) {
+					$scope.listaSentimientos.push(element['sentimiento']);
+					listaSentimientosShow[element['sentimiento']] = true;
+				}
+				
 				if($scope.listaRedesSociales.indexOf(element['redSocial']) === -1) {
 					$scope.listaRedesSociales.push(element['redSocial']);
 					listaRedesSocialesShow[element['redSocial']] = true;
@@ -181,81 +159,21 @@ angular.module('restApp').controller('SearchController', function($scope, $http,
 	}
 	
 	
-	$scope.filterSentiment = function(index) {
-		switch (index){
-			case 1:
-				sentVeryNegative = !sentVeryNegative;
-				if (sentVeryNegative){
-					document.getElementById("imgSentimentMuyNegativo").src = "images/sentiments/MUY_NEGATIVO.png";
-					document.getElementsByClassName("text_action")[0].innerHTML = "Ocultar";
-				}
-				else{
-					document.getElementById("imgSentimentMuyNegativo").src = "images/sentiments/MUY_NEGATIVO_HIDDEN.png";
-					document.getElementsByClassName("text_action")[0].innerHTML = "Mostrar";
-				}
-				break;
-			case 2:
-				sentNegative = !sentNegative;
-				if (sentNegative){
-					document.getElementById("imgSentimentNegativo").src = "images/sentiments/NEGATIVO.png";
-					document.getElementsByClassName("text_action")[1].innerHTML = "Ocultar";
-				}
-				else{
-					document.getElementById("imgSentimentNegativo").src = "images/sentiments/NEGATIVO_HIDDEN.png";
-					document.getElementsByClassName("text_action")[1].innerHTML = "Mostrar";
-				}
-				break;
-			case 3:
-				sentNeutral = !sentNeutral;
-				if (sentNeutral){
-					document.getElementById("imgSentimentNeutral").src = "images/sentiments/NEUTRAL.png";
-					document.getElementsByClassName("text_action")[2].innerHTML = "Ocultar";
-				}
-				else{
-					document.getElementById("imgSentimentNeutral").src = "images/sentiments/NEUTRAL_HIDDEN.png";
-					document.getElementsByClassName("text_action")[2].innerHTML = "Mostrar";
-				}
-				break;
-			case 4:
-				sentPositive = !sentPositive;
-				if (sentPositive){
-					document.getElementById("imgSentimentPositivo").src = "images/sentiments/POSITIVO.png";
-					document.getElementsByClassName("text_action")[3].innerHTML = "Ocultar";
-				}
-				else{
-					document.getElementById("imgSentimentPositivo").src = "images/sentiments/POSITIVO_HIDDEN.png";
-					document.getElementsByClassName("text_action")[3].innerHTML = "Mostrar";
-				}
-				break;
-			case 5:
-				sentVeryPositive = !sentVeryPositive;
-				if (sentVeryPositive){
-					document.getElementById("imgSentimentMuyPositivo").src = "images/sentiments/MUY_POSITIVO.png";
-					document.getElementsByClassName("text_action")[4].innerHTML = "Ocultar";
-				}
-				else{
-					document.getElementById("imgSentimentMuyPositivo").src = "images/sentiments/MUY_POSITIVO_HIDDEN.png";
-					document.getElementsByClassName("text_action")[4].innerHTML = "Mostrar";
-				}
-				break;
+	$scope.filterSentiment = function(s) {
+		listaSentimientosShow[s] = !listaSentimientosShow[s];
+		
+		var addImgSrc = "";
+		var textAction = "Ocultar";
+		
+		if (!listaSentimientosShow[s]){
+			addImgSrc = "_HIDDEN";
+			textAction = "Mostrar";
 		}
-		var lista = [];
 		
-		listaComentariosOriginal.forEach(function(element){
-			if (sentVeryNegative && element.sentimiento == "MUY_NEGATIVO"){
-				lista.push(element);
-			}else if (sentNegative && element.sentimiento == "NEGATIVO"){
-				lista.push(element);
-			}else if (sentNeutral && element.sentimiento == "NEUTRAL"){
-				lista.push(element);
-			}else if (sentPositive && element.sentimiento == "POSITIVO"){
-				lista.push(element);
-			}else if (sentVeryPositive && element.sentimiento == "MUY_POSITIVO"){
-				lista.push(element);
-			}
-		})
+		document.getElementById("imgSentiment" + s).src = "images/sentiments/" + s + addImgSrc + ".png";
+		document.getElementById("Sent_" + s + "text_action").innerHTML = textAction;
 		
-		$scope.resultado = lista;
+		updateLista();
 	}
 	
 	$scope.filterRRSS = function(rs){
@@ -269,13 +187,17 @@ angular.module('restApp').controller('SearchController', function($scope, $http,
 			textAction = "Mostrar";
 		}
 		
-		document.getElementById("imgRRSS" + rs).src = "images/" + rs + addImgSrc + ".png";
+		document.getElementById("imgRRSS" + rs).src = "images/RRSS/" + rs + addImgSrc + ".png";
 		document.getElementById(rs + "text_action").innerHTML = textAction;
 		
+		updateLista();
+	}
+	
+	function updateLista(){
 		var lista = [];
 		
 		listaComentariosOriginal.forEach(function(element){
-			if (listaRedesSocialesShow[element['redSocial']]){
+			if (listaRedesSocialesShow[element['redSocial']] && listaSentimientosShow[element['sentimiento']]){
 				lista.push(element);
 			}
 		})

@@ -43,10 +43,12 @@ public class Controlador {
 	}
 
 	/**
-	 * Constructor. Configura la factoría DAO.
+	 * Constructor. Configura las factorias y la conexión con el servicio de sentimientos
 	 */
 	private Controlador() {
 		try {
+			initBuscadorTemas();
+			
 			DAOFactoria.setDAOFactoria(DAOFactoria.OGM);
 			TemasFactoria.setDAOFactoria(TemasFactoria.ARCH_MS);
 			
@@ -56,6 +58,26 @@ public class Controlador {
 		}
 	}
 	
+	/**
+	 * Inicializa los datos del buscador de temas.
+	 */
+	private void initBuscadorTemas() {
+		Properties props = new Properties();
+		try {
+			props.load(getClass().getResourceAsStream("/buscadorTemas/buscadorTemas.properties"));
+			String user = props.getProperty("user");
+			String pass = props.getProperty("pass");
+			String url = props.getProperty("url");
+			
+			TemasFactoria.inicializar(user, pass, url);
+		} catch (IOException e) {
+			System.err.println("Controlador - Error al acceder al fichero de propiedades del buscador de temas: " + e);
+		}
+	}
+	
+	/**
+	 * Inicializa los datos de la conexión con el servicio de sentimientos
+	 */
 	private void initSentimentServiceConexion() {
 		sentimentServiceConnected = false;
 		Properties props = new Properties();
@@ -74,7 +96,7 @@ public class Controlador {
 				ConectorSentimentAnalizer.getUnicaInstancia().inicializar(baseURL, URL_method, queryText, queryAlgorithm, queryAlgorithmDefault);
 			}
 		} catch (IOException e) {
-			e.printStackTrace();
+			System.err.println("Controlador - Error al acceder al acceder al fichero de propiedades del Servicio de sentimientos: " + e);
 		}
 	}
 	

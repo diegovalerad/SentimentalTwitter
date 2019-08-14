@@ -14,10 +14,6 @@ import servicio.modelo.Tema;
 import servicio.utils.ProcesadorTexto;
 
 public class ArchMSConnection extends TemasFactoria{
-
-	private static final String USER = "josef";
-	private static final String PASS = "tfg2018pw";
-	private static final String URL = "jdbc:mysql://sele.inf.um.es:3306/editor2";
 	
 	@Override
 	public List<Tema> getTemas() {
@@ -28,13 +24,13 @@ public class ArchMSConnection extends TemasFactoria{
 		}
 
 		Properties props = new Properties();
-		props.put("user", USER);
-		props.put("password", PASS);
+		props.put("user", user);
+		props.put("password", pass);
 		props.put("useUnicode", "true");
 		props.put("useServerPrepStmts", "false"); // use client-side prepared statement
 		props.put("characterEncoding", "UTF-8"); // ensure charset is utf8 here
 
-		try (Connection connection = DriverManager.getConnection(URL, props)) {
+		try (Connection connection = DriverManager.getConnection(url, props)) {
 
 			List<Tema> temas = new LinkedList<Tema>();
 			Statement s = connection.createStatement();

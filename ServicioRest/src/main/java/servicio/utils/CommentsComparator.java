@@ -12,7 +12,7 @@ public class CommentsComparator implements Comparator<ComentarioResultado> {
 		// prioridad usuario
 		if(o1.getUserPriority() < o2.getUserPriority())
 			return -1;
-		else if(o1.getUserPriority() > o2.getUserPriority())
+		if(o1.getUserPriority() > o2.getUserPriority())
 			return 1;
 		
 		// fecha
@@ -24,9 +24,9 @@ public class CommentsComparator implements Comparator<ComentarioResultado> {
 		// popularidad
 		if(o1.getPopularidad() < o2.getPopularidad())
 			return -1;
-		else if(o1.getPopularidad() > o2.getPopularidad())
+		if(o1.getPopularidad() > o2.getPopularidad())
 			return 1;
-		else return 0;
+		return 0;
 	}
 
 }

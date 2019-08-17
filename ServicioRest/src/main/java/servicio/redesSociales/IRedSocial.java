@@ -3,6 +3,9 @@ package servicio.redesSociales;
 import servicio.modelo.Tema;
 
 public interface IRedSocial {
+	/**
+	 * @return Devuelve el nombre de la red social
+	 */
 	public String getRedSocial();
 	/**
 	 * Realiza la búsqueda de comentarios y la inserción de estos en la base de datos.

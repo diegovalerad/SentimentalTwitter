@@ -467,14 +467,23 @@ header nav a:hover {
 }
 
 .listaComentarios .comentario .info .header .autor {
-	width: 50%;
+	width: 33%;
 	font-size: 12px;
 	margin: 0 0 6px 0;
 	color: #00aced;
 }
 
+.listaComentarios .comentario .info .header .specialUser{
+	width: 33%;
+}
+
+.listaComentarios .comentario .info .header .specialUser img{
+	width: 20%;
+	margin-left: 40%;
+}
+
 .listaComentarios .comentario .info .header .fecha {
-	width: 50%;
+	width: 33%;
 	font-size: 10px;
 	margin: 0 0 6px 0;
 	text-align: right;
@@ -657,6 +666,7 @@ header nav a:hover {
 	display: flex;
 	flex-direction: row;
 	border: 1px solid #000;
+	min-height: 10em;
 }
 
 .content .infoComment .imagen {

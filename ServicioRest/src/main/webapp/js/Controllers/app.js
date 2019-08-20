@@ -38,6 +38,18 @@ app.config(function($routeProvider, $locationProvider) {
 		templateUrl : 'pages/busqueda.html',
 		controller : 'SearchController'
 	})
+	
+	.when('/login_register', {
+		title			:	'Login | Registro',
+		templateUrl		:	'pages/login_register.html',
+		controller		:	'Login_registerController'
+	})
+	
+	.when('/usuario', {
+		title			:	'Usuario',
+		templateUrl		:	'pages/usuario.html',
+		controller		:	'UserController'
+	})
 
 	.otherwise({
 		redirectTo : '/'
@@ -62,6 +74,21 @@ app.service('sharedProperties', function () {
         },
         setSentimentService: function(value) {
         	sentimentServiceConnected = value;
-        }
+        },
+        getCookie: function(cname) {
+    		var name = cname + "=";
+    		var decodedCookie = decodeURIComponent(document.cookie);
+    		var ca = decodedCookie.split(';');
+    		for(var i = 0; i <ca.length; i++) {
+    			var c = ca[i];
+    		    while (c.charAt(0) == ' ') {
+    		      c = c.substring(1);
+    		    }
+    		    if (c.indexOf(name) == 0) {
+    		    	return c.substring(name.length, c.length);
+    		    }
+    		}
+    		return "";
+    	}
     };
 });

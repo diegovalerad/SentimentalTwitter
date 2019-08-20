@@ -128,21 +128,6 @@ angular.module('restApp').controller('SearchController', function($scope, $http,
 				timeOut: 5000
 			});
 			
-			response.data.sort(function(x, y){
-	        	if (x['sentimiento'].startsWith("MUY_NEGATIVO"))
-	        		return -1;
-	        	if (x['sentimiento'].startsWith("MUY_POSITIVO"))
-	        		return 1;
-	        	
-	        	if (x['sentimiento'] < y['sentimiento']) {
-				    return -1;
-				}
-				if (x['sentimiento'] > y['sentimiento']) {
-					return 1;
-				}
-				return 0;
-			})
-			
 			response.data.forEach(function(element){
 				listaComentariosOriginal.push(element);
 			})
@@ -159,7 +144,22 @@ angular.module('restApp').controller('SearchController', function($scope, $http,
 				}
 			})
 			
+			$scope.listaSentimientos.sort(function(x, y){
+	        	if (x.startsWith("MUY_NEGATIVO"))
+	        		return -1;
+	        	if (x.startsWith("MUY_POSITIVO"))
+	        		return 1;
+	        	
+	        	if (x < y) {
+				    return -1;
+				}
+				if (x > y) {
+					return 1;
+				}
+				return 0;
+			})
 			
+			getFavoritos();
 		})
 
 		.catch(function activateError(error) {
@@ -210,13 +210,128 @@ angular.module('restApp').controller('SearchController', function($scope, $http,
 	
 	function updateLista(){
 		var lista = [];
+		var listaFavoritos = [];
+		var listaNoFavoritos = [];
 		
 		listaComentariosOriginal.forEach(function(element){
-			if (listaRedesSocialesShow[element['redSocial']] && listaSentimientosShow[element['sentimiento']]){
-				lista.push(element);
+			if (element['imgComentarioFavorito'] == "images/comentarios/recomendado.png"){
+				if (listaRedesSocialesShow[element['redSocial']] && listaSentimientosShow[element['sentimiento']]){
+					listaFavoritos.push(element);
+				}
+			}else{
+				if (listaRedesSocialesShow[element['redSocial']] && listaSentimientosShow[element['sentimiento']]){
+					listaNoFavoritos.push(element);
+				}
 			}
+		})
+		
+		listaFavoritos.forEach(function(element){
+			lista.push(element);
+		})
+		listaNoFavoritos.forEach(function(element){
+			lista.push(element);
 		})
 		
 		$scope.resultado = lista;
 	}
+	
+	/*
+	 * Funcion que se llama cuando se añade o elimina un favorito
+	 */
+	$scope.favorito = function(nombre, redSocial){
+		$http.put('http://localhost:8080/ServicioRest/rest/usuarios/' + sharedProperties.getCookie("email") +'/favorito/' + redSocial + '/' + nombre)
+		.then(function(response) {
+			
+			var isAdded = false;
+			
+			$scope.resultado.forEach(function(element){
+				if (element['redSocial'] == redSocial && element['autor'] == nombre){
+					var idImg = "imgSpecial" + redSocial + "_" + nombre;
+					if (element['imgComentarioFavorito'] == "images/comentarios/normal.png"){
+						element['imgComentarioFavorito'] = "images/comentarios/recomendado.png";
+						isAdded = true;
+					}
+					else{
+						element['imgComentarioFavorito'] = "images/comentarios/normal.png";
+						isAdded = false;
+					}
+				}
+			})
+			
+			updateLista();
+			
+			var message = "";
+			if (isAdded)
+				message = "Se ha añadido " + nombre + " a tu lista de favoritos";
+			else
+				message = "Se ha eliminado " + nombre + " de tu lista de favoritos";
+			toastr.success(message, 'Favoritos modificados', {
+				 closeButton: true,
+				 timeOut: 4000
+			});
+		 })
+		 .catch(function activateError(error) {
+		   	 $scope.status = error.status;
+		   	 
+		   	toastr.error('No se ha podido modificar tu lista de favoritos','Error', {
+       		 closeButton: true,
+       		 timeOut: 4000
+		   	});
+		 });
+	}
+	
+	function getFavoritos(){
+		var usuariosFavoritos = [];
+
+		var email = sharedProperties.getCookie("email");
+		if (email == "")
+			return;
+		
+		$http.get("http://localhost:8080/ServicioRest/rest/usuarios/" + email + "/favorito")
+		.then(function(response){
+			var listaFavoritos = response.data;
+	        
+			listaFavoritos.forEach(function(element){
+				usuariosFavoritos.push(element);
+			})
+			
+			listaComentariosOriginal.forEach(function(element){
+				var posibleFavorito = element['redSocial'] + "_" + element['autor'];
+				var isFavorito = usuariosFavoritos.includes(posibleFavorito);
+				if (isFavorito){
+					var idImg = "imgSpecial" + element['redSocial'] + "_" + element['autor'];
+					if (document.getElementById(idImg) != null){
+						element['imgComentarioFavorito'] = "images/comentarios/recomendado.png";
+					}
+				}else{
+					element['imgComentarioFavorito'] = "images/comentarios/normal.png";
+				}
+			})
+			
+			$scope.resultado.forEach(function(element){
+				var posibleFavorito = element['redSocial'] + "_" + element['autor'];
+				var isFavorito = usuariosFavoritos.includes(posibleFavorito);
+				if (isFavorito){
+					var idImg = "imgSpecial" + element['redSocial'] + "_" + element['autor'];
+					if (document.getElementById(idImg) != null){
+						element['imgComentarioFavorito'] = "images/comentarios/recomendado.png";
+					}
+				}else{
+					element['imgComentarioFavorito'] = "images/comentarios/normal.png";
+				}
+			})
+			
+			updateLista();
+			
+		})
+		.catch(function activateError(error) {
+	    	 console.log("Error al obtener los favoritos del usuario");
+	    	 toastr.error('No se pudieron obtener los favoritos del usuario','Error', {
+        		 closeButton: true,
+        		 timeOut: 4000
+        	 });
+	    });
+	}
+	
+	
 });

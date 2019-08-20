@@ -54,7 +54,7 @@
 					</div>
 					
 					<div class="specialUser">
-						<img ng-if="c.userPriority > 0" src="images/comentarios/recomendado.png" alt="Recomendado">
+						<img id="imgSpecial{{c.redSocial}}_{{c.autor}}" src="{{c.imgComentarioFavorito}}" ng-if="userLogin" ng-click="favorito(c.autor, c.redSocial)" alt="Recomendado">
 					</div>
 					
 					<div class="fecha">

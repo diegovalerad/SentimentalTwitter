@@ -9,11 +9,24 @@ import servicio.dao.OGM.OGMDAOFactoria;
  * @author José Fernando
  *
  */
-public  class DAOFactoria {
+public class DAOFactoria {
 	
 	// Métodos factoria
-	public ComentarioDAO getComentarioDAO() {return null;};
-	public TemaDAO getTemaDAO() {return null;};
+	/**
+	 * Devuelve una implementación  de la interfaz DAO del Comentario.
+	 */
+	public ComentarioDAO getComentarioDAO() {return null;}
+	
+	/**
+	 * Devuelve una implementación  de la interfaz DAO del Tema.
+	 */
+	public TemaDAO getTemaDAO() {return null;}
+	
+	/**
+	 * Devuelve una implementación  de la interfaz DAO del Usuario.
+	 */
+	public UserDAO getUserDAO() {return null;}
+	
 	public String procesarFecha(String since, String until, List<String> temas, List<String> operadores) {return null;}
 	
 	// Declaracion como constantes de los tipos de factoria

@@ -50,6 +50,11 @@ header nav {
 	z-index: 99999;
 }
 
+header nav .user{
+	display: inline;
+    margin-left: 5em;
+}
+
 header nav a {
 	text-decoration: none;
 	color: #000;
@@ -294,7 +299,8 @@ header nav a:hover {
 }
 
 .content .contenedor .formulario .inputs .input input[type="text"],
-	.content .contenedor .formulario .inputs .input textarea {
+.content .contenedor .formulario .inputs .input input[type="password"],
+.content .contenedor .formulario .inputs .input textarea {
 	font-family: "Roboto";
 	font-size: 16px;
 	color: #303F9F;
@@ -307,14 +313,17 @@ header nav a:hover {
 }
 
 .content .contenedor .formulario .inputs .input input[type="text"]:focus,
-	.content .contenedor .formulario .inputs .input input[type="text"]:active,
-	.content .contenedor .formulario .inputs .input textarea:active,
-	.content .contenedor .formulario .inputs .input textarea:focus {
+.content .contenedor .formulario .inputs .input input[type="text"]:active,
+.content .contenedor .formulario .inputs .input input[type="password"]:focus,
+.content .contenedor .formulario .inputs .input input[type="password"]:active,
+.content .contenedor .formulario .inputs .input textarea:active,
+.content .contenedor .formulario .inputs .input textarea:focus {
 	outline: none;
 	border-bottom: 2px solid #303F9F;
 }
 
-.content .contenedor .formulario .inputs .input input[type="text"].error
+.content .contenedor .formulario .inputs .input input[type="text"].error,
+.content .contenedor .formulario .inputs .input input[type="password"].error
 	{
 	border-bottom: 2px solid #D32F2F;
 }
@@ -480,6 +489,7 @@ header nav a:hover {
 .listaComentarios .comentario .info .header .specialUser img{
 	width: 20%;
 	margin-left: 40%;
+	transition: all 0.5s ease;
 }
 
 .listaComentarios .comentario .info .header .fecha {
@@ -837,6 +847,111 @@ header nav a:hover {
 
 .response{
 	margin-bottom: 1.5em;
+}
+
+/* Usuario */
+.content .usuario_titulo {
+	font-family: "Roboto";
+	text-align: left;
+	padding: 5px;
+	border-bottom: 1px solid #000;
+	width: 95%;
+	font-size: 1.5em;
+    font-weight: bold;
+}
+
+.content .usuario_texto {
+	font-family: "Roboto";
+	text-align: justify;
+	width: 90%;
+	margin: auto;
+	padding: 20px 5px;
+}
+
+.content .usuario_texto .formulario {
+	width: 100%;
+	margin: auto;
+}
+
+.content .usuario_texto .formulario .inputs {
+	width: 100%;
+	margin: auto;
+	display: flex;
+	flex-direction: column;
+	flex-wrap: wrap;
+}
+
+.content .usuario_texto .formulario .inputs .input {
+	position: relative;
+	margin-bottom: 32px;
+	display: flex;
+	flex-direction: column;
+}
+
+.content .usuario_texto .formulario .inputs .input input[type="password"]{
+	font-family: "Roboto";
+	font-size: 16px;
+	color: black;
+	width: 100%;
+	outline: none;
+	padding: 15px;
+	background: none;
+	border: none;
+	border-bottom: 2px solid #cccccc;
+}
+
+.content .usuario_texto .formulario .inputs .input input[type="password"]:focus,
+.content .usuario_texto .formulario .inputs .input input[type="password"]:active{
+	outline: none;
+	border-bottom: 2px solid #000000;
+}
+
+.content .usuario_texto .formulario .inputs .input input[type="password"].error
+	{
+	border-bottom: 2px solid #D32F2F;
+}
+
+.content .usuario_texto .formulario input[type="submit"] {
+	background: #1976D2;
+	border-radius: 1px;
+	border: 1px solid #f2f2f2;
+	color: #fff;
+	cursor: pointer;
+	display: inline-block;
+	font-family: "Roboto";
+	font-size: 16px;
+	padding: 15px;
+	width: 100%;
+	transition: all 0.3s ease;
+}
+
+.content .usuario_texto .formulario input[type="submit"]:hover {
+	background: #303F9F;
+}
+
+.usuario_texto table {
+	 font-family: Roboto, arial, sans-serif;
+	 border-collapse: collapse;
+	 width: 100%;
+}
+
+.usuario_texto td, 
+.usuario_texto th {
+  	border: 1px solid #dddddd;
+  	text-align: center;
+  	padding: 8px;
+}
+
+.usuario_texto td input{
+	font-size: 1em;
+}
+
+.usuario_texto tr:nth-child(even) {
+  	background-color: #dddddd;
+}
+
+.usuario_tabla_accion{
+	cursor: pointer;
 }
 
 /* FOOTER */

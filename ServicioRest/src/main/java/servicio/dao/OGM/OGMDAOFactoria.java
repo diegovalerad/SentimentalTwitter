@@ -10,6 +10,7 @@ import servicio.dao.ComentarioDAO;
 import servicio.dao.DAOException;
 import servicio.dao.DAOFactoria;
 import servicio.dao.TemaDAO;
+import servicio.dao.UserDAO;
 
 /**
  * Esta clase representa la factoría de NEO4j que hace uso de OGM.
@@ -46,6 +47,14 @@ public class OGMDAOFactoria extends DAOFactoria {
 	@Override
 	public TemaDAO getTemaDAO(){
 		return new OGMTemaDAO(sessionFactory);
+	}
+	
+	/**
+	 * Devuelve la implementación OGM de la interfaz DAO del Usuario.
+	 */
+	@Override
+	public UserDAO getUserDAO() {
+		return new OGMUserDAO(sessionFactory);
 	}
 	
 	/**

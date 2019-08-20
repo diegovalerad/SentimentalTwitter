@@ -1,0 +1,72 @@
+<div class="content" ng-controller='UserController' ng-if="status == '200'">
+
+	<div class="usuario_titulo">
+		Correo
+	</div>
+	<div class="usuario_texto">
+		<p>{{user_usuario.email}}</p>
+	</div>
+	
+	<div class="usuario_titulo">
+		Nueva contraseña
+	</div>
+	<div class="usuario_texto">
+		
+		<form class="formulario" name="formNuevaPass" id="form" ng-submit="updatePassword();" method="post">
+			<div class="inputs">
+				<div class="input">
+					<input type="password" pattern=".{3,}" oninvalid="setCustomValidity('La contraseña debe tener al menos 3 caracteres')"  
+							oninput="setCustomValidity('')" name="passwordActual" placeholder="Contraseña actual" form="form" required ng-model="user_usuario_passwordActual" />
+				</div>
+				<div class="input">
+					<input type="password" pattern=".{3,}" oninvalid="setCustomValidity('La contraseña debe tener al menos 3 caracteres')" 
+							oninput="setCustomValidity('')" name="passwordNueva" placeholder="Nueva contraseña" form="form" required ng-model="user_usuario_passwordNueva" />
+				</div>
+				
+				<input type="submit" name="update_password" value="Actualizar contraseña" />
+			</div>
+		</form>
+		
+	</div>
+	
+	<br>
+	
+	<div class="usuario_titulo">
+		Gestionar favoritos
+	</div>
+	<div class="usuario_texto">
+		<table>
+		  <tr>
+		    <th>Red Social</th>
+		    <th>Nombre</th>
+		    <th>Acción</th>
+		  </tr>
+		  <tr ng-repeat='f in user_favoritos'>
+		    <td>{{f[0]}}</td>
+		    <td>{{f[1]}}</td>
+		    <td class="usuario_tabla_accion" ng-click="removeFavorito(f[0], f[1])">Pulsa para eliminar</td>
+		  </tr>
+		  <tr>
+		  	<td>
+		  		<select name="rrss" ng-model="user_RedSocialElegida">
+					<option ng-repeat="rs in user_listaRedesSociales" value="{{rs}}">{{rs}}</option>
+				</select>
+		  	</td>
+		  	<td>
+		  		<input type="text" name="user_addNombre" ng-model="user_addNombre" />
+		  	</td>
+		  	<td class="usuario_tabla_accion" ng-click="addFavorito()">Pulsa para añadir</td>
+		  </tr>
+		</table>
+	</div>
+	
+</div>
+
+<div class="error" ng-controller='UserController' ng-if="status == '401' || status == '404'">
+	<div class="tituloError">
+		<h2>Ha ocurrido un error</h2>
+	</div>
+	<div class="descripcion">
+		<p>{{errorDesc}}</p>
+	</div>
+</div>

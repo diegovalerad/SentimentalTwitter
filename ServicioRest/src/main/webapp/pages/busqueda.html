@@ -108,6 +108,11 @@
 							</div>
 						</div>
 					</div>
+					
+					<div class="specialUser">
+						<img id="imgSpecial{{c.redSocial}}_{{c.autor}}" src="{{c.imgComentarioFavorito}}" ng-if="userLogin" ng-click="favorito(c.autor, c.redSocial)" alt="Recomendado">
+					</div>
+					
 					<div class="fecha">
 						<h2>{{c.fecha}}</h2>
 					</div>

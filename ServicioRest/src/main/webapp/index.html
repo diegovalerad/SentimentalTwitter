@@ -18,7 +18,9 @@
     <script src="js/Controllers/comments.js"></script>
     <script src="js/Controllers/search.js"></script>
     <script src="js/Controllers/comment.js"></script>
-    <script src="js/functions.js"></script>
+    <script src="js/Controllers/user.js"></script>
+    
+    <script src="js/Controllers/login_register.js"></script>
     <script src="https://unpkg.com/angular-toastr/dist/angular-toastr.tpls.js"></script>
     <title ng-bind="title + ' &mdash; Repositorio'">Repositorio</title>
   </head>
@@ -31,6 +33,11 @@
         <a href="./">Inicio</a>
         <a href="temas">Temas</a>
         <a href="buscar">Búsqueda</a>
+        
+        <div ng-if="userLogin" class="user"><a href="usuario">{{email}}</a></div>
+        <div ng-if="!userLogin" class="user">Bienvenido, invitad@.</div>
+        <a href="login_register" ng-if="!userLogin">Login | Registro</a>
+        <a ng-if="userLogin" ng-click="logout();" href="#">Cerrar sesión</a>
       </nav>
     </header>
     <section class="main" ng-view>

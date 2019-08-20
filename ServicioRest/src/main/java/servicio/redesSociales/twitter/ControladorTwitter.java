@@ -89,9 +89,10 @@ public class ControladorTwitter implements IRedSocial {
 	}
 	
 	private void inicializarUsuariosEspeciales() {
-		URL url = this.getClass().getClassLoader().getResource("specialUsers.txt");
+		URL url = this.getClass().getClassLoader().getResource("rrss/twitter/specialUsers.txt");
 
 		specialUsers = new LinkedList<String>();
+		
 		try {
 			Path path = Paths.get(url.toURI());
 			List<String> lines = Files.readAllLines(path, StandardCharsets.UTF_8);

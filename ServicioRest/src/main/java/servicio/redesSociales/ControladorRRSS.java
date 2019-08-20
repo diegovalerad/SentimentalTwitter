@@ -33,4 +33,12 @@ public class ControladorRRSS {
 		for (IRedSocial rs : rrss)
 			rs.buscarComentarios(tema);
 	}
+	
+	public List<String> getNombresRedesSociales(){
+		List<String> listaRRSS = new LinkedList<String>();
+		for (IRedSocial rs : rrss) {
+			listaRRSS.add(rs.getRedSocial());
+		}
+		return listaRRSS;
+	}
 }

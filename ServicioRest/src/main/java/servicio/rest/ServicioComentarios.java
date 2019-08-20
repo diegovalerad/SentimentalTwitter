@@ -22,7 +22,8 @@ import servicio.tipos.ListadoComentarios;
 import servicio.tipos.TemaResultado;
 import servicio.utils.CommentsComparator;
 
-@Path("/temas")
+@Path("temas")
+@Produces(MediaType.APPLICATION_JSON)
 public class ServicioComentarios {
 
 	@Context 
@@ -147,4 +148,12 @@ public class ServicioComentarios {
 		return Response.status(200).entity(connected).build();
 	}
 	
+	@GET
+	@Path("redesSociales")
+	@Produces(MediaType.APPLICATION_JSON)
+	public Response getRedesSociales() {
+		List<String> rrss = Controlador.getUnicaInstancia().getRedesSociales();
+		
+		return Response.status(200).entity(rrss).build();
+	}
 }

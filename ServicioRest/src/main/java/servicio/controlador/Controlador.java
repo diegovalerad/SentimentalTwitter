@@ -1,6 +1,7 @@
 package servicio.controlador;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.LinkedList;
 import java.util.List;
@@ -11,8 +12,10 @@ import servicio.dao.ComentarioDAO;
 import servicio.dao.DAOException;
 import servicio.dao.DAOFactoria;
 import servicio.dao.TemaDAO;
+import servicio.dao.UserDAO;
 import servicio.modelo.Comentario;
 import servicio.modelo.Tema;
+import servicio.modelo.Usuario;
 import servicio.redesSociales.ControladorRRSS;
 import servicio.tipos.ComentarioResultado;
 import servicio.tipos.TemaResultado;
@@ -277,5 +280,117 @@ public class Controlador {
 		String sentimiento = ConectorSentimentAnalizer.getUnicaInstancia().getSentiment(texto);
 		return sentimiento;
 	}
-
+	
+	/**
+	 * Obtiene una lista de cadenas de texto con todas las redes sociales
+	 * @return
+	 */
+	public List<String> getRedesSociales() {
+		return ControladorRRSS.getUnicaInstancia().getNombresRedesSociales();
+	}
+	
+	/**
+	 * Persiste un usuario en la base de datos
+	 * @param email Email del usuario
+	 * @param password Contraseña del usuario
+	 */
+	public boolean crearUsuario(String email, String password) {
+		UserDAO uDAO = DAOFactoria.getUnicaInstancia().getUserDAO();
+		
+		List<String> usuariosFavoritos = new ArrayList<String>();
+		
+		Usuario usuario = new Usuario();
+		usuario.setEmail(email);
+		usuario.setPassword(password);
+		usuario.setUsuariosFavoritos(usuariosFavoritos);
+		
+		return uDAO.createUsuario(usuario);
+	}
+	
+	/**
+	 * Intenta hacer login
+	 * @param email Correo del usuario
+	 * @param password Contraseña del usuario
+	 * @return Si los datos son correctos
+	 */
+	public boolean login(String email, String password) {
+		UserDAO uDAO = DAOFactoria.getUnicaInstancia().getUserDAO();
+		
+		return uDAO.login(email, password);
+	}
+	
+	/**
+	 * Añade o elimina un favorito de la lista de personas favoritas del usuario.
+	 * <br>
+	 * Si la lista del usuario ya contenía el favorito, lo elimina.
+	 * <br>
+	 * Si la lista del usuario no lo contenía, lo añade.
+	 * @param email Email del usuario que quiere modificar su lista
+	 * @param redSocial Red social de la persona favorita
+	 * @param nombre Nombre de la persona favorita
+	 * @return Si se ha podido realizar con exito la modificación de la lista de personas favoritas
+	 */
+	public boolean modificarFavorito(String email, String redSocial, String nombre) {
+		UserDAO uDAO = DAOFactoria.getUnicaInstancia().getUserDAO();
+		
+		Usuario usuario = uDAO.findUsuarioByEmail(email);
+		if (usuario == null)
+			return false;
+		
+		List<String> favoritos = usuario.getUsuariosFavoritos();
+		String busqueda = redSocial + "_" + nombre;
+		
+		if (favoritos.contains(busqueda))
+			favoritos.remove(busqueda);
+		else
+			favoritos.add(busqueda);
+		
+		uDAO.createUsuario(usuario);
+		return true;
+	}
+	
+	/**
+	 * Busca a un usuario en la base de datos
+	 * @param email Email del usuario
+	 * @return Usuario u objeto NULO si no se encuentra
+	 */
+	public Usuario findUsuarioByEmail(String email) {
+		UserDAO uDAO = DAOFactoria.getUnicaInstancia().getUserDAO();
+		
+		Usuario usuario = uDAO.findUsuarioByEmail(email);
+		
+		return usuario;
+	}
+	
+	/**
+	 * Busca las personas favoritas del usuario
+	 * @param email Correo del usuario
+	 * @return Lista de personas favoritas
+	 */
+	public List<String> getFavoritos(String email){
+		UserDAO uDAO = DAOFactoria.getUnicaInstancia().getUserDAO();
+		
+		List<String> favoritos = uDAO.getFavoritos(email);
+		
+		return favoritos;
+	}
+	
+	/**
+	 * Actualiza la contraseña del usuario
+	 * @param email Correo del usuario
+	 * @param password Nueva contraseña
+	 * @return true si se ha podido actualizar, false en caso contrario
+	 */
+	public boolean updateUsuario(String email, String password) {
+		UserDAO uDAO = DAOFactoria.getUnicaInstancia().getUserDAO();
+		
+		Usuario usuario = uDAO.findUsuarioByEmail(email);
+		if (usuario == null)
+			return false;
+		
+		usuario.setPassword(password);
+		
+		return uDAO.createUsuario(usuario);
+	}
+	
 }

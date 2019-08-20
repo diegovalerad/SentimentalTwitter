@@ -16,6 +16,7 @@ import servicio.dao.UserDAO;
 import servicio.modelo.Comentario;
 import servicio.modelo.Tema;
 import servicio.modelo.Usuario;
+import servicio.otrosServicios.ConectorSentimentAnalizer;
 import servicio.redesSociales.ControladorRRSS;
 import servicio.tipos.ComentarioResultado;
 import servicio.tipos.TemaResultado;

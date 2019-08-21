@@ -49,45 +49,70 @@ angular.module('restApp').controller('UserController', function($scope, $http, t
 	    return p.join('&');
 	};
 	
+	/**
+	 * Para actualizar la contraseña, primero comprobamos que la contraseña
+	 * actual es correcta intentando hacer login. Una vez comprobamos que es correcta,
+	 * la actualizamos.
+	 */
 	$scope.updatePassword = function(){
-		if ($scope.user_usuario_passwordActual != $scope.user_usuario['password']){
-			toastr.error('Contraseña incorrecta','Error', {
-       		 closeButton: true,
-       		 timeOut: 4000
-			});
-			 
-			$scope.user_usuario_passwordActual = "";
-			$scope.user_usuario_passwordNueva = "";
-		}else{
-			var data = {
-				password: $scope.user_usuario_passwordNueva,
-			};
+		var urlLogin = "http://localhost:8080/ServicioRest/rest/usuarios/login";
+		
+		var dataLogin = {
+			email: $scope.email,
+			password: $scope.user_usuario_passwordActual,
+		};
+		
+		$http({
+			method	:	'POST',
+			url		:	urlLogin,
+			data    : 	Object.toparams(dataLogin),
+			headers : 	{ 
+				'Content-Type': 'application/x-www-form-urlencoded'
+			}
+		}).then(function successCallback(response){
+			/*
+			 * Login correcto, entonces intentamos actualizar la contraseña
+			 */
 			
-			var url = 'http://localhost:8080/ServicioRest/rest/usuarios/' + $scope.email + '/update';
+			var dataUpdate = {
+					password: $scope.user_usuario_passwordNueva,
+				};
+				
+			var urlUpdate = 'http://localhost:8080/ServicioRest/rest/usuarios/' + $scope.email + '/update';
 			$http({
 				method	:	'PUT',
-				url		:	url,
-				data    : 	Object.toparams(data),
+				url		:	urlUpdate,
+				data    : 	Object.toparams(dataUpdate),
 				headers : 	{ 
 					'Content-Type': 'application/x-www-form-urlencoded'
 				}
 			}).then(function successCallback(response){
-				toastr.success('Contraseña actualizada correctamente', {
-					closeButton: true,
-		       		timeOut: 4000
-				});
+					toastr.success('Contraseña actualizada correctamente', {
+						closeButton: true,
+						timeOut: 4000
+					});
 				
-				$scope.user_usuario['password'] = data['password'];
-	        }, function errorCallback(response){
-
-	        	toastr.error('No se pudieron actualizar los datos del usuario','Error', {
-	          		 closeButton: true,
-	          		 timeOut: 4000
-	   			});
-	        });
+		        }, function errorCallback(response){
+			        	toastr.error('No se pudieron actualizar los datos del usuario','Error', {
+			          		 closeButton: true,
+			          		 timeOut: 4000
+			   			});
+		        });
 			$scope.user_usuario_passwordActual = "";
 			$scope.user_usuario_passwordNueva = "";
-		}
+			
+        }, function errorCallback(response){
+        	/*
+        	 * Contraseña actual incorrecta
+        	 */
+        	toastr.error('Contraseña incorrecta','Error', {
+          		 closeButton: true,
+          		 timeOut: 4000
+   			});
+   			 
+   			$scope.user_usuario_passwordActual = "";
+   			$scope.user_usuario_passwordNueva = "";
+        });
 	}
 	
 	favorito = function(redSocial, nombre, eliminar){

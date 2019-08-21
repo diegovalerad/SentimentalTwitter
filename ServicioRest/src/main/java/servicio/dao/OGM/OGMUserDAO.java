@@ -38,17 +38,6 @@ public class OGMUserDAO implements UserDAO {
 			return false;
 		}
 	}
-	
-	@Override
-	public boolean login(String email, String password) {
-		Usuario usuario = findUsuarioByEmail(email);
-		
-		if (usuario == null) {
-			return false;
-		}
-		
-		return usuario.getPassword().equals(password);
-	}
 
 	@Override
 	public void deleteUsuario(Usuario usuario) {

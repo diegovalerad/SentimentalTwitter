@@ -18,14 +18,6 @@ public interface UserDAO {
 	public boolean createUsuario(Usuario usuario);
 	
 	/**
-	 * Comprueba si el login es correcto
-	 * @param email Email del usuario
-	 * @param password Contraseña del usuario
-	 * @return Boolean indicando si los datos son correctos
-	 */
-	public boolean login(String email, String password);
-	
-	/**
 	 * Elimina un usuario de la base de datos
 	 * @param usuario Usuario a eliminir
 	 */

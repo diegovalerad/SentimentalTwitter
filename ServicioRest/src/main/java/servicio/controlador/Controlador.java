@@ -20,6 +20,7 @@ import servicio.otrosServicios.ConectorSentimentAnalizer;
 import servicio.redesSociales.ControladorRRSS;
 import servicio.tipos.ComentarioResultado;
 import servicio.tipos.TemaResultado;
+import servicio.utils.PasswordAuthentication;
 
 /**
  * Controlador del Servicio Rest. Se encarga de realizar las consultas a base de
@@ -300,9 +301,14 @@ public class Controlador {
 		
 		List<String> usuariosFavoritos = new ArrayList<String>();
 		
+		char[] passCharArray = password.toCharArray();
+		
+		PasswordAuthentication pa = new PasswordAuthentication();
+		String token = pa.hash(passCharArray);
+		
 		Usuario usuario = new Usuario();
 		usuario.setEmail(email);
-		usuario.setPassword(password);
+		usuario.setPassword(token);
 		usuario.setUsuariosFavoritos(usuariosFavoritos);
 		
 		return uDAO.createUsuario(usuario);
@@ -317,7 +323,17 @@ public class Controlador {
 	public boolean login(String email, String password) {
 		UserDAO uDAO = DAOFactoria.getUnicaInstancia().getUserDAO();
 		
-		return uDAO.login(email, password);
+		Usuario usuario = uDAO.findUsuarioByEmail(email);
+		if (usuario == null)
+			return false;
+		
+		char[] passCharArray = password.toCharArray();
+		String token = usuario.getPassword();
+		
+		PasswordAuthentication pa = new PasswordAuthentication();
+		
+		boolean login = pa.authenticate(passCharArray, token);
+		return login;
 	}
 	
 	/**

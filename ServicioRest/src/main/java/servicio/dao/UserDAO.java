@@ -29,11 +29,4 @@ public interface UserDAO {
 	 * @return Usuario encontrado
 	 */
 	public Usuario findUsuarioByEmail(String email);
-
-	/**
-	 * Obtiene los favoritos del usuario 
-	 * @param email Correo del usuario
-	 * @return Lista de favoritos del usuario
-	 */
-	public List<String> getFavoritos(String email);
 }

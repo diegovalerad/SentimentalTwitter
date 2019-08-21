@@ -14,6 +14,7 @@ import servicio.dao.DAOFactoria;
 import servicio.dao.TemaDAO;
 import servicio.dao.UserDAO;
 import servicio.modelo.Comentario;
+import servicio.modelo.Favorito;
 import servicio.modelo.Tema;
 import servicio.modelo.Usuario;
 import servicio.otrosServicios.ConectorSentimentAnalizer;
@@ -299,8 +300,6 @@ public class Controlador {
 	public boolean crearUsuario(String email, String password) {
 		UserDAO uDAO = DAOFactoria.getUnicaInstancia().getUserDAO();
 		
-		List<String> usuariosFavoritos = new ArrayList<String>();
-		
 		char[] passCharArray = password.toCharArray();
 		
 		PasswordAuthentication pa = new PasswordAuthentication();
@@ -309,6 +308,8 @@ public class Controlador {
 		Usuario usuario = new Usuario();
 		usuario.setEmail(email);
 		usuario.setPassword(token);
+		
+		List<Favorito> usuariosFavoritos = new ArrayList<Favorito>();
 		usuario.setUsuariosFavoritos(usuariosFavoritos);
 		
 		return uDAO.createUsuario(usuario);
@@ -354,13 +355,30 @@ public class Controlador {
 		if (usuario == null)
 			return false;
 		
-		List<String> favoritos = usuario.getUsuariosFavoritos();
-		String busqueda = redSocial + "_" + nombre;
+		uDAO.deleteUsuario(usuario);
 		
-		if (favoritos.contains(busqueda))
-			favoritos.remove(busqueda);
-		else
-			favoritos.add(busqueda);
+		List<Favorito> listaFavoritos = usuario.getUsuariosFavoritos();
+		boolean isFavoritoEnLista = false;
+		
+		List<Favorito> nuevaLista = new ArrayList<Favorito>();
+		for (Favorito favorito : listaFavoritos) {
+			if (favorito.getRedSocial().equals(redSocial)) {
+				if (favorito.getNombre().equals(nombre))
+					isFavoritoEnLista = true;
+				else
+					nuevaLista.add(favorito);
+			}else
+				nuevaLista.add(favorito);
+		}
+		
+		if (!isFavoritoEnLista) {
+			Favorito f = new Favorito();
+			f.setNombre(nombre);
+			f.setRedSocial(redSocial);
+			nuevaLista.add(f);
+		}
+		
+		usuario.setUsuariosFavoritos(nuevaLista);
 		
 		uDAO.createUsuario(usuario);
 		return true;
@@ -380,19 +398,6 @@ public class Controlador {
 	}
 	
 	/**
-	 * Busca las personas favoritas del usuario
-	 * @param email Correo del usuario
-	 * @return Lista de personas favoritas
-	 */
-	public List<String> getFavoritos(String email){
-		UserDAO uDAO = DAOFactoria.getUnicaInstancia().getUserDAO();
-		
-		List<String> favoritos = uDAO.getFavoritos(email);
-		
-		return favoritos;
-	}
-	
-	/**
 	 * Actualiza la contraseña del usuario
 	 * @param email Correo del usuario
 	 * @param password Nueva contraseña
@@ -408,6 +413,16 @@ public class Controlador {
 		usuario.setPassword(password);
 		
 		return uDAO.createUsuario(usuario);
+	}
+
+	public List<Favorito> getFavoritos(String email) {
+		UserDAO uDAO = DAOFactoria.getUnicaInstancia().getUserDAO();
+		
+		Usuario usuario = uDAO.findUsuarioByEmail(email);
+		if (usuario == null)
+			return null;
+		
+		return usuario.getUsuariosFavoritos();
 	}
 	
 }

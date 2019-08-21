@@ -13,19 +13,13 @@ angular.module('restApp').controller('UserController', function($scope, $http, t
 			$scope.user_usuario = response.data;
 			$scope.status = response.status;
 			
+			console.log($scope.user_usuario.usuariosFavoritos);
+			console.log($scope.user_usuario.usuariosFavoritos[0]['nombre']);
+			console.log($scope.user_usuario.usuariosFavoritos[0]['redSocial']);
+			
 			if ($scope.status == 404){
 				$scope.errorDesc = "Error al obtener tus datos en la base de datos. Inténtelo de nuevo más tarde.";
 			}else{
-				$scope.user_favoritos = [];
-				
-				$scope.user_usuario['usuariosFavoritos'].forEach(function(element){
-					var res = element.split("_");
-					var redSocial = res[0];
-					var nombre = res[1];
-					
-					$scope.user_favoritos.push(res);
-				})
-				
 				var urlRedesSociales = 'http://localhost:8080/ServicioRest/rest/temas/redesSociales';
 				$http.get(urlRedesSociales)
 				.then(function(response){
@@ -119,21 +113,17 @@ angular.module('restApp').controller('UserController', function($scope, $http, t
 		$http.put('http://localhost:8080/ServicioRest/rest/usuarios/' + $scope.email +'/favorito/' + redSocial + '/' + nombre)
 		.then(function(response) {
 			
+			var fav = [];
+			fav['redSocial'] = redSocial;
+			fav['nombre'] = nombre;
+			
 			var message = "";
 			if (eliminar){
-				var fav = [];
-				fav[0] = redSocial;
-				fav[1] = nombre;
-				
-				$scope.user_favoritos.splice(fav, 1);
+				$scope.user_usuario.usuariosFavoritos.splice(fav, 1);
 				
 				message = "Se ha eliminado " + nombre + " de tu lista de favoritos";
 			}else{
-				var fav = [];
-				fav[0] = redSocial;
-				fav[1] = nombre;
-				
-				$scope.user_favoritos.push(fav);
+				$scope.user_usuario.usuariosFavoritos.push(fav);
 				
 				message = "Se ha añadido " + nombre + " a tu lista de favoritos";
 			}
@@ -151,9 +141,6 @@ angular.module('restApp').controller('UserController', function($scope, $http, t
 	}
 	
 	$scope.removeFavorito = function (redSocial, nombre){
-		console.log("redsocial: " + redSocial);
-		console.log("nombre: " + nombre);
-		
 		favorito(redSocial, nombre, true);
 	}
 	
@@ -165,9 +152,9 @@ angular.module('restApp').controller('UserController', function($scope, $http, t
 			});
 		}else{
 			var isRepetido = false;
-			$scope.user_favoritos.forEach(function(element){
-				var elementRedSocial = element[0];
-				var elementNombre = element[1];
+			$scope.user_usuario.usuariosFavoritos.forEach(function(element){
+				var elementRedSocial = element['redSocial'];
+				var elementNombre = element['nombre'];
 				if (elementRedSocial == $scope.user_RedSocialElegida && elementNombre == $scope.user_addNombre)
 					isRepetido = true;
 			})

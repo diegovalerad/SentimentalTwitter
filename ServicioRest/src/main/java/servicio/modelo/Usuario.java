@@ -6,9 +6,11 @@ import java.util.List;
 import org.neo4j.ogm.annotation.Id;
 import org.neo4j.ogm.annotation.NodeEntity;
 import org.neo4j.ogm.annotation.Property;
+import org.neo4j.ogm.annotation.Relationship;
 
 /**
- * Esta clase representa a las entidades del dominio 'Usuario' que van a ser persistidas en base de datos.
+ * Esta clase representa a las entidades del dominio 'Usuario' que van a ser
+ * persistidas en base de datos.
  * 
  * @author Diego Valera Duran
  *
@@ -22,9 +24,9 @@ public class Usuario {
 
 	@Property(name = "password")
 	private String password;
-
-	@Property(name = "usuariosFavoritos")
-	private List<String> usuariosFavoritos = new ArrayList<String>();
+	
+	@Relationship(type="FAVORITES", direction=Relationship.OUTGOING)
+	private List<Favorito> usuariosFavoritos = new ArrayList<Favorito>();
 
 	public String getEmail() {
 		return email;
@@ -42,11 +44,12 @@ public class Usuario {
 		this.password = password;
 	}
 
-	public List<String> getUsuariosFavoritos() {
+	public List<Favorito> getUsuariosFavoritos() {
 		return usuariosFavoritos;
 	}
 
-	public void setUsuariosFavoritos(List<String> usuariosFavoritos) {
+	public void setUsuariosFavoritos(List<Favorito> usuariosFavoritos) {
 		this.usuariosFavoritos = usuariosFavoritos;
 	}
+
 }

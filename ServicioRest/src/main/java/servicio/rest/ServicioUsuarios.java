@@ -13,6 +13,7 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
 import servicio.controlador.Controlador;
+import servicio.modelo.Favorito;
 import servicio.modelo.Usuario;
 
 @Path("usuarios")
@@ -78,7 +79,7 @@ public class ServicioUsuarios {
 	@Path("{email}/favorito")
 	@Produces(MediaType.APPLICATION_JSON)
 	public Response getFavoritos(@PathParam("email") String email) {
-		List<String> favoritos = Controlador.getUnicaInstancia().getFavoritos(email);
+		List<Favorito> favoritos = Controlador.getUnicaInstancia().getFavoritos(email);
 		
 		if (favoritos == null)
 			return Response.status(Response.Status.INTERNAL_SERVER_ERROR).build();

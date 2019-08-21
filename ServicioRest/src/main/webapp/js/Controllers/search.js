@@ -281,23 +281,24 @@ angular.module('restApp').controller('SearchController', function($scope, $http,
 	}
 	
 	function getFavoritos(){
-		var usuariosFavoritos = [];
-
 		var email = sharedProperties.getCookie("email");
 		if (email == "")
 			return;
 		
 		$http.get("http://localhost:8080/ServicioRest/rest/usuarios/" + email + "/favorito")
 		.then(function(response){
-			var listaFavoritos = response.data;
-	        
-			listaFavoritos.forEach(function(element){
-				usuariosFavoritos.push(element);
-			})
+			var usuariosFavoritos = response.data;
 			
 			listaComentariosOriginal.forEach(function(element){
-				var posibleFavorito = element['redSocial'] + "_" + element['autor'];
-				var isFavorito = usuariosFavoritos.includes(posibleFavorito);
+				var isFavorito = false;
+				
+				usuariosFavoritos.forEach(function(elementFavorito){
+					if (elementFavorito['redSocial'] == element['redSocial']){
+						if (elementFavorito['nombre'] == element['autor'])
+							isFavorito = true;
+					}
+				})
+				
 				if (isFavorito){
 					var idImg = "imgSpecial" + element['redSocial'] + "_" + element['autor'];
 					if (document.getElementById(idImg) != null){
@@ -309,8 +310,14 @@ angular.module('restApp').controller('SearchController', function($scope, $http,
 			})
 			
 			$scope.resultado.forEach(function(element){
-				var posibleFavorito = element['redSocial'] + "_" + element['autor'];
-				var isFavorito = usuariosFavoritos.includes(posibleFavorito);
+				var isFavorito = false;
+				
+				usuariosFavoritos.forEach(function(elementFavorito){
+					if (elementFavorito['redSocial'] == element['redSocial']){
+						if (elementFavorito['nombre'] == element['autor'])
+							isFavorito = true;
+					}
+				})
 				if (isFavorito){
 					var idImg = "imgSpecial" + element['redSocial'] + "_" + element['autor'];
 					if (document.getElementById(idImg) != null){

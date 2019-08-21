@@ -1,11 +1,14 @@
 package servicio.dao.OGM;
 
+import java.util.Collections;
+import java.util.LinkedList;
 import java.util.List;
 
 import org.neo4j.ogm.session.Session;
 import org.neo4j.ogm.session.SessionFactory;
 
 import servicio.dao.UserDAO;
+import servicio.modelo.Favorito;
 import servicio.modelo.Usuario;
 
 /**
@@ -47,8 +50,21 @@ public class OGMUserDAO implements UserDAO {
 			synchronized (sessionFactory) {
 				sesion = sessionFactory.openSession();
 			}
-
-			sesion.delete(usuario);
+			
+			List<String> listaFavoritosString = new LinkedList<String>();
+			for (Favorito f : usuario.getUsuariosFavoritos()) {
+				listaFavoritosString.add(f.getId());
+			}
+			
+			String query = "MATCH (u:Usuario {email:\"" + usuario.getEmail() + "\"})" + 
+						 	" DETACH DELETE u";
+			sesion.query(query, Collections.emptyMap());
+			
+			for (String s : listaFavoritosString) {
+				query = "MATCH (f:Favorito {id:\"" + s + "\"})" +
+						" DETACH DELETE f";
+				sesion.query(query, Collections.emptyMap());
+			}
 		} catch (Exception e) {
 			System.err.println("OGMUserDAO - Error al eliminar un usuario: " + e);
 		}
@@ -70,17 +86,6 @@ public class OGMUserDAO implements UserDAO {
 		}
 
 		return usuario;
-	}
-	
-	@Override
-	public List<String> getFavoritos(String email) {
-		Usuario usuario = findUsuarioByEmail(email);
-		
-		if (usuario == null) {
-			return null;
-		}
-		
-		return usuario.getUsuariosFavoritos();
 	}
 
 }

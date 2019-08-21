@@ -41,10 +41,10 @@
 		    <th>Nombre</th>
 		    <th>Acción</th>
 		  </tr>
-		  <tr ng-repeat='f in user_favoritos'>
-		    <td>{{f[0]}}</td>
-		    <td>{{f[1]}}</td>
-		    <td class="usuario_tabla_accion" ng-click="removeFavorito(f[0], f[1])">Pulsa para eliminar</td>
+		  <tr ng-repeat='f in user_usuario.usuariosFavoritos'>
+		    <td>{{f['redSocial']}}</td>
+		    <td>{{f['nombre']}}</td>
+		    <td class="usuario_tabla_accion" ng-click="removeFavorito(f['redSocial'], f['nombre'])">Pulsa para eliminar</td>
 		  </tr>
 		  <tr>
 		  	<td>

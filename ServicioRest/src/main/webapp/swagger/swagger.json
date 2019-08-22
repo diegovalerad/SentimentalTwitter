@@ -1,364 +1,786 @@
 {
-  "swagger" : "2.0",
-  "info" : {
-    "description" : "API REST que muestra los comentarios y su sentimiento de redes sociales clasificados por temas.",
-    "version" : "1.0.0",
-    "title" : "API Información RRSS",
-    "contact" : {
-      "email" : "diego.valera@um.es"
+  "swagger": "2.0",
+  "info": {
+    "description": "API REST que muestra los comentarios y su sentimiento de redes sociales clasificados por temas.",
+    "version": "1.0.0",
+    "title": "API Información RRSS",
+    "contact": {
+      "email": "tfg.comentarios@gmail.com"
     },
-    "license" : {
-      "name" : "Apache 2.0",
-      "url" : "http://www.apache.org/licenses/LICENSE-2.0.html"
+    "license": {
+      "name": "Apache 2.0",
+      "url": "http://www.apache.org/licenses/LICENSE-2.0.html"
     }
   },
-  "host" : "localhost:8080",
-  "basePath" : "/ServicioRest/rest",
-  "tags" : [ {
-    "name" : "Temas",
-    "description" : "Operaciones para búsqueda de temas"
-  }, {
-    "name" : "Comentarios",
-    "description" : "Operaciones para búsqueda de comentarios"
-  }, {
-    "name" : "Servicios externos",
-    "description" : "Operaciones para comprobar servicios externos"
-  } ],
-  "schemes" : [ "http" ],
-  "paths" : {
-    "/temas" : {
-      "get" : {
-        "tags" : [ "Temas" ],
-        "summary" : "Busca todos los temas disponibles en la base de datos",
-        "description" : "Devuelve una colección de temas con información simplificada.",
-        "operationId" : "getTemas",
-        "produces" : [ "application/json" ],
-        "parameters" : [ ],
-        "responses" : {
-          "200" : {
-            "description" : "Temas encontrados correctamente",
-            "schema" : {
-              "type" : "array",
-              "items" : {
-                "$ref" : "#/definitions/TemaResultado"
+  "host": "localhost:8080",
+  "basePath": "/ServicioRest/rest",
+  "tags": [
+    {
+      "name": "Temas",
+      "description": "Operaciones sobre temas"
+    },
+    {
+      "name": "Comentarios",
+      "description": "Operaciones sobre comentarios"
+    },
+    {
+      "name": "Usuarios",
+      "description": "Operaciones sobre usuarios"
+    },
+    {
+      "name": "Servicios externos",
+      "description": "Operaciones sobre servicios externos"
+    }
+  ],
+  "schemes": [
+    "http"
+  ],
+  "paths": {
+    "/temas": {
+      "get": {
+        "tags": [
+          "Temas"
+        ],
+        "summary": "Busca todos los temas disponibles en la base de datos",
+        "description": "Devuelve una colección de temas con información simplificada.",
+        "operationId": "getTemas",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "Temas encontrados correctamente",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/TemaResultado"
               }
             }
           },
-          "400" : {
-            "description" : "No se han encontrado temas"
+          "400": {
+            "description": "No se han encontrado temas"
           }
         }
       }
     },
-    "/temas/{tema}" : {
-      "get" : {
-        "tags" : [ "Temas" ],
-        "summary" : "Devuelve el tema correspondiente al ID",
-        "description" : "Devuelve el tema con el identificador indicado en el PATH. Junto al tema, se devuelve una lista con los comentarios sobre el tema simplificados.",
-        "operationId" : "getTemaById",
-        "produces" : [ "application/json" ],
-        "parameters" : [ {
-          "name" : "tema",
-          "in" : "path",
-          "description" : "ID del tema a buscar",
-          "required" : true,
-          "type" : "string"
-        } ],
-        "responses" : {
-          "200" : {
-            "description" : "Tema encontrado correctamente",
-            "schema" : {
-              "type" : "array",
-              "items" : {
-                "$ref" : "#/definitions/ListadoComentarios"
+    "/temas/{tema}": {
+      "get": {
+        "tags": [
+          "Temas"
+        ],
+        "summary": "Devuelve el tema correspondiente al ID",
+        "description": "Devuelve el tema con el identificador indicado en el PATH. Junto al tema, se devuelve una lista con los comentarios sobre el tema simplificados.",
+        "operationId": "getTemaById",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "tema",
+            "in": "path",
+            "description": "ID del tema a buscar",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Tema encontrado correctamente",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/ListadoComentarios"
               }
             }
           },
-          "404" : {
-            "description" : "Tema no encontrado"
+          "404": {
+            "description": "Tema no encontrado"
           }
         }
       },
-      "post" : {
-        "tags" : [ "Temas" ],
-        "summary" : "Crea un tema a partir del nombre que se proporcione",
-        "description" : "Crea un tema pasando un nombre de tema y una descripción opcional",
-        "operationId" : "crearTema",
-        "produces" : [ "application/json" ],
-        "parameters" : [ {
-          "name" : "tema",
-          "in" : "path",
-          "description" : "Nombre del tema",
-          "required" : true,
-          "type" : "string"
-        }, {
-          "name" : "descripcion",
-          "in" : "query",
-          "required" : false,
-          "type" : "string"
-        } ],
-        "responses" : {
-          "201" : {
-            "description" : "Tema creado"
+      "post": {
+        "tags": [
+          "Temas"
+        ],
+        "summary": "Crea un tema a partir del nombre que se proporcione",
+        "description": "Crea un tema pasando un nombre de tema y una descripción opcional",
+        "operationId": "crearTema",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "tema",
+            "in": "path",
+            "description": "Nombre del tema",
+            "required": true,
+            "type": "string"
           },
-          "500" : {
-            "description" : "Internal server error"
+          {
+            "name": "descripcion",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Tema creado"
+          },
+          "500": {
+            "description": "Internal server error"
           }
         }
       }
     },
-    "/temas/{idTema}/{idComentario}" : {
-      "get" : {
-        "tags" : [ "Comentarios" ],
-        "summary" : "Obtiene un comentario de un tema",
-        "description" : "Obtiene un comentario de un tema proporcionando el id del tema y del comentario",
-        "operationId" : "getComentario",
-        "produces" : [ "application/json" ],
-        "parameters" : [ {
-          "name" : "idTema",
-          "in" : "path",
-          "description" : "ID del tema sobre el que buscar el comentario",
-          "required" : true,
-          "type" : "string"
-        }, {
-          "name" : "idComentario",
-          "in" : "path",
-          "description" : "ID del comentario que se quiere buscar",
-          "required" : true,
-          "type" : "string"
-        } ],
-        "responses" : {
-          "200" : {
-            "description" : "Comentario encontrado",
-            "schema" : {
-              "$ref" : "#/definitions/Comentario"
+    "/temas/{idTema}/{idComentario}": {
+      "get": {
+        "tags": [
+          "Comentarios"
+        ],
+        "summary": "Obtiene un comentario de un tema",
+        "description": "Obtiene un comentario de un tema proporcionando el id del tema y del comentario",
+        "operationId": "getComentario",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "idTema",
+            "in": "path",
+            "description": "ID del tema sobre el que buscar el comentario",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "idComentario",
+            "in": "path",
+            "description": "ID del comentario que se quiere buscar",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Comentario encontrado",
+            "schema": {
+              "$ref": "#/definitions/Comentario"
             }
           },
-          "404" : {
-            "description" : "Comentario no encontrado"
+          "404": {
+            "description": "Comentario no encontrado"
           }
         }
       }
     },
-    "/temas/search" : {
-      "get" : {
-        "tags" : [ "Comentarios" ],
-        "summary" : "Busca comentarios a partir de unos parametros",
-        "description" : "Busca comentarios a partir de unas fechas de inicio y fin, asi como una lista de temas y unas condiciones.",
-        "operationId" : "busqueda",
-        "produces" : [ "application/json" ],
-        "parameters" : [ {
-          "name" : "since",
-          "in" : "query",
-          "description" : "Fecha de inicio, a partir de cuando buscar los comentarios.",
-          "required" : true,
-          "type" : "string"
-        }, {
-          "name" : "until",
-          "in" : "query",
-          "description" : "Fecha de fin, hasta cuando buscar los comentarios.",
-          "required" : true,
-          "type" : "string"
-        }, {
-          "name" : "tema",
-          "in" : "query",
-          "description" : "Temas sobre los que buscar",
-          "required" : true,
-          "type" : "array",
-          "items" : {
-            "type" : "string"
+    "/temas/search": {
+      "get": {
+        "tags": [
+          "Comentarios"
+        ],
+        "summary": "Busca comentarios a partir de unos parametros",
+        "description": "Busca comentarios a partir de unas fechas de inicio y fin, asi como una lista de temas y unas condiciones.",
+        "operationId": "busqueda",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "since",
+            "in": "query",
+            "description": "Fecha de inicio, a partir de cuando buscar los comentarios.",
+            "required": true,
+            "type": "string"
           },
-          "collectionFormat" : "multi"
-        } ],
-        "responses" : {
-          "200" : {
-            "description" : "Busqueda realizada correctamente",
-            "schema" : {
-              "type" : "array",
-              "items" : {
-                "$ref" : "#/definitions/ComentarioResultado"
+          {
+            "name": "until",
+            "in": "query",
+            "description": "Fecha de fin, hasta cuando buscar los comentarios.",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "tema",
+            "in": "query",
+            "description": "Temas sobre los que buscar",
+            "required": true,
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "collectionFormat": "multi"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Busqueda realizada correctamente",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/ComentarioResultado"
               }
             }
           }
         }
       }
     },
-    "/isSentimentServiceConnected" : {
-      "get" : {
-        "tags" : [ "Servicios externos" ],
-        "summary" : "Comprueba que el servicio de sentimientos esté habilitado",
-        "description" : "Comprueba que la conexión hacia el servicio de sentimientos esté habilitada en las opciones de este servicio.",
-        "operationId" : "isSentimentServiceConnected",
-        "produces" : [ "application/json" ],
-        "parameters" : [ ],
-        "responses" : {
-          "200" : {
-            "description" : "Comprobación realizada correctamente",
-            "schema" : {
-              "type" : "boolean",
-              "example" : true
+    "/usuarios/register": {
+      "post": {
+        "tags": [
+          "Usuarios"
+        ],
+        "summary": "Registra un usuario",
+        "description": "Registra a un usuario en el servicio",
+        "operationId": "registerUsuario",
+        "consumes": [
+          "application/x-www-form-urlencoded"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "formData",
+            "name": "email",
+            "type": "string",
+            "pattern": "[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,}$",
+            "description": "Correo del usuario que se quiere registrar",
+            "required": true
+          },
+          {
+            "in": "formData",
+            "name": "password",
+            "type": "string",
+            "minLength": 3,
+            "description": "Contraseña del usuario que se quiere registrar",
+            "required": true
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Usuario registrado correctamente"
+          },
+          "500": {
+            "description": "No se ha podido crear el usuario"
+          }
+        }
+      }
+    },
+    "/usuarios/login": {
+      "post": {
+        "tags": [
+          "Usuarios"
+        ],
+        "summary": "Intenta hacer login",
+        "description": "Comprueba que los datos son correctos e intenta hacer login",
+        "operationId": "login",
+        "consumes": [
+          "application/x-www-form-urlencoded"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "formData",
+            "name": "email",
+            "type": "string",
+            "description": "Correo del usuario que se quiere registrar",
+            "pattern": "[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,}$",
+            "required": true
+          },
+          {
+            "in": "formData",
+            "name": "password",
+            "type": "string",
+            "minLength": 3,
+            "description": "Contraseña del usuario que se quiere registrar",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Usuario logueado correctamente"
+          },
+          "401": {
+            "description": "Datos incorrectos o usuario no registrado"
+          }
+        }
+      }
+    },
+    "/usuarios/validar/{email}": {
+      "post": {
+        "tags": [
+          "Usuarios"
+        ],
+        "summary": "Validación de la cuenta de un usuario",
+        "description": "Se intenta validar la cuenta de un usuario que se acaba de registrar.",
+        "operationId": "validar",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "email",
+            "in": "path",
+            "description": "Correo del usuario que intenta validar su cuenta",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Usuario validado correctamente"
+          },
+          "500": {
+            "description": "No se ha podido validar el usuario"
+          }
+        }
+      }
+    },
+    "/usuarios/{email}": {
+      "get": {
+        "tags": [
+          "Usuarios"
+        ],
+        "summary": "Obtiene el usuario con ese correo",
+        "description": "Obtiene el usuario con ese correo",
+        "operationId": "getUsuario",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "email",
+            "in": "path",
+            "description": "Correo del usuario del que se intenta recuperar la cuenta",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Usuario encontrado correctamente",
+            "schema": {
+              "$ref": "#/definitions/Usuario"
+            }
+          },
+          "404": {
+            "description": "Usuario no encontrado"
+          }
+        }
+      }
+    },
+    "/usuarios/{email}/favoritos": {
+      "get": {
+        "tags": [
+          "Usuarios"
+        ],
+        "summary": "Obtiene la lista de favoritos de un usuario",
+        "description": "Obtiene la lista de favoritos del usuario con correo {email}",
+        "operationId": "getFavoritos",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "email",
+            "in": "path",
+            "description": "Correo del usuario del que se intenta obtener sus favoritos",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Favoritos encontrados correctamente",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/Favorito"
+              }
+            }
+          },
+          "500": {
+            "description": "Error al intentar obtener los favoritos"
+          }
+        }
+      }
+    },
+    "/usuarios/{email}/favoritos/{redSocial}/{nombre}": {
+      "put": {
+        "tags": [
+          "Usuarios"
+        ],
+        "summary": "Se modifica la lista de favoritos del usuario",
+        "description": "Se modifica la lista de favoritos del usuario, si el favorito con {redSocial} y {nombre} ya se encontraba en los favoritos, se elimina, si no se encontraba, se añade.",
+        "operationId": "modificarFavorito",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "email",
+            "in": "path",
+            "description": "Correo del usuario que intenta modificar sus favoritos",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "redSocial",
+            "in": "path",
+            "description": "Red social del usuario que se intenta añadir/eliminar como favorito",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "nombre",
+            "in": "path",
+            "description": "Nombre del usuario que se intenta añadir/eliminar como favorito. Este es el nombre o nickname que usa esta persona en la red social.",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Favoritos modificados correctamente"
+          },
+          "500": {
+            "description": "Error al intentar modificar los favoritos"
+          }
+        }
+      }
+    },
+    "/usuarios/{email}/update": {
+      "put": {
+        "tags": [
+          "Usuarios"
+        ],
+        "summary": "Se actualiza la contraseña del usuario",
+        "description": "Se actualiza la contraseña del usuario",
+        "operationId": "update",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "email",
+            "in": "path",
+            "description": "Correo del usuario que intenta modificar su contraseña",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Información de usuario actualizada correctamente"
+          },
+          "500": {
+            "description": "Error al actualizar la información del usuario"
+          }
+        }
+      }
+    },
+    "/serviciosExternos/isSentimentServiceConnected": {
+      "get": {
+        "tags": [
+          "Servicios externos"
+        ],
+        "summary": "Comprueba que el servicio de sentimientos esté habilitado",
+        "description": "Comprueba que la conexión hacia el servicio de sentimientos esté habilitada en las opciones de este servicio.",
+        "operationId": "isSentimentServiceConnected",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "Comprobación realizada correctamente",
+            "schema": {
+              "type": "boolean",
+              "example": true
             }
           }
         }
       }
     }
   },
-  "definitions" : {
-    "Tema" : {
-      "type" : "object",
-      "required" : [ "descripcion", "id", "nombre" ],
-      "properties" : {
-        "id" : {
-          "type" : "string",
-          "example" : "3s4q2d-8we48f"
+  "definitions": {
+    "Tema": {
+      "type": "object",
+      "required": [
+        "descripcion",
+        "id",
+        "nombre"
+      ],
+      "properties": {
+        "id": {
+          "type": "string",
+          "example": "3s4q2d-8we48f"
         },
-        "nombre" : {
-          "type" : "string",
-          "example" : "Cáncer de colon"
+        "nombre": {
+          "type": "string",
+          "example": "Cáncer de colon"
         },
-        "descripcion" : {
-          "type" : "string",
-          "example" : "Comentarios sobre cáncer de colon"
+        "descripcion": {
+          "type": "string",
+          "example": "Comentarios sobre cáncer de colon"
         }
       }
     },
-    "Comentario" : {
-      "type" : "object",
-      "required" : [ "creador", "fecha", "id", "imagen", "popularidad", "redSocial", "respuestas", "sentimiento", "temas", "texto", "userPriority" ],
-      "properties" : {
-        "id" : {
-          "type" : "string",
-          "example" : "g5r9g-4grg1"
+    "Comentario": {
+      "type": "object",
+      "required": [
+        "creador",
+        "fecha",
+        "id",
+        "imagen",
+        "popularidad",
+        "redSocial",
+        "respuestas",
+        "sentimiento",
+        "temas",
+        "texto",
+        "userPriority"
+      ],
+      "properties": {
+        "id": {
+          "type": "string",
+          "example": "g5r9g-4grg1"
         },
-        "texto" : {
-          "type" : "string",
-          "example" : "En marcha tratamiento experimental."
+        "texto": {
+          "type": "string",
+          "example": "En marcha tratamiento experimental."
         },
-        "creador" : {
-          "type" : "string",
-          "example" : "José Fernando"
+        "creador": {
+          "type": "string",
+          "example": "José Fernando"
         },
-        "fecha" : {
-          "type" : "string",
-          "example" : "23 de Junio de 2018"
+        "fecha": {
+          "type": "string",
+          "example": "23 de Junio de 2018"
         },
-        "popularidad" : {
-          "type" : "integer",
-          "example" : 48
+        "imagen": {
+          "type": "string",
+          "format": "url",
+          "example": "https://pbs.twimg.com/profile_images/879416330675527681/xlKb3DGx_400x400.jpg"
         },
-        "userPriority" : {
-          "type" : "integer",
-          "example" : 10
+        "popularidad": {
+          "type": "integer",
+          "example": 48
         },
-        "imagen" : {
-          "type" : "string",
-          "format" : "url",
-          "example" : "https://pbs.twimg.com/profile_images/879416330675527681/xlKb3DGx_400x400.jpg"
+        "userPriority": {
+          "type": "integer",
+          "example": 10
         },
-        "temas" : {
-          "type" : "array",
-          "items" : {
-            "$ref" : "#/definitions/Tema"
+        "temas": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Tema"
           }
         },
-        "sentimiento" : {
-          "type" : "string",
-          "example" : "POSITIVO"
+        "sentimiento": {
+          "type": "string",
+          "example": "POSITIVO"
         },
-        "respuestas" : {
-          "type" : "array",
-          "items" : {
-            "$ref" : "#/definitions/Comentario"
+        "respuestas": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Comentario"
           }
         },
-        "redSocial" : {
-          "type" : "string",
-          "example" : "TWITTER"
+        "redSocial": {
+          "type": "string",
+          "example": "TWITTER"
         }
       }
     },
-    "ComentarioResultado" : {
-      "type" : "object",
-      "required" : [ "autor", "fecha", "id", "imagen", "popularidad", "redSocial", "sentimiento", "uri", "userPriority" ],
-      "properties" : {
-        "id" : {
-          "type" : "string",
-          "example" : "g5r9g-4grg1"
+    "ComentarioResultado": {
+      "type": "object",
+      "required": [
+        "autor",
+        "fecha",
+        "id",
+        "imagen",
+        "popularidad",
+        "redSocial",
+        "sentimiento",
+        "uri",
+        "userPriority"
+      ],
+      "properties": {
+        "id": {
+          "type": "string",
+          "example": "g5r9g-4grg1"
         },
-        "uri" : {
-          "type" : "string",
-          "format" : "uri",
-          "example" : "/tema/3s4q2d-8we48f/g5r9g-4grg1"
+        "uri": {
+          "type": "string",
+          "format": "uri",
+          "example": "/tema/3s4q2d-8we48f/g5r9g-4grg1"
         },
-        "autor" : {
-          "type" : "string",
-          "example" : "José Fernando"
+        "autor": {
+          "type": "string",
+          "example": "José Fernando"
         },
-        "fecha" : {
-          "type" : "string",
-          "example" : "23 de Junio de 2018"
+        "fecha": {
+          "type": "string",
+          "example": "23 de Junio de 2018"
         },
-        "imagen" : {
-          "type" : "string",
-          "format" : "url",
-          "example" : "https://pbs.twimg.com/profile_images/879416330675527681/xlKb3DGx_400x400.jpg"
+        "imagen": {
+          "type": "string",
+          "format": "url",
+          "example": "https://pbs.twimg.com/profile_images/879416330675527681/xlKb3DGx_400x400.jpg"
         },
-        "popularidad" : {
-          "type" : "integer",
-          "example" : 40
+        "popularidad": {
+          "type": "integer",
+          "example": 40
         },
-        "userPriority" : {
-          "type" : "integer",
-          "example" : 10
+        "userPriority": {
+          "type": "integer",
+          "example": 10
         },
-        "sentimiento" : {
-          "type" : "string",
-          "example" : "POSITIVO"
+        "sentimiento": {
+          "type": "string",
+          "example": "POSITIVO"
         },
-        "redSocial" : {
-          "type" : "string",
-          "example" : "TWITTER"
+        "redSocial": {
+          "type": "string",
+          "example": "TWITTER"
         }
       }
     },
-    "TemaResultado" : {
-      "type" : "object",
-      "required" : [ "id", "nombre", "uri" ],
-      "properties" : {
-        "id" : {
-          "type" : "string",
-          "example" : "3s4q2d-8we48f"
+    "TemaResultado": {
+      "type": "object",
+      "required": [
+        "id",
+        "nombre",
+        "uri"
+      ],
+      "properties": {
+        "id": {
+          "type": "string",
+          "example": "3s4q2d-8we48f"
         },
-        "uri" : {
-          "type" : "string",
-          "format" : "uri"
+        "uri": {
+          "type": "string",
+          "format": "uri"
         },
-        "nombre" : {
-          "type" : "string",
-          "example" : "Cáncer de colon"
+        "nombre": {
+          "type": "string",
+          "example": "Cáncer de colon"
         }
       }
     },
-    "ListadoComentarios" : {
-      "type" : "object",
-      "required" : [ "comentarios", "descripcion", "nombre" ],
-      "properties" : {
-        "nombre" : {
-          "type" : "string",
-          "example" : "Cáncer de colon"
+    "ListadoComentarios": {
+      "type": "object",
+      "required": [
+        "comentarios",
+        "descripcion",
+        "nombre"
+      ],
+      "properties": {
+        "nombre": {
+          "type": "string",
+          "example": "Cáncer de colon"
         },
-        "descripcion" : {
-          "type" : "string",
-          "example" : "Comentarios sobre cáncer de colon"
+        "descripcion": {
+          "type": "string",
+          "example": "Comentarios sobre cáncer de colon"
         },
-        "comentarios" : {
-          "type" : "array",
-          "items" : {
-            "$ref" : "#/definitions/ComentarioResultado"
+        "comentarios": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/ComentarioResultado"
           }
         }
       },
-      "description" : "Listado de comentarios sobre un tema"
+      "description": "Listado de comentarios sobre un tema"
+    },
+    "Usuario": {
+      "type": "object",
+      "properties": {
+        "email": {
+          "type": "string",
+          "example": "diego.valera@um.es",
+          "pattern": "[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,}$"
+        },
+        "password": {
+          "type": "string",
+          "example": "123456789abc",
+          "minLength": 3
+        },
+        "usuariosFavoritos": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Favorito"
+          }
+        },
+        "isAdmin": {
+          "type": "boolean",
+          "example": true,
+          "default": false
+        },
+        "isValidated": {
+          "type": "boolean",
+          "example": false,
+          "description": "Booleano que indica si el usuario ha validado su cuenta",
+          "default": false
+        }
+      },
+      "description": "Usuarios registrados"
+    },
+    "Favorito": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "example": "155",
+          "description": "Número pseudo-aleatorio pasado a string"
+        },
+        "redSocial": {
+          "type": "string",
+          "example": "TWITTER"
+        },
+        "nombre": {
+          "type": "string",
+          "example": "@test123"
+        }
+      },
+      "description": "Información sobre los usuarios favoritos de los usuarios"
     }
   }
 }

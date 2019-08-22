@@ -110,7 +110,7 @@ angular.module('restApp').controller('UserController', function($scope, $http, t
 	}
 	
 	favorito = function(redSocial, nombre, eliminar){
-		$http.put('http://localhost:8080/ServicioRest/rest/usuarios/' + $scope.email +'/favorito/' + redSocial + '/' + nombre)
+		$http.put('http://localhost:8080/ServicioRest/rest/usuarios/' + $scope.email +'/favoritos/' + redSocial + '/' + nombre)
 		.then(function(response) {
 			
 			var fav = [];

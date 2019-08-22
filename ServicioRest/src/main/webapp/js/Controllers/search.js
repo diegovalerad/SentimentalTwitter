@@ -239,7 +239,7 @@ angular.module('restApp').controller('SearchController', function($scope, $http,
 	 * Funcion que se llama cuando se añade o elimina un favorito
 	 */
 	$scope.favorito = function(nombre, redSocial){
-		$http.put('http://localhost:8080/ServicioRest/rest/usuarios/' + sharedProperties.getCookie("email") +'/favorito/' + redSocial + '/' + nombre)
+		$http.put('http://localhost:8080/ServicioRest/rest/usuarios/' + sharedProperties.getCookie("email") +'/favoritos/' + redSocial + '/' + nombre)
 		.then(function(response) {
 			
 			var isAdded = false;
@@ -285,7 +285,7 @@ angular.module('restApp').controller('SearchController', function($scope, $http,
 		if (email == "")
 			return;
 		
-		$http.get("http://localhost:8080/ServicioRest/rest/usuarios/" + email + "/favorito")
+		$http.get("http://localhost:8080/ServicioRest/rest/usuarios/" + email + "/favoritos")
 		.then(function(response){
 			var usuariosFavoritos = response.data;
 			

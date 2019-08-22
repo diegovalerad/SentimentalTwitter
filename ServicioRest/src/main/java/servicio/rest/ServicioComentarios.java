@@ -138,17 +138,6 @@ public class ServicioComentarios {
 	}
 	
 	@GET
-	@Path("isSentimentServiceConnected")
-	@Produces(MediaType.APPLICATION_JSON)
-	public Response isSentimentServiceConnected() {
-		boolean connected = true;
-		
-		connected = Controlador.getUnicaInstancia().isSentimentServiceConnected();
-		
-		return Response.status(200).entity(connected).build();
-	}
-	
-	@GET
 	@Path("redesSociales")
 	@Produces(MediaType.APPLICATION_JSON)
 	public Response getRedesSociales() {

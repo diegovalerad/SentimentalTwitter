@@ -2,7 +2,7 @@ angular.module('restApp').controller('AppOptionsController', function($scope, $h
 	
 	$scope.init = function () {
 		$scope.userLogin = false;
-		$http.get('http://localhost:8080/ServicioRest/rest/temas/isSentimentServiceConnected')
+		$http.get('http://localhost:8080/ServicioRest/rest/serviciosExternos/isSentimentServiceConnected')
 		
 		.then(function(response) {
 	        var isSentimentServiceConnected = response.data;

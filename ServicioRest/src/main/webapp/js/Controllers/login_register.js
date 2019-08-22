@@ -35,7 +35,7 @@ angular.module('restApp').controller('Login_registerController', function($scope
 			}
 		}).then(function successCallback(response){
 
-			toastr.success('Ya puedes iniciar sesión', 'Usuario creado correctamente', {
+			toastr.success('Comprueba tu correo para validar tu cuenta', 'Usuario creado correctamente', {
 				 closeButton: true,
 				 timeOut: 4000
 			});
@@ -72,7 +72,7 @@ angular.module('restApp').controller('Login_registerController', function($scope
 			$window.location.href = './'; 
         }, function errorCallback(response){
 
-        	toastr.error('Datos incorrectos','Error', {
+        	toastr.error('Datos incorrectos o cuenta no validada','Error', {
         		 closeButton: true,
         		 timeOut: 4000
         	});

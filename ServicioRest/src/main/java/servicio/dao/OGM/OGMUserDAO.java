@@ -41,6 +41,13 @@ public class OGMUserDAO implements UserDAO {
 			return false;
 		}
 	}
+	
+	@Override
+	public boolean validarUsuario(Usuario usuario) {
+		usuario.setValidated(true);
+		
+		return createUsuario(usuario);
+	}
 
 	@Override
 	public void deleteUsuario(Usuario usuario) {

@@ -1,0 +1,26 @@
+<div class="content" ng-controller='ValidateController' ng-if="!validar_Error">
+
+	<div class="usuario_titulo">
+		Correo
+	</div>
+	<div class="usuario_texto">
+		<p>{{validar_Correo}}</p>
+	</div>
+	
+	<div class="usuario_titulo">
+		Validación
+	</div>
+	<div class="usuario_texto">
+		{{validar_Resultado}}
+	</div>
+
+</div>
+
+<div class="error" ng-controller='ValidateController' ng-if="validar_Error">
+	<div class="tituloError">
+		<h2>Ha ocurrido un error</h2>
+	</div>
+	<div class="descripcion">
+		<p>{{validar_ErrorDesc}}</p>
+	</div>
+</div>

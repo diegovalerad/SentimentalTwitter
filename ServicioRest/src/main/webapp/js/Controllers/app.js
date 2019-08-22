@@ -50,6 +50,12 @@ app.config(function($routeProvider, $locationProvider) {
 		templateUrl		:	'pages/usuario.html',
 		controller		:	'UserController'
 	})
+	
+	.when('/usuarios/validate', {
+		title			:	'Validacion de usuario',
+		templateUrl		:	'pages/validar.html',
+		controller		:	'ValidateController'
+	})	
 
 	.otherwise({
 		redirectTo : '/'

@@ -21,6 +21,7 @@ import servicio.otrosServicios.ConectorSentimentAnalizer;
 import servicio.redesSociales.ControladorRRSS;
 import servicio.tipos.ComentarioResultado;
 import servicio.tipos.TemaResultado;
+import servicio.utils.Email;
 import servicio.utils.PasswordAuthentication;
 
 /**
@@ -312,7 +313,29 @@ public class Controlador {
 		List<Favorito> usuariosFavoritos = new ArrayList<Favorito>();
 		usuario.setUsuariosFavoritos(usuariosFavoritos);
 		
-		return uDAO.createUsuario(usuario);
+		boolean usuarioCreado = uDAO.createUsuario(usuario);
+		
+		if (usuarioCreado) {
+			Email.enviarCorreoValidacion(email);
+			return true;
+		}
+		return false;
+	}
+	
+	/**
+	 * Valida un usuario
+	 * @param email Correo del usuario a validar
+	 * @return Booleano indicando si se ha podido validar correctamente
+	 */
+	public boolean validarUsuario(String email) {
+		UserDAO uDAO = DAOFactoria.getUnicaInstancia().getUserDAO();
+		
+		Usuario usuario = uDAO.findUsuarioByEmail(email);
+		
+		if (usuario == null)
+			return false;
+		
+		return uDAO.validarUsuario(usuario);
 	}
 	
 	/**
@@ -326,6 +349,9 @@ public class Controlador {
 		
 		Usuario usuario = uDAO.findUsuarioByEmail(email);
 		if (usuario == null)
+			return false;
+		
+		if (!usuario.isValidated())
 			return false;
 		
 		char[] passCharArray = password.toCharArray();

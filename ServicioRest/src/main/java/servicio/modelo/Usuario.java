@@ -31,8 +31,12 @@ public class Usuario {
 	@Property(name = "isAdmin")
 	private boolean isAdmin;
 
+	@Property(name = "isValidated")
+	private boolean isValidated;
+
 	public Usuario() {
 		isAdmin = false;
+		isValidated = false;
 	}
 
 	public String getEmail() {
@@ -61,6 +65,14 @@ public class Usuario {
 
 	public boolean isAdmin() {
 		return isAdmin;
+	}
+
+	public boolean isValidated() {
+		return isValidated;
+	}
+
+	public void setValidated(boolean isValidated) {
+		this.isValidated = isValidated;
 	}
 
 }

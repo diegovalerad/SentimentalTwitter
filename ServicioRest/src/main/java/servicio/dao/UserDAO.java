@@ -1,7 +1,5 @@
 package servicio.dao;
 
-import java.util.List;
-
 import servicio.modelo.Usuario;
 
 /**
@@ -16,6 +14,13 @@ public interface UserDAO {
 	 * @return Booleano indicando si se ha podido crear el usuario
 	 */
 	public boolean createUsuario(Usuario usuario);
+	
+	/**
+	 * Valida un usuario
+	 * @param usuario Usuario a validar
+	 * @return Booleano indicando si se ha podido validar correctamente
+	 */
+	public boolean validarUsuario(Usuario usuario);
 	
 	/**
 	 * Elimina un usuario de la base de datos

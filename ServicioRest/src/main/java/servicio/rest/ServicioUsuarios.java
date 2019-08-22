@@ -46,6 +46,17 @@ public class ServicioUsuarios {
 		return Response.status(Response.Status.UNAUTHORIZED).build();
 	}
 	
+	@POST
+	@Path("/validar/{email}")
+	@Produces(MediaType.APPLICATION_JSON)
+	public Response validar(@PathParam("email") String email) {
+		boolean validado = Controlador.getUnicaInstancia().validarUsuario(email);
+		
+		if (validado)
+			return Response.status(Response.Status.OK).build();
+		return Response.status(Response.Status.INTERNAL_SERVER_ERROR).build();
+	}
+	
 	@PUT
 	@Path("{email}/favorito/{redSocial}/{nombre}")
 	@Produces(MediaType.APPLICATION_JSON)

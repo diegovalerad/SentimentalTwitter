@@ -1,5 +1,6 @@
 package servicio.dao.OGM;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
@@ -93,6 +94,43 @@ public class OGMUserDAO implements UserDAO {
 		}
 
 		return usuario;
+	}
+	
+	@Override
+	public boolean updateUsuario(Usuario usuario, String password) {
+		usuario.setPassword(password);
+		
+		return createUsuario(usuario);
+	}
+	
+	@Override
+	public boolean modificarFavorito(Usuario usuario, String redSocial, String nombre) {
+		deleteUsuario(usuario);
+		
+		List<Favorito> listaFavoritos = usuario.getUsuariosFavoritos();
+		boolean isFavoritoEnLista = false;
+		
+		List<Favorito> nuevaLista = new ArrayList<Favorito>();
+		for (Favorito favorito : listaFavoritos) {
+			if (favorito.getRedSocial().equals(redSocial)) {
+				if (favorito.getNombre().equals(nombre))
+					isFavoritoEnLista = true;
+				else
+					nuevaLista.add(favorito);
+			}else
+				nuevaLista.add(favorito);
+		}
+		
+		if (!isFavoritoEnLista) {
+			Favorito f = new Favorito();
+			f.setNombre(nombre);
+			f.setRedSocial(redSocial);
+			nuevaLista.add(f);
+		}
+		
+		usuario.setUsuariosFavoritos(nuevaLista);
+		
+		return createUsuario(usuario);
 	}
 
 }

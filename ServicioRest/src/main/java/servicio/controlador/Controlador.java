@@ -342,7 +342,7 @@ public class Controlador {
 	 * Intenta hacer login
 	 * @param email Correo del usuario
 	 * @param password Contraseña del usuario
-	 * @return Si los datos son correctos
+	 * @return Si los datos son correctos y está validado
 	 */
 	public boolean login(String email, String password) {
 		UserDAO uDAO = DAOFactoria.getUnicaInstancia().getUserDAO();
@@ -381,33 +381,7 @@ public class Controlador {
 		if (usuario == null)
 			return false;
 		
-		uDAO.deleteUsuario(usuario);
-		
-		List<Favorito> listaFavoritos = usuario.getUsuariosFavoritos();
-		boolean isFavoritoEnLista = false;
-		
-		List<Favorito> nuevaLista = new ArrayList<Favorito>();
-		for (Favorito favorito : listaFavoritos) {
-			if (favorito.getRedSocial().equals(redSocial)) {
-				if (favorito.getNombre().equals(nombre))
-					isFavoritoEnLista = true;
-				else
-					nuevaLista.add(favorito);
-			}else
-				nuevaLista.add(favorito);
-		}
-		
-		if (!isFavoritoEnLista) {
-			Favorito f = new Favorito();
-			f.setNombre(nombre);
-			f.setRedSocial(redSocial);
-			nuevaLista.add(f);
-		}
-		
-		usuario.setUsuariosFavoritos(nuevaLista);
-		
-		uDAO.createUsuario(usuario);
-		return true;
+		return uDAO.modificarFavorito(usuario, redSocial, nombre);
 	}
 	
 	/**
@@ -436,9 +410,12 @@ public class Controlador {
 		if (usuario == null)
 			return false;
 		
-		usuario.setPassword(password);
+		char[] passCharArray = password.toCharArray();
 		
-		return uDAO.createUsuario(usuario);
+		PasswordAuthentication pa = new PasswordAuthentication();
+		String token = pa.hash(passCharArray);
+		
+		return uDAO.updateUsuario(usuario, token);
 	}
 
 	public List<Favorito> getFavoritos(String email) {

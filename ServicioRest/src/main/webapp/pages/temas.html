@@ -1,7 +1,7 @@
 <div class="content" ng-controller='ThemeController'  ng-if="status == '200'">
 	<div class="cabecera">
 		<div class="titulo"><h1>Lista de Temas</h1></div>
-		<div class="enlace"><a href="creartemas">Añadir temas</a></div>
+		<div class="enlace" ng-if="userIsAdmin"><a href="creartemas">Añadir temas</a></div>
 	</div>
 	<div class="listaTemas">
 		<div class="tema" ng-repeat='t in temas'>

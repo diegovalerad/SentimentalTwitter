@@ -24,9 +24,16 @@ public class Usuario {
 
 	@Property(name = "password")
 	private String password;
-	
-	@Relationship(type="FAVORITES", direction=Relationship.OUTGOING)
+
+	@Relationship(type = "FAVORITES", direction = Relationship.OUTGOING)
 	private List<Favorito> usuariosFavoritos = new ArrayList<Favorito>();
+
+	@Property(name = "isAdmin")
+	private boolean isAdmin;
+
+	public Usuario() {
+		isAdmin = false;
+	}
 
 	public String getEmail() {
 		return email;
@@ -50,6 +57,10 @@ public class Usuario {
 
 	public void setUsuariosFavoritos(List<Favorito> usuariosFavoritos) {
 		this.usuariosFavoritos = usuariosFavoritos;
+	}
+
+	public boolean isAdmin() {
+		return isAdmin;
 	}
 
 }

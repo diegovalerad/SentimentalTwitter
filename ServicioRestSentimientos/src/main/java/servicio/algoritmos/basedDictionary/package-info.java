@@ -1,7 +1,5 @@
 /**
- * Algoritmo basado en un diccionario de palabras
- */
-/**
+ * Paquete con el algoritmo basado en un diccionario de palabras
  * @author Diego Valera Duran
  *
  */

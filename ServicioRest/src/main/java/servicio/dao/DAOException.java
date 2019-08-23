@@ -3,6 +3,7 @@ package servicio.dao;
 /**
  * Clase que representa una excepción producida por un método del DAO.
  * @author José Fernando
+ * @author Diego Valera Duran
  *
  */
 public class DAOException extends Exception {

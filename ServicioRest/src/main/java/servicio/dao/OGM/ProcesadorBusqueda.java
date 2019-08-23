@@ -6,9 +6,10 @@ import java.util.List;
 import servicio.utils.ProcesadorFechas;
 
 /**
- * Clase con métodos útiles para procesar parámetros de búsqueda
+ * Clase con métodos útiles para procesar parámetros de búsqueda con OGM
  * 
  * @author José Fernando
+ * @author Diego Valera Duran
  *
  */
 public class ProcesadorBusqueda {

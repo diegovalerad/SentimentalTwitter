@@ -7,6 +7,7 @@ import java.util.regex.Pattern;
  * Clase con métodos útiles para procesar textos.
  * 
  * @author José Fernando
+ * @author Diego Valera Duran
  *
  */
 public class ProcesadorTexto {

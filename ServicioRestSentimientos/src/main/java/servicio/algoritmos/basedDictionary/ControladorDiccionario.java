@@ -156,8 +156,11 @@ public class ControladorDiccionario implements IAlgoritmo {
 		return false;
 	}
 	
-	
-
+	/**
+	 * Se analiza el sentimiento de un texto
+	 * @param text Texto de entrada
+	 * @return Sentimiento en forma de entero
+	 */
 	private int getSentimentValue(String text) {
 		int tweetScoreGlobal = 0;
 
@@ -195,6 +198,12 @@ public class ControladorDiccionario implements IAlgoritmo {
 		return tweetScoreGlobal;
 	}
 	
+	/**
+	 * Convierte un sentimiento basado en un entero, en un sentimiento basado
+	 * en un enumerado
+	 * @param sentimentValue Entero que indica el sentimiento
+	 * @return Enumerado
+	 */
 	private Sentimiento sentimentValueToSentiment(int sentimentValue) {
 		if (sentimentValue == 0)
 			return Sentimiento.NEUTRAL;

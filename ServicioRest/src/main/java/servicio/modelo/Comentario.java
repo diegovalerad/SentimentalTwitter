@@ -13,6 +13,7 @@ import org.neo4j.ogm.annotation.Relationship;
  * Un Comentario es una opinión o explicación acerca de un tema.
  * 
  * @author José Fernando
+ * @author Diego Valera Duran
  *
  */
 @NodeEntity

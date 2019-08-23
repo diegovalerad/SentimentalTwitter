@@ -6,6 +6,13 @@ import org.neo4j.ogm.annotation.Id;
 import org.neo4j.ogm.annotation.NodeEntity;
 import org.neo4j.ogm.annotation.Property;
 
+/**
+ * Esta clase representa a las entidades del dominio 'Favorito' que van a ser persistidas en base de datos.
+ * 
+ * Un Favorito contiene la información relevante para identificar a las personas favoritas en las redes sociales
+ * @author Diego Valera Duran
+ *
+ */
 @NodeEntity
 public class Favorito {
 

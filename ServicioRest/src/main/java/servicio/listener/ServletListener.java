@@ -9,6 +9,7 @@ import javax.servlet.annotation.WebListener;
 /**
  * Esta clase constituye un oyente de la apliación web.
  * @author José Fernando
+ * @author Diego Valera Duran
  *
  */
 @WebListener
@@ -22,7 +23,6 @@ public class ServletListener implements ServletContextListener  {
 	 */
 	@Override
 	public void contextInitialized(ServletContextEvent arg0) {
-		
 		temporizador.schedule(new Tarea(), 5000, 86400000);
 	} 
 	
@@ -32,7 +32,6 @@ public class ServletListener implements ServletContextListener  {
 	 */
 	@Override
 	public void contextDestroyed(ServletContextEvent arg0) {
-
 		temporizador.cancel();
 	}
 	

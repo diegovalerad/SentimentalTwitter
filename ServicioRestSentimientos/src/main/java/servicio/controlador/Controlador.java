@@ -11,6 +11,11 @@ import servicio.algoritmos.basedDictionary.ControladorDiccionario;
 import servicio.algoritmos.stanford.ControladorStanford;
 import servicio.modelo.Valoracion;
 
+/**
+ * Controlador del servicio
+ * @author Diego Valera Duran
+ *
+ */
 public class Controlador {
 	private static Controlador unicaInstancia;
 	private List<IAlgoritmo> algoritmos;
@@ -64,6 +69,13 @@ public class Controlador {
 		return unicaInstancia;
 	}
 	
+	/**
+	 * Analiza un texto para obtener su valoración
+	 * @param texto Texto de entrada
+	 * @param algoritmo Algoritmo a usar. Si el string es igual a {@link Controlador#queryTodosLosAlgoritmos}, se analiza el texto de 
+	 * 			entrada usando todos los algoritmos posibles.
+	 * @return Lista de valoraciones con los análisis sentimentales del texto de entrada
+	 */
 	public List<Valoracion> analizarTexto(String texto, String algoritmo) {
 		List<Valoracion> valoraciones = new LinkedList<Valoracion>();
 		

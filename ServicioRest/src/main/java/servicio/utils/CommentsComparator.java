@@ -4,6 +4,17 @@ import java.util.Comparator;
 
 import servicio.tipos.ComentarioResultado;
 
+/**
+ * Clase que compara dos comentarios.
+ * <p>
+ * Un comentario es mejor que otro si tiene mayor prioridad.
+ * <p>
+ * Ante la misma prioridad, el que ha ocurrido antes
+ * <p>
+ * Ante la misma fecha, el que tiene mayor popularidad
+ * @author Diego Valera Duran
+ *
+ */
 public class CommentsComparator implements Comparator<ComentarioResultado> {
 
 	@Override

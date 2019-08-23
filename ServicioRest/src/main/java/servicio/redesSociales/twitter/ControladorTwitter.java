@@ -35,6 +35,7 @@ import servicio.utils.ProcesadorTexto;
  * Controlador que hace uso de la API REST de Twitter.
  * 
  * @author José Fernando
+ * @author Diego Valera Duran
  *
  */
 public class ControladorTwitter implements IRedSocial {
@@ -56,6 +57,9 @@ public class ControladorTwitter implements IRedSocial {
 		inicializarUsuariosEspeciales();
 	}
 	
+	/**
+	 * Inicializa el servicio de twitter con información del fichero properties
+	 */
 	private void inicializarServicio() {
 		ConfigurationBuilder cb = new ConfigurationBuilder();
 		
@@ -88,6 +92,15 @@ public class ControladorTwitter implements IRedSocial {
 		}
 	}
 	
+	/**
+	 * Inicializa una lista de usuarios especiales para todos los usuarios.
+	 * <p>
+	 * Los usuarios especiales son usuarios cuyos comentarios tienen mayor
+	 * prioridad que el resto, por lo que se mostrarán antes que los normales.
+	 * <p>
+	 * Si un usuario tiene usuarios favoritos: primero se muestran los favoritos, 
+	 * después los comentarios de los usuarios especiales, y después el resto
+	 */
 	private void inicializarUsuariosEspeciales() {
 		URL url = this.getClass().getClassLoader().getResource("rrss/twitter/specialUsers.txt");
 
@@ -164,6 +177,10 @@ public class ControladorTwitter implements IRedSocial {
 		cDAO.createComentarios(comentarios);
 	}
 
+	/**
+	 * Realiza la búsqueda de comentarios de los usuarios especiales en Twitter
+	 * @param temas Temas sobre los que buscar comentarios
+	 */
 	private void busquedaPorUsuarios(List<Tema> temas) {
 
 		LinkedList<Comentario> comentarios = new LinkedList<Comentario>();
@@ -186,6 +203,12 @@ public class ControladorTwitter implements IRedSocial {
 		cDAO.createComentarios(comentarios);
 	}
 	
+	/**
+	 * Método que lanza una búsqueda de comentarios usando la API de twitter
+	 * @param consulta Query con la que realizar la búsqueda
+	 * @param t Tema sobre el que realizar la consulta
+	 * @return Lista de comentarios obtenidos tras realizar la búsqueda
+	 */
 	private List<Comentario> lanzarBusqueda (Query consulta, Tema t) {
 		
 		LinkedList<Comentario> comentarios = new LinkedList<Comentario>();
@@ -220,12 +243,17 @@ public class ControladorTwitter implements IRedSocial {
 			}
 		} catch (TwitterException e) {
 
-			System.out.println("Error al conectar con Twitter.");
+			System.err.println("Error al conectar con Twitter.");
 		}
 		
 		return comentarios;
 	}
 
+	/**
+	 * A partir de un objeto Status, se crea e inicializa un comentario
+	 * @param status Objeto con información resultante de la búsqueda de comentarios
+	 * @return Objeto comentario
+	 */
 	private Comentario initComment(Status status) {
 
 		Comentario c = new Comentario();
@@ -303,8 +331,4 @@ public class ControladorTwitter implements IRedSocial {
 		}
 		return replies;
 	}
-	
-	
-	
-	
 }

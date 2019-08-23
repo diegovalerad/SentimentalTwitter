@@ -16,10 +16,22 @@ import servicio.controlador.Controlador;
 import servicio.modelo.Favorito;
 import servicio.modelo.Usuario;
 
+/**
+ * Servicio REST con todas las operaciones relacionadas con los usuarios
+ * @author Diego Valera Duran
+ *
+ */
 @Path("usuarios")
 @Produces(MediaType.APPLICATION_JSON)
 public class ServicioUsuarios {
 
+	/**
+	 * Registra un usuario en la base de datos
+	 * @param email Correo del usuario que se intenta registrar
+	 * @param password Contraseña del usuario que se intenta registrar
+	 * @return Una respuesta indicando si se ha creado ({@link javax.ws.rs.core.Response.Status.CREATED}) 
+	 * 		o si ha habido algún error ({@link javax.ws.rs.core.Response.Status.INTERNAL_SERVER_ERROR})
+	 */
 	@POST
 	@Path("/register")
 	@Produces(MediaType.APPLICATION_JSON)
@@ -33,6 +45,13 @@ public class ServicioUsuarios {
 		return Response.status(Response.Status.INTERNAL_SERVER_ERROR).build();
 	}
 
+	/**
+	 * Se comprueba si los datos del usuario son correctos
+	 * @param email Email del usuario
+	 * @param password Contraseña del usuario
+	 * @return Una respuesta indicando si se ha podido hacer login ({@link javax.ws.rs.core.Response.Status.OK}) 
+	 * 			o si los datos son incorrectos ({@link javax.ws.rs.core.Response.Status.UNAUTHORIZED}) 
+	 */
 	@POST
 	@Path("/login")
 	@Produces(MediaType.APPLICATION_JSON)
@@ -46,6 +65,12 @@ public class ServicioUsuarios {
 		return Response.status(Response.Status.UNAUTHORIZED).build();
 	}
 
+	/**
+	 * Se intenta validar a un usuario
+	 * @param email Correo del usuario
+	 * @return Una respuesta indicando si se ha validado ({@link javax.ws.rs.core.Response.Status.CREATED}) 
+	 * 		o si ha habido algún error ({@link javax.ws.rs.core.Response.Status.INTERNAL_SERVER_ERROR})
+	 */
 	@POST
 	@Path("/validar/{email}")
 	@Produces(MediaType.APPLICATION_JSON)
@@ -57,6 +82,12 @@ public class ServicioUsuarios {
 		return Response.status(Response.Status.INTERNAL_SERVER_ERROR).build();
 	}
 
+	/**
+	 * Se obtiene a un usuario
+	 * @param email Correo del usuario
+	 * @return Una respuesta con el objeto creado o indicando
+	 * 		si no se ha encontrado en la base de datos ({@link javax.ws.rs.core.Response.Status.NOT_FOUND})
+	 */
 	@GET
 	@Path("{email}")
 	@Produces(MediaType.APPLICATION_JSON)
@@ -69,6 +100,12 @@ public class ServicioUsuarios {
 		return Response.status(Response.Status.OK).entity(usuario).build();
 	}
 
+	/**
+	 * Se obtienen los favoritos de un usuario
+	 * @param email Correo del usuario
+	 * @return Una respuesta con los favoritos o indicando
+	 * 		si ha habido algún error ({@link javax.ws.rs.core.Response.Status.INTERNAL_SERVER_ERROR})
+	 */
 	@GET
 	@Path("{email}/favoritos")
 	@Produces(MediaType.APPLICATION_JSON)
@@ -81,6 +118,14 @@ public class ServicioUsuarios {
 		return Response.status(Response.Status.OK).entity(favoritos).build();
 	}
 
+	/**
+	 * Se modifica un favorito del usuario. Si no estaba, se añade. Si estaba, se elimina.
+	 * @param email Correo del usuario
+	 * @param redSocial Red social del favorito a añadir.
+	 * @param nombre Nombre del favorito en la red social
+	 * @return Una respuesta indicando si se ha modificado ({@link javax.ws.rs.core.Response.Status.OK}) 
+	 * 		o si ha habido algún error ({@link javax.ws.rs.core.Response.Status.INTERNAL_SERVER_ERROR})
+	 */
 	@PUT
 	@Path("{email}/favoritos/{redSocial}/{nombre}")
 	@Produces(MediaType.APPLICATION_JSON)
@@ -95,6 +140,13 @@ public class ServicioUsuarios {
 		return Response.status(Response.Status.INTERNAL_SERVER_ERROR).build();
 	}
 
+	/**
+	 * Se intenta actualizar la contraseña del usuario.
+	 * @param email Correo del usuario
+	 * @param password Contraseña nueva del usuario
+	 * @return Una respuesta indicando si se ha modificado ({@link javax.ws.rs.core.Response.Status.OK}) 
+	 * 		o si ha habido algún error ({@link javax.ws.rs.core.Response.Status.INTERNAL_SERVER_ERROR})
+	 */
 	@PUT
 	@Path("{email}/update")
 	@Produces(MediaType.APPLICATION_JSON)

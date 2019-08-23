@@ -2,6 +2,11 @@ package servicio.redesSociales;
 
 import servicio.modelo.Tema;
 
+/**
+ * Interfaz que deben seguir e implementar todas las redes sociales del servicio
+ * @author Diego Valera Duran
+ *
+ */
 public interface IRedSocial {
 	/**
 	 * @return Devuelve el nombre de la red social

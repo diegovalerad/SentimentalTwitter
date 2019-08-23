@@ -18,6 +18,7 @@ import servicio.tipos.ComentarioResultado;
 /**
  * Implementación de la interfaz ComentarioDAO para OGM.
  * @author José Fernando
+ * @author Diego Valera Duran
  *
  */
 public class OGMComentarioDAO implements ComentarioDAO{

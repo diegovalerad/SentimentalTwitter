@@ -16,6 +16,12 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 import servicio.modelo.Valoracion;
 
+/**
+ * Esta clase representa a un conector entre este servicio y el del analizador de sentimientos.<p>
+ * Así, la clase se encarga de realizar la conexión con dicho servicio y analizar comentarios.
+ * @author Diego Valera Duran
+ *
+ */
 public class ConectorSentimentAnalizer {
 	private static ConectorSentimentAnalizer unicaInstancia;
 	

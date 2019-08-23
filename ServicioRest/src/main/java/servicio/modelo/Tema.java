@@ -11,6 +11,7 @@ import org.neo4j.ogm.annotation.Property;
  * Un tema es un asunto sobre el que tratarán los comentarios.
  * 
  * @author José Fernando
+ * @author Diego Valera Duran
  *
  */
 @NodeEntity

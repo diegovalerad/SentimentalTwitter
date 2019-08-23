@@ -80,6 +80,11 @@ public class ControladorApacheOpenNLP implements IAlgoritmo {
 		}
 	}
 
+	/**
+	 * Clasifica un texto de entrada en positivo o negativo
+	 * @param tweet Texto de entrada
+	 * @return Sentimiento del texto
+	 */
 	private Sentimiento classifyNewTweet(String tweet){
 		DocumentCategorizerME myCategorizer = new DocumentCategorizerME(model);
 		double[] outcomes = myCategorizer.categorize(tweet);

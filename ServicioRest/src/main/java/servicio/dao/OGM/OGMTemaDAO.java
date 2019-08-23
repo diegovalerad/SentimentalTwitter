@@ -19,6 +19,7 @@ import servicio.tipos.TemaResultado;
  * Implementación de la interfaz TemaDAO para OGM.
  * 
  * @author José Fernando
+ * @author Diego Valera Duran
  *
  */
 public class OGMTemaDAO implements TemaDAO {

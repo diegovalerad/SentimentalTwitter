@@ -15,6 +15,7 @@ import servicio.dao.UserDAO;
 /**
  * Esta clase representa la factoría de NEO4j que hace uso de OGM.
  * @author José Fernando
+ * @author Diego Valera Duran
  *
  */
 public class OGMDAOFactoria extends DAOFactoria {

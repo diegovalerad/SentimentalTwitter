@@ -1,7 +1,5 @@
 /**
- * 
- */
-/**
+ * Buscador de temas usando ArchMS
  * @author Diego Valera Duran
  *
  */

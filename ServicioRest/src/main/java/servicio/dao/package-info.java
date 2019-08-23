@@ -4,6 +4,7 @@
  */
 /**
  * @author José Fernando
+ * @author Diego Valera Duran
  *
  */
 package servicio.dao;

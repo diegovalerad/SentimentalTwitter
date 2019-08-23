@@ -7,6 +7,7 @@ import servicio.dao.OGM.OGMDAOFactoria;
 /**
  * Esta clase define una factoria abstracta que devuelve todos los DAO de la aplicación.
  * @author José Fernando
+ * @author Diego Valera Duran
  *
  */
 public class DAOFactoria {
@@ -27,6 +28,18 @@ public class DAOFactoria {
 	 */
 	public UserDAO getUserDAO() {return null;}
 	
+	/**
+	 * Se procesa una fecha para una búsqueda
+	 * @param since
+	 *            Fecha desde la que se buscan comentarios.
+	 * @param until
+	 *            Fecha hasta la que se buscan comentarios.
+	 * @param temas
+	 *            Temas de los que se buscan comentarios
+	 * @param operadores
+	 *            Operadores booleanos.
+	 * @return consulta con los parámetros de búsuqeda.
+	 */
 	public String procesarFecha(String since, String until, List<String> temas, List<String> operadores) {return null;}
 	
 	// Declaracion como constantes de los tipos de factoria

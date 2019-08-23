@@ -26,9 +26,10 @@ import servicio.utils.PasswordAuthentication;
 
 /**
  * Controlador del Servicio Rest. Se encarga de realizar las consultas a base de
- * datos a través del DAO.
+ * datos a través del DAO y al servicio externo de sentimientos
  * 
  * @author José Fernando.
+ * @author Diego Valera Duran
  *
  */
 public class Controlador {
@@ -107,6 +108,10 @@ public class Controlador {
 		}
 	}
 	
+	/**
+	 * Devuelve si el servicio de sentimientos está conectado
+	 * @return
+	 */
 	public boolean isSentimentServiceConnected() {
 		return sentimentServiceConnected;
 	}
@@ -148,10 +153,6 @@ public class Controlador {
 	public void inicializarComentariosDeRedesSociales(Tema t) {
 		ControladorRRSS.getUnicaInstancia().buscarComentarios(t);
 	}
-
-	/*
-	 * Operaciones sobre Temas
-	 */
 
 	/**
 	 * Persiste un tema en base de datos.
@@ -212,10 +213,7 @@ public class Controlador {
 
 		return tDAO.findById(id);
 	}
-
-	/*
-	 * Operaciones sobre comentarios
-	 */
+	
 
 	/**
 	 * Devuelve una lista de de comentarios simplificados relacionados con un tema.
@@ -418,6 +416,11 @@ public class Controlador {
 		return uDAO.updateUsuario(usuario, token);
 	}
 
+	/**
+	 * Obtiene la lista de favoritos de un usuario
+	 * @param email Correo del usuario
+	 * @return Lista de favoritos
+	 */
 	public List<Favorito> getFavoritos(String email) {
 		UserDAO uDAO = DAOFactoria.getUnicaInstancia().getUserDAO();
 		

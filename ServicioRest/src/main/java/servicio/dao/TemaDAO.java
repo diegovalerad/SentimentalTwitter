@@ -8,6 +8,7 @@ import servicio.tipos.TemaResultado;
 /**
  * Interfaz que declara los métodos necesarios para la persistencia y consulta de Temas.
  * @author José Fernando
+ * @author Diego Valera Duran
  */
 public interface TemaDAO {
 

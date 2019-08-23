@@ -13,6 +13,11 @@ import javax.mail.Transport;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 
+/**
+ * Clase encargada de enviar correos
+ * @author Diego Valera Duran
+ *
+ */
 public class Email {
 	/**
 	 * Método encargado de enviar un correo desde la dirección

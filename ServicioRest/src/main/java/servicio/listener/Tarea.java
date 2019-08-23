@@ -9,6 +9,7 @@ import servicio.controlador.Controlador;
  * Esta clase representa la tarea que se quiere automatizar al arranque del servicio.
  * En este caso, se automatiza la búsqueda de comentarios.
  * @author José Fernando
+ * @author Diego Valera Duran
  */
 public class Tarea extends TimerTask{
 	
@@ -18,7 +19,7 @@ public class Tarea extends TimerTask{
 	 */
 	@Override
 	public void run() {
-		Controlador.getUnicaInstancia().inicializarTemasYComentarios();
+		//Controlador.getUnicaInstancia().inicializarTemasYComentarios();
 		System.out.println("Tarea ejecutada " + new Date());
 	}
 

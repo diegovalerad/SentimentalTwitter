@@ -9,6 +9,7 @@ import java.util.Locale;
  * Clase con métodos útiles para dar formato a fechas
  * 
  * @author José Fernando
+ * @author Diego Valera Duran
  *
  */
 public class ProcesadorFechas {

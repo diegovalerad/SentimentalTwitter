@@ -2,6 +2,11 @@ package servicio.algoritmos;
 
 import servicio.modelo.Valoracion;
 
+/**
+ * Interfaz que deben seguir todos los algoritmos del servicio
+ * @author Diego Valera Duran
+ *
+ */
 public interface IAlgoritmo {
 	
 	/**
@@ -14,5 +19,10 @@ public interface IAlgoritmo {
 	 */
 	public String getAlgoritmoQuery();
 	
+	/**
+	 * Analiza un texto
+	 * @param text Texto a analizar
+	 * @return Se devuelve la valoración de un algoritmo sobre un texto
+	 */
 	public Valoracion analize(String text);
 }

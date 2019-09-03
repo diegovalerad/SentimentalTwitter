@@ -298,6 +298,8 @@ public class Controlador {
 	 */
 	public boolean crearUsuario(String email, String password) {
 		UserDAO uDAO = DAOFactoria.getUnicaInstancia().getUserDAO();
+		if (uDAO.findUsuarioByEmail(email) != null)
+			return false;
 		
 		char[] passCharArray = password.toCharArray();
 		

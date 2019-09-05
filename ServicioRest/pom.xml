@@ -131,8 +131,16 @@
 		    <artifactId>mail</artifactId>
 		    <version>1.4.7</version>
 		</dependency>
-
 		
+		<!-- JAR instalado en el respositorio local mediante:
+		mvn install:install-file -Dfile="PATH\Sentimientos.jar" -DgroupId=inf.um.es -DartifactId=ServicioRestSentimientos -Dversion=0.0.1-SNAPSHOT -Dpackaging=jar
+		y entonces anyadida dependencia
+		 -->
+		<dependency>
+		   <groupId>inf.um.es</groupId>
+		   <artifactId>ServicioRestSentimientos</artifactId>
+		   <version>0.0.1-SNAPSHOT</version>
+		</dependency>
 
 	</dependencies>
 	

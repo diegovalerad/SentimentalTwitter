@@ -19,7 +19,7 @@ public class Tarea extends TimerTask{
 	 */
 	@Override
 	public void run() {
-		//Controlador.getUnicaInstancia().inicializarTemasYComentarios();
+		Controlador.getUnicaInstancia().inicializarTemasYComentarios();
 		System.out.println("Tarea ejecutada " + new Date());
 	}
 
